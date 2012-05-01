@@ -1,0 +1,32 @@
+* Tue May 1 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.11
+- Defaulted to show up/down seperately
+- Making seperate labels for units and making them look smaller thanks for hrml from "simonbcn"
+
+* Wed Mar 28 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.10
+- Added 3.3.90 and 3.40 compatibility
+
+* Thu Jan 19 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.9
+- Adding the ability to choose the device (not complete)
+
+* Thu Jan 12 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.8
+- Middle click toggles between showing input+output and showing them at the same time
+
+* Fri Dec 30 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.7
+- More code clean up
+- Add ability to detect type of device from NetworkManager and type of icon
+
+* Wed Dec 28 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.3
+- Make size of the label fixed to avoid annoying resize
+
+* Thu Dec 22 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.2
+- more code clean up, cleaning the timer loop
+- add another class for applet
+
+* Thu Sun 17 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.1
+- code clean up and make enable/disable functions effective
+
+* Sun Oct 23 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.0
+- Port to gnome 3.2
+
+* Thu June 2 2011 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.0.0
+- Initial code

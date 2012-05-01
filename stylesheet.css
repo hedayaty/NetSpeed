@@ -1,0 +1,15 @@
+/* Example stylesheet */
+.ns-label {
+/*    color: #bbb; */
+	text-align: right;
+}
+
+.ns-unit-label {
+/*    color: #aaa; */
+	font-size: 8px;
+	padding: 5px 5px 0px 0px;
+	
+}
+
+.ns-menuitem {
+}

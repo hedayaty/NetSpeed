@@ -1,0 +1,36 @@
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema id="org.gnome.shell.extensions.netspeed" path="/org/gnome/shell/extensions/netspeed/">
+    <key name="icon-display" type="b">
+      <default>true</default>
+      <summary>Display icon</summary>
+      <description>Set to true to display icon in the panel</description>
+    </key>
+    <key name="show-sum" type="b">
+      <default>true</default>
+		<summary>Show sum of upload and download speed</summary>
+		<description> If true shows the sum of upload and download speed; otherwise, shows them seperately.
+    	</description>
+    </key>
+    <key name="device" type="s">
+      <default>''</default>
+		<summary>Device used to monitor</summary>
+		<description> By default, the sum of usages will be monitored. However, if you want to monitor just a specific device, set this value to that device.
+		</description>
+    </key>
+    <key type="i" name="timer">
+		<default>1000</default>
+		<summary>The interval between updates in miliseconds</summary>
+		<description>The interval between updates in miliseconds </description>
+    </key>
+    <key type="i" name="digits">
+		<default>3</default>
+		<summary>The number of digits displayed</summary>
+		<description> The number of digits displayed, minimum 3</description>
+		<range min="3" max="10"/>
+    </key>
+    <key type="i" name="lalbelsize">
+		<default>65</default>
+		<summary> The size of label, this may be removed later and automaticly messured for 3 digits the size should be 65 </summary>
+    </key>
+  </schema>
+</schemalist>
