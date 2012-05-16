@@ -1,3 +1,6 @@
+* Wed May 16 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.12
+- Remove the log message used for debug
+
 * Tue May 1 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.2.11
 - Defaulted to show up/down seperately
 - Making seperate labels for units and making them look smaller thanks for hrml from "simonbcn"
