@@ -203,21 +203,12 @@ NetSpeedStatusIcon.prototype = {
 	/****************** Set the Label ****************************************/
 	set_labels: function (sum, up, down) 
 	{
-		global.log ("Sum");
-		global.log (sum[0]);
-		global.log (sum[1]);
 		this._sum.set_text(sum[0]);
 		this._sumunit.set_text(sum[1]);
 
-		global.log ("Up");
-		global.log (up[0]);
-		global.log (up[1]);
 		this._up.set_text (up[0]);
 		this._upunit.set_text (up[1]);
 
-		global.log ("Down");
-		global.log (down[0]);
-		global.log (down[1]);
 		this._down.set_text (down[0]);
 		this._downunit.set_text (down[1]);
 	},
