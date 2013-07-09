@@ -1,3 +1,6 @@
+* Mon Jul 8 2013 Mark Harfouche <mark.harfouche AT gmail DOT com>- 3.8.3
+- added gnome 3.8 compatibility to the metadata.json file
+
 * Sun Nov 11 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.6.13
 - add gnome 3.6 compatibility (hopefully does not break gnome <= 3.4)
 - (Major) added preferences
