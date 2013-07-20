@@ -112,10 +112,14 @@ const App = new Lang.Class({
     this.dev = this._get_dev_combo();
     this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
     this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
-    this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
-    this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
-    this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
-    this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+    this.timerValue = new Gtk.Adjustment({lower: 100, upper: 10000, step_increment: 100});
+    this.timer = new Gtk.SpinButton({adjustment: this.timerValue, snap_to_ticks: true});
+    this.digitsValue = new Gtk.Adjustment({lower: 3, upper: 10, step_increment: 1});
+    this.digits = new Gtk.SpinButton({adjustment: this.digitsValue, snap_to_ticks: true});
+    this.label_sizeValue = new Gtk.Adjustment({lower: 1, upper: 100, step_increment: 1});
+    this.label_size = new Gtk.SpinButton({adjustment: this.label_sizeValue, snap_to_ticks: true});
+    this.menu_label_sizeValue = new Gtk.Adjustment({lower: 1, upper: 100, step_increment: 1});
+    this.menu_label_size = new Gtk.SpinButton({adjustment: this.menu_label_sizeValue, snap_to_ticks: true});
 
     this.main.attach(this.dev, 2, 1, 1, 1);
     this.main.attach(this.sum, 1, 2, 2, 1);
@@ -171,4 +175,3 @@ function buildPrefsWidget(){
     let widget = new App();
     return widget.main;
 };
-
