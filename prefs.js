@@ -27,41 +27,41 @@ const App = new Lang.Class({
     let listStore = new Gtk.ListStore();
     listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
-		let iter = listStore.append();
-		listStore.set (iter, [0], ["ALL"]);
-		listStore.set (iter, [1], ["gtk-network"]);
+    let iter = listStore.append();
+    listStore.set (iter, [0], ["ALL"]);
+    listStore.set (iter, [1], ["gtk-network"]);
 
-		let nmc = NMC.Client.new();
+    let nmc = NMC.Client.new();
     this._devices = nmc.get_devices() || [ ];
-		for each (dev in this._devices) {
-				let iconname;
-        switch (dev.device_type)
-        {
-          case NetworkManager.DeviceType.ETHERNET:
-					  iconname = "network-wired-symbolic";
-						break;
-          case NetworkManager.DeviceType.WIFI:
-						iconname = "network-wireless-signal-excellent-symbolic";
-						break;
-          case NetworkManager.DeviceType.BT:
-						iconname = "bluetooth-active-symbolic";
-						break;
-					case NetworkManager.DeviceType.OLPC_MESH:
-						iconname = "network-wired-symbolic";
-						break;
-          case NetworkManager.DeviceType.WIMAX:
-						iconname = "network-wirelss-signal-excellent-symbolic"; // Same for wifi
-						break;
-          case NetworkManager.DeviceType.MODEM:
-						iconname = "gnome-transmit-symbolic"; 
-						break;
-          default:
-						iconname = "network-transmit-receive-symbolic";
-        }
-				let iter = listStore.append();
-				listStore.set (iter, [0], [dev.interface]);
-				listStore.set (iter, [1], [iconname]);
-		}
+
+    for each (dev in this._devices) {
+      let iconname;
+			switch (dev.device_type) {
+				case NetworkManager.DeviceType.ETHERNET:
+					iconname = "network-wired-symbolic";
+					break;
+				case NetworkManager.DeviceType.WIFI:
+					iconname = "network-wireless-signal-excellent-symbolic";
+					break;
+				case NetworkManager.DeviceType.BT:
+					iconname = "bluetooth-active-symbolic";
+					break;
+				case NetworkManager.DeviceType.OLPC_MESH:
+					iconname = "network-wired-symbolic";
+					break;
+				case NetworkManager.DeviceType.WIMAX:
+					iconname = "network-wirelss-signal-excellent-symbolic"; // Same for wifi
+					break;
+				case NetworkManager.DeviceType.MODEM:
+					iconname = "gnome-transmit-symbolic"; 
+					break;
+				default:
+					iconname = "network-transmit-receive-symbolic";
+			}
+      let iter = listStore.append();
+      listStore.set (iter, [0], [dev.interface]);
+      listStore.set (iter, [1], [iconname]);
+    }
 
     let combo = new Gtk.ComboBox({model: listStore});	
     let rendererPixbuf = new Gtk.CellRendererPixbuf();
@@ -90,58 +90,58 @@ const App = new Lang.Class({
 	},
 
   _pick_dev: function() {
-		 if (this._setting == 1)
-		   return;
-		 let activeDev = Schema.get_string('device');
-		 let active = 0;
-		 for (let i = 0; i < this._devices.length; ++i)
-			 if (this._devices[i].interface == activeDev)
-				 active = i + 1;
+	  if (this._setting == 1)
+			return;
+		let activeDev = Schema.get_string('device');
+		let active = 0;
+		for (let i = 0; i < this._devices.length; ++i)
+			if (this._devices[i].interface == activeDev)
+				active = i + 1;
 		 this.dev.set_active (active);
-	},
+  },
 
   _init: function(){
-    this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-    this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
-    this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
-    this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
-    this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
-    this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
+	  this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
+		this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
+		this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
 
-    //	this.dev = new Gtk.Entry();
-    this.dev = this._get_dev_combo();
-    this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
-    this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
-    this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
-    this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
-    this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
-    this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+		//	this.dev = new Gtk.Entry();
+		this.dev = this._get_dev_combo();
+		this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
+		this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
+		this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
+		this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
+		this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+		this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
 
-    this.main.attach(this.dev, 2, 1, 1, 1);
-    this.main.attach(this.sum, 1, 2, 2, 1);
-    this.main.attach(this.icon, 1, 3, 2, 1);
-    this.main.attach(this.timer, 2, 4, 1, 1);
-    this.main.attach(this.digits, 2, 5, 1, 1);
-    this.main.attach(this.label_size, 2, 6, 1, 1);
-    this.main.attach(this.menu_label_size, 2, 7, 1, 1);
+		this.main.attach(this.dev, 2, 1, 1, 1);
+		this.main.attach(this.sum, 1, 2, 2, 1);
+		this.main.attach(this.icon, 1, 3, 2, 1);
+		this.main.attach(this.timer, 2, 4, 1, 1);
+		this.main.attach(this.digits, 2, 5, 1, 1);
+		this.main.attach(this.label_size, 2, 6, 1, 1);
+		this.main.attach(this.menu_label_size, 2, 7, 1, 1);
 
-    Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
-    Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
-    Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
-    Schema.bind('digits', this.digits, 'value', Gio.SettingsBindFlags.DEFAULT);
-    Schema.bind('label-size', this.label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
-    Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('digits', this.digits, 'value', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('label-size', this.label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
 
 		this._setting = 0;
 
-   //Schema.bind('device', this.dev, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+		//Schema.bind('device', this.dev, 'active_id', Gio.SettingsBindFlags.DEFAULT);
 		this._pick_dev();
-		
+
 		this.dev.connect('changed', Lang.bind(this, this._put_dev));
 
 		Schema.connect('changed::device', Lang.bind(this, this._pick_dev));
 
-    /*
+		/*
 
     // COLOR
     let item = new Gtk.CheckButton({label: _('Use custom color')})
@@ -172,3 +172,5 @@ function buildPrefsWidget(){
     return widget.main;
 };
 
+
+//vim : ts=2 sw=2
