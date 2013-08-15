@@ -100,46 +100,46 @@ const App = new Lang.Class({
 		 this.dev.set_active (active);
   },
 
-  _init: function(){
-	  this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-		this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
-		this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
+  _init: function() {
+	 this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
+	 this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
+	 this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
+	 this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
+	 this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
+	 this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
 
-		//	this.dev = new Gtk.Entry();
-		this.dev = this._get_dev_combo();
-		this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
-		this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
-		this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
-		this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
-		this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
-		this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+	 //	this.dev = new Gtk.Entry();
+	 this.dev = this._get_dev_combo();
+	 this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
+	 this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
+	 this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
+	 this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
+	 this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+	 this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
 
-		this.main.attach(this.dev, 2, 1, 1, 1);
-		this.main.attach(this.sum, 1, 2, 2, 1);
-		this.main.attach(this.icon, 1, 3, 2, 1);
-		this.main.attach(this.timer, 2, 4, 1, 1);
-		this.main.attach(this.digits, 2, 5, 1, 1);
-		this.main.attach(this.label_size, 2, 6, 1, 1);
-		this.main.attach(this.menu_label_size, 2, 7, 1, 1);
+	 this.main.attach(this.dev, 2, 1, 1, 1);
+	 this.main.attach(this.sum, 1, 2, 2, 1);
+	 this.main.attach(this.icon, 1, 3, 2, 1);
+	 this.main.attach(this.timer, 2, 4, 1, 1);
+	 this.main.attach(this.digits, 2, 5, 1, 1);
+	 this.main.attach(this.label_size, 2, 6, 1, 1);
+	 this.main.attach(this.menu_label_size, 2, 7, 1, 1);
 
-		Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
-		Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
-		Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
-		Schema.bind('digits', this.digits, 'value', Gio.SettingsBindFlags.DEFAULT);
-		Schema.bind('label-size', this.label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
-		Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('digits', this.digits, 'value', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('label-size', this.label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
+	 Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-		this._setting = 0;
+	this._setting = 0;
 
-		//Schema.bind('device', this.dev, 'active_id', Gio.SettingsBindFlags.DEFAULT);
-		this._pick_dev();
+	//Schema.bind('device', this.dev, 'active_id', Gio.SettingsBindFlags.DEFAULT);
+	this._pick_dev();
 
-		this.dev.connect('changed', Lang.bind(this, this._put_dev));
+	this.dev.connect('changed', Lang.bind(this, this._put_dev));
 
-		Schema.connect('changed::device', Lang.bind(this, this._pick_dev));
+	Schema.connect('changed::device', Lang.bind(this, this._pick_dev));
 
 		/*
 
@@ -163,14 +163,13 @@ const App = new Lang.Class({
     });
 
 */
-    this.main.show_all();
-  }
+	this.main.show_all();
+	}
 });
 
 function buildPrefsWidget(){
     let widget = new App();
     return widget.main;
 };
-
 
 //vim : ts=2 sw=2
