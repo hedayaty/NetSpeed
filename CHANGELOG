@@ -1,3 +1,7 @@
+* Thu Aug 15 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8.14
+- add gnome 3.8 compatibility
+- import pull request from zpydr(minor improvement in pref.js)
+
 * Sun Nov 11 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.6.13
 - add gnome 3.6 compatibility (hopefully does not break gnome <= 3.4)
 - (Major) added preferences
