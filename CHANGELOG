@@ -1,3 +1,9 @@
+* Tus Oct 1 2013 Amir Hedayaty <hedayaty AT gmail DAT com>-
+- Bug fixes
+
+* Wed Aug 14 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8
+- Support gnome 3.8
+
 * Sun Nov 11 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.6.13
 - add gnome 3.6 compatibility (hopefully does not break gnome <= 3.4)
 - (Major) added preferences

@@ -110,12 +110,28 @@ const App = new Lang.Class({
 
 		//	this.dev = new Gtk.Entry();
 		this.dev = this._get_dev_combo();
-		this.sum = new Gtk.CheckButton({label: 'Show sum(UP+Down)'});
-		this.icon = new Gtk.CheckButton({label: 'Show the Icon'});
-		this.timer = new Gtk.SpinButton.new_with_range(100, 10000, 100);
-		this.digits = new Gtk.SpinButton.new_with_range(3, 10, 1);
-		this.label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
-		this.menu_label_size = Gtk.SpinButton.new_with_range(1, 100, 1);
+		this.sum = new Gtk.CheckButton({ label: 'Show sum(UP+Down)' });
+		this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
+		this.timer = new Gtk.SpinButton({ adjustment: new Gtk.Adjustment({ 
+				value: 100, 
+				lower: 100,
+				upper: 10000,
+			       	step_increment: 100 }) });
+		this.digits = new Gtk.SpinButton({ adjustment: new Gtk.Adjustment({
+				value: 3,
+				lower: 3,
+				upper: 10,
+			       	step_increment: 1 }) });
+		this.label_size = new Gtk.SpinButton({ adjustment: new Gtk.Adjustment({
+				value: 1,
+				lower: 100,
+				upper: 1,
+			       	step_increment: 1 }) });
+		this.menu_label_size = new Gtk.SpinButton({ adjustment: new Gtk.Adjustment({
+				value: 1,
+				lower: 100,
+				upper: 1,
+			       	step_increment: 1 }) });
 
 		this.main.attach(this.dev, 2, 1, 1, 1);
 		this.main.attach(this.sum, 1, 2, 2, 1);
