@@ -35,27 +35,24 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
 let netSpeed;
 
-function LayoutMenuItem() {
-    this._init.apply(this, arguments);
-}
-
-LayoutMenuItem.prototype = {
-    __proto__: PopupMenu.PopupBaseMenuItem.prototype,
+const LayoutMenuItem = new Lang.Class({
+		Name: 'LayoutMenuItem',
+		Extends: PopupMenu.PopupBaseMenuItem,
 
     _init: function(device, icon) {
-        PopupMenu.PopupBaseMenuItem.prototype._init.call(this);
+				this.parent();
         this.device = device;
 				this._icon = icon;
 				this._device_title = new St.Label ({ text: device , style_class : "ns-menuitem"});
       	this._down_label = new St.Label ({ text: "", style_class : "ns-menuitem"});
 				this._up_label = new St.Label ({text: "", style_class: "ns-menuitem"});
 				if (this._icon != null )
-					this.addActor(this._icon);
+					this.actor.add(this._icon);
 				else
-					this.addActor (new St.Label ());
-        this.addActor(this._device_title);
-        this.addActor(this._down_label);
-				this.addActor(this._up_label);
+					this.actor.add(new St.Label ());
+        this.actor.add(this._device_title);
+        this.actor.add(this._down_label);
+				this.actor.add(this._up_label);
 				this.update_ui();
 				//this.connect ("activate", Lang.bind (this, this.selected));
 
@@ -80,18 +77,14 @@ LayoutMenuItem.prototype = {
 			this._up_label.set_text(up);		
 		},
 
-};
+});
 
-function NetSpeedStatusIcon()
-{
-	this._init.apply (this, arguments);
-}
+const NetSpeedStatusIcon = new Lang.Class({
+		Name: 'NetSpeedStatusIcon',
+		Extends: PanelMenu.Button,
 
-NetSpeedStatusIcon.prototype = {
-    __proto__: PanelMenu.Button.prototype,
-
-		_init: function () {			
-	    PanelMenu.Button.prototype._init.call(this, 0.0);
+		_init: function () {
+			this.parent(0.0);
 			this._box = new St.BoxLayout();
 			this._icon_box = new St.BoxLayout();
 			this._icon = this._get_icon (netSpeed.get_device_type(netSpeed.device));
@@ -236,7 +229,6 @@ NetSpeedStatusIcon.prototype = {
 				{ icon_name: iconname,
 					icon_size: size,
 				});
-
 	},
 	
 	/****************** Set the Label ****************************************/
@@ -280,14 +272,10 @@ NetSpeedStatusIcon.prototype = {
 		}
 	}, 
 
-};
+});
 
-function NetSpeed()
-{
-	this._init.apply (this, arguments);
-}
-
-NetSpeed.prototype = {
+const NetSpeed = new Lang.Class({
+	Name: 'NetSpeed',
 
 	/********************* check if there was a change in devices ******************/
 	_check_devices: function() {
@@ -491,7 +479,7 @@ NetSpeed.prototype = {
 		this._values = new Array();
 		this._devices = new Array();
 
-    let schemaDir = Extension.dir.get_child('schemas').get_path();
+    let schemaDir = Extension.dir.get_path();
     let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir,
 								  Gio.SettingsSchemaSource.get_default(),
 								  false);
@@ -524,12 +512,12 @@ NetSpeed.prototype = {
 		}
 		this._setting.run_dispose();
 	},
-}
+});
 
 
 /********************* Extension Creator ********************/
 function init() {
-	netSpeed = new NetSpeed;
+	netSpeed = new NetSpeed();
 	return netSpeed;
 }
 

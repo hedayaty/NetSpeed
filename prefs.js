@@ -9,7 +9,7 @@ const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
 
-let schemaDir = Extension.dir.get_child('schemas').get_path();
+let schemaDir = Extension.dir.get_path();
 let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
 let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
 let Schema = new Gio.Settings({ settings_schema: schema });
@@ -112,7 +112,6 @@ const App = new Lang.Class({
 	  this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
 	  this.timer = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({ 
-				value: 100, 
 				lower: 100,
 				upper: 10000,
 				step_increment: 100
@@ -120,7 +119,6 @@ const App = new Lang.Class({
 		});
 		this.digits = new Gtk.SpinButton({
 			adjustment: new Gtk.Adjustment({
-				value: 3,
 				lower: 3,
 				upper: 10,
 		   	step_increment: 1
@@ -128,7 +126,6 @@ const App = new Lang.Class({
 		});
 		this.label_size = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({
-				value: 1,
 				lower: 100,
 				upper: 1,
 			 	step_increment: 1 
@@ -136,7 +133,6 @@ const App = new Lang.Class({
 		});
 		this.menu_label_size = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({
-				value: 1,
 				lower: 100,
 				upper: 1,
        	step_increment: 1 
@@ -188,7 +184,7 @@ const App = new Lang.Class({
     });
 
 */
-	this.main.show_all();
+		this.main.show_all();
 	}
 });
 
@@ -197,4 +193,4 @@ function buildPrefsWidget(){
     return widget.main;
 };
 
-//vim: ts=2 sw=2
+// vim: ts=2 sw=2

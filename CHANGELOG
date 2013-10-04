@@ -1,4 +1,12 @@
-* Tus Oct 1 2013 Amir Hedayaty <hedayaty AT gmail DAT com>-
+* Fri Oct 4 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.10.17
+- Adopt new classes
+- PopupMenu.PopupBaseMenuItem: addActor ==> actor.add
+- Works on gnome 3.10
+
+* Thu Oct 3 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.8.16
+- Redo the zip
+
+* Tus Oct 1 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8.15
 - Bug fixes
 
 * Thu Aug 15 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8.14
