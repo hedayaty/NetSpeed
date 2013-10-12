@@ -1,3 +1,6 @@
+* Sat Oct 12 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.8.18, 3.10.19
+- Due to changes in LayoutMenuItem I will release a final version for gnome-shell <= 3.8 and keep on with 3.10
+
 * Fri Oct 4 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.10.17
 - Adopt new classes
 - PopupMenu.PopupBaseMenuItem: addActor ==> actor.add
