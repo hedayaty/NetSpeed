@@ -19,22 +19,22 @@ function init() {
 }
 
 const App = new Lang.Class({
-  Name: 'NetSpeed.App',
+	Name: 'NetSpeed.App',
 
-  _get_dev_combo: function(){
-    let listStore = new Gtk.ListStore();
-    listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
+	_get_dev_combo: function() {
+		let listStore = new Gtk.ListStore();
+		listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
-    let iter = listStore.append();
-    listStore.set (iter, [0], ["ALL"]);
-    listStore.set (iter, [1], ["gtk-network"]);
+		let iter = listStore.append();
+		listStore.set (iter, [0], ["ALL"]);
+		listStore.set (iter, [1], ["gtk-network"]);
 
-    let nmc = NMC.Client.new();
-    this._devices = nmc.get_devices() || [ ];
+		let nmc = NMC.Client.new();
+		this._devices = nmc.get_devices() || [ ];
 		
-    for each (let dev in this._devices) {
-      let iconname;
-      switch (dev.device_type) {
+		for each (let dev in this._devices) {
+			let iconname;
+			switch (dev.device_type) {
 			case NetworkManager.DeviceType.ETHERNET:
 				iconname = "network-wired-symbolic";
 				break;
@@ -54,28 +54,28 @@ const App = new Lang.Class({
 				iconname = "gnome-transmit-symbolic"; 
 				break;
 			default:
-				iconname = "network-transmit-receive-symbolic";
+				continue;
 			}
-      let iter = listStore.append();
-      listStore.set (iter, [0], [dev.interface]);
-      listStore.set (iter, [1], [iconname]);
-    }
+			let iter = listStore.append();
+			listStore.set (iter, [0], [dev.interface]);
+			listStore.set (iter, [1], [iconname]);
+		}
 
-    let combo = new Gtk.ComboBox({model: listStore});	
-    let rendererPixbuf = new Gtk.CellRendererPixbuf();
-    let rendererText = new Gtk.CellRendererText();
+		let combo = new Gtk.ComboBox({model: listStore});	
+		let rendererPixbuf = new Gtk.CellRendererPixbuf();
+		let rendererText = new Gtk.CellRendererText();
 
-    // Pack the renderers into the combobox in the order we want to see
-    combo.pack_start (rendererPixbuf, false);
-    combo.pack_start (rendererText, false);
+		// Pack the renderers into the combobox in the order we want to see
+		combo.pack_start (rendererPixbuf, false);
+		combo.pack_start (rendererText, false);
 
-    // Set the renderers to use the information from our listStore
-    combo.add_attribute (rendererText, "text", 0);
-    combo.add_attribute (rendererPixbuf, "icon_name", 1);
-    return combo;
-  },
+		// Set the renderers to use the information from our listStore
+		combo.add_attribute (rendererText, "text", 0);
+		combo.add_attribute (rendererPixbuf, "icon_name", 1);
+		return combo;
+	},
 
-  _put_dev: function() {
+	_put_dev: function() {
 		let active = this.dev.get_active();
 		if (active == -1)
 			return;
@@ -87,8 +87,8 @@ const App = new Lang.Class({
 		this._setting = 0;
 	},
 
-  _pick_dev: function() {
-	  if (this._setting == 1)
+	_pick_dev: function() {
+		if (this._setting == 1)
 			return;
 		let activeDev = Schema.get_string('device');
 		let active = 0;
@@ -96,21 +96,21 @@ const App = new Lang.Class({
 			if (this._devices[i].interface == activeDev)
 				active = i + 1;
 		 this.dev.set_active (active);
-  },
+	},
 
-  _init: function() {
+	_init: function() {
 		this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-	  this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
-	  this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
-	  this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
-	  this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
-	  this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
+		this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
+		this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
+		this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
 
-	  //	this.dev = new Gtk.Entry();
-	  this.dev = this._get_dev_combo();
-	  this.sum = new Gtk.CheckButton({ label: 'Show sum(UP+Down)' });
-	  this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
-	  this.timer = new Gtk.SpinButton({ 
+		//	this.dev = new Gtk.Entry();
+		this.dev = this._get_dev_combo();
+		this.sum = new Gtk.CheckButton({ label: 'Show sum(UP+Down)' });
+		this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
+		this.timer = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({ 
 				lower: 100,
 				upper: 10000,
@@ -121,7 +121,7 @@ const App = new Lang.Class({
 			adjustment: new Gtk.Adjustment({
 				lower: 3,
 				upper: 10,
-		   	step_increment: 1
+				step_increment: 1
 			})
 		});
 		this.label_size = new Gtk.SpinButton({ 
@@ -135,7 +135,7 @@ const App = new Lang.Class({
 			adjustment: new Gtk.Adjustment({
 				lower: 100,
 				upper: 1,
-       	step_increment: 1 
+				step_increment: 1 
 			})
 		});
 		this.main.attach(this.dev, 2, 1, 1, 1);
@@ -164,24 +164,24 @@ const App = new Lang.Class({
 
 		/*
 
-    // COLOR
-    let item = new Gtk.CheckButton({label: _('Use custom color')})
-    this.vbox3.add(item)
-    Schema.bind('custom-color', item, 'active', Gio.SettingsBindFlags.DEFAULT);		
+		// COLOR
+		let item = new Gtk.CheckButton({label: _('Use custom color')})
+		this.vbox3.add(item)
+		Schema.bind('custom-color', item, 'active', Gio.SettingsBindFlags.DEFAULT);		
 
-    let label = new Gtk.Label({label: "Color: "});
-    let color = new Gtk.ColorButton();
-    let _actor = new Gtk.HBox();
-    _actor.add(label);
-    _actor.add(color);
+		let label = new Gtk.Label({label: "Color: "});
+		let color = new Gtk.ColorButton();
+		let _actor = new Gtk.HBox();
+		_actor.add(label);
+		_actor.add(color);
 
-    let _color = getColorByHexadecimal(Schema.get_string('color'));
-    color.set_color(_color);
+		let _color = getColorByHexadecimal(Schema.get_string('color'));
+		color.set_color(_color);
 
-    this.vbox3.add(_actor);
-    color.connect('color-set', function(color){
-    Schema.set_string('color', getHexadecimalByColor(color.get_color()));
-    });
+		this.vbox3.add(_actor);
+		color.connect('color-set', function(color){
+		Schema.set_string('color', getHexadecimalByColor(color.get_color()));
+		});
 
 */
 		this.main.show_all();
@@ -189,8 +189,8 @@ const App = new Lang.Class({
 });
 
 function buildPrefsWidget(){
-    let widget = new App();
-    return widget.main;
+	let widget = new App();
+	return widget.main;
 };
 
 // vim: ts=2 sw=2
