@@ -32,24 +32,6 @@ const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
-
-/**
- * Global Variables
- */
-let net_speed;
-
-
-/**
- * Utility functions
- */
-
-/**
- * dump_array
- */
-function dump_array(array) {
-	log(JSON.stringify(array));
-}
-
 /**
  * Class: LayoutMenuItem
  */
@@ -61,7 +43,7 @@ const LayoutMenuItem = new Lang.Class({
 		 * LayoutMenuItem: _init
 		 * Constructor
 		 */
-		_init: function(device, icon) {
+		_init: function(device, icon, menu_label_size) {
 			this.parent();
 			this.device = device;
 			this._icon = icon;
@@ -75,16 +57,17 @@ const LayoutMenuItem = new Lang.Class({
 			this.actor.add(this._device_title);
 			this.actor.add(this._down_label);
 			this.actor.add(this._up_label);
-			this.update_ui();
+			this.update_ui(menu_label_size);
 		},
 
 		/**
 		 * LayoutMenuItem: update_ui
 		 * update settings
 		 */
-		update_ui: function() {
-			this._down_label.set_width(net_speed.menulabelsize);
-			this._up_label.set_width(net_speed.menulabelsize);
+		update_ui: function(menu_label_size) {
+			this._down_label.set_width(menu_label_size);
+			this._up_label.set_width(menu_label_size);
+			this._device_title.set_width(menu_label_size);
 		},
 
 		/**
@@ -109,11 +92,12 @@ const NetSpeedStatusIcon = new Lang.Class({
 		 * NetSpeedStatusIcon: _init
 		 * Constructor
 		 */
-		_init: function() {
+		_init: function(net_speed) {
+			this._net_speed = net_speed;
 			this.parent(0.0);
 			this._box = new St.BoxLayout();
 			this._icon_box = new St.BoxLayout();
-			this._icon = this._get_icon(net_speed.get_device_type(net_speed.device));
+			this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.device));
 			this._upicon = this._get_icon("up");
 			this._downicon = this._get_icon("down");
 			this._sum = new St.Label({ text: "---", style_class: 'ns-label'});
@@ -149,7 +133,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 					prefs.launch(global.display.get_current_time_roundtrip(),	[Extension.metadata.uuid], -1, null);
 			});
 
-			this._menu_title = new LayoutMenuItem("Device", this._pref);
+			this._menu_title = new LayoutMenuItem("Device", this._pref, this._net_speed.menu_label_size);
 			this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
 			this._menu_title.update_speeds("Up", "Down");
 			this.menu.addMenuItem(this._menu_title);
@@ -163,9 +147,9 @@ const NetSpeedStatusIcon = new Lang.Class({
 	 * TODO: this seems public so remove _
 	 */
 	_change_device : function(param1, param2, device)	{
-		net_speed.device = device;
+		this._net_speed.device = device;
 		this.updateui();
-		net_speed.save();
+		this._net_speed.save();
 	},	
 
 	/**
@@ -175,9 +159,9 @@ const NetSpeedStatusIcon = new Lang.Class({
 		let button = event.get_button();
 		if (button == 2) // middle
 		{
-			net_speed.showsum = ! net_speed.showsum;
+			this._net_speed.showsum = ! this._net_speed.showsum;
 			this.updateui();
-			net_speed.save();
+			this._net_speed.save();
 		}
 	},
 
@@ -188,12 +172,12 @@ const NetSpeedStatusIcon = new Lang.Class({
 	 */
 	updateui : function() {
 		// Set the size of labels
-		this._sum.set_width(net_speed.labelsize);
-		this._up.set_width(net_speed.labelsize);
-		this._down.set_width(net_speed.labelsize); 
+		this._sum.set_width(this._net_speed.label_size);
+		this._up.set_width(this._net_speed.label_size);
+		this._down.set_width(this._net_speed.label_size); 
 
 		// Show up + down or sum
-		if (net_speed.showsum == false) {
+		if (this._net_speed.showsum == false) {
 			this._sum.hide();
 			this._sumunit.hide();
 			this._upicon.show();
@@ -215,16 +199,16 @@ const NetSpeedStatusIcon = new Lang.Class({
 		
 		// Change the type of Icon
 		this._icon.destroy();
-		this._icon = this._get_icon(net_speed.get_device_type(net_speed.device));
+		this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.device));
 		this._icon_box.add_actor(this._icon);
 		// Show icon or not
-		if (net_speed.use_icon)
+		if (this._net_speed.use_icon)
 			this._icon.show();
 		else
 			this._icon.hide();
 		// Update Menu sizes
 		for (let i = 0; i < this._layouts.length; ++i) {
-			this._layouts[i].update_ui();
+			this._layouts[i].update_ui(this._net_speed.menu_label_size);
 		}
 	},
 
@@ -299,7 +283,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 		this._layouts = new Array();
 		for (let i = 0; i < devices.length; ++i) {	
 			let icon = this._get_icon(types[i]);
-			let layout = new LayoutMenuItem(devices[i], icon);
+			let layout = new LayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
 			layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
 			this._layouts.push(layout);
 			this.menu.addMenuItem(layout);
@@ -507,8 +491,8 @@ const NetSpeed = new Lang.Class({
 		this.digits = this._setting.get_int('digits');
 		this.device = this._setting.get_string('device');
 		this.timer = this._setting.get_int('timer');
-		this.labelsize = this._setting.get_int('label-size');
-		this.menulabelsize = this._setting.get_int('menu-label-size');
+		this.label_size = this._setting.get_int('label-size');
+		this.menu_label_size = this._setting.get_int('menu-label-size');
 	},
 
 	/**
@@ -553,7 +537,7 @@ const NetSpeed = new Lang.Class({
 		this._saving = 0;
 		this._load();
 
-		this._status_icon = new NetSpeedStatusIcon();
+		this._status_icon = new NetSpeedStatusIcon(this);
 		this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
 		this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
 		Panel.addToStatusArea('netspeed', this._status_icon, 0);
@@ -584,9 +568,7 @@ const NetSpeed = new Lang.Class({
  * run when gnome-shell loads
  */
 function init() {
-	net_speed = new NetSpeed();
-	Main._net_speed = net_speed;
-	return net_speed;
+	return new NetSpeed();
 }
 
 

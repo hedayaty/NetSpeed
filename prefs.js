@@ -126,15 +126,15 @@ const App = new Lang.Class({
 		});
 		this.label_size = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({
-				lower: 100,
-				upper: 1,
+				lower: 1,
+				upper: 100,
 			 	step_increment: 1 
 			})
 		});
 		this.menu_label_size = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({
-				lower: 100,
-				upper: 1,
+				lower: 1,
+				upper: 100,
 				step_increment: 1 
 			})
 		});
