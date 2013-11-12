@@ -1,3 +1,21 @@
+* Sat Oct 12 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.8.18, 3.10.19
+- Due to changes in LayoutMenuItem I will release a final version for gnome-shell <= 3.8 and keep on with 3.10
+
+* Fri Oct 4 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.10.17
+- Adopt new classes
+- PopupMenu.PopupBaseMenuItem: addActor ==> actor.add
+- Works on gnome 3.10
+
+* Thu Oct 3 2013 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.8.16
+- Redo the zip
+
+* Tus Oct 1 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8.15
+- Bug fixes
+
+* Thu Aug 15 2013 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.8.14
+- add gnome 3.8 compatibility
+- import pull request from zpydr(minor improvement in pref.js)
+
 * Sun Nov 11 2012 Amir Hedayaty <hedayaty AT gmail DOT com>- 3.6.13
 - add gnome 3.6 compatibility (hopefully does not break gnome <= 3.4)
 - (Major) added preferences
