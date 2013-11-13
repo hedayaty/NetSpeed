@@ -32,6 +32,10 @@ const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
+const Convenience = Extension.imports.convenience;
+const Gettext = imports.gettext.domain('netspeed');
+const _ = Gettext.gettext;
+
 /**
  * Class: LayoutMenuItem
  */
@@ -133,9 +137,9 @@ const NetSpeedStatusIcon = new Lang.Class({
 					prefs.launch(global.display.get_current_time_roundtrip(),	[Extension.metadata.uuid], -1, null);
 			});
 
-			this._menu_title = new LayoutMenuItem("Device", this._pref, this._net_speed.menu_label_size);
+			this._menu_title = new LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
 			this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
-			this._menu_title.update_speeds("Up", "Down");
+			this._menu_title.update_speeds(_("Up"), _("Down"));
 			this.menu.addMenuItem(this._menu_title);
 			this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 			this._layouts = new Array();
@@ -379,7 +383,7 @@ const NetSpeed = new Lang.Class({
 			digits -= 2;
 		else if (amount >= 10)
 			digits -= 1; 
-		let speed_map = ["B/s", "KB/s", "MB/s", "GB/s"];
+		let speed_map = [_("B/s"), _("KB/s"), _("MB/s"), _("GB/s")];
 		return [amount.toFixed(digits - 1), speed_map[unit]];
 	},
 
@@ -567,7 +571,8 @@ const NetSpeed = new Lang.Class({
  * init
  * run when gnome-shell loads
  */
-function init() {
+function init() {  
+  Convenience.initTranslations("netspeed");
 	return new NetSpeed();
 }
 

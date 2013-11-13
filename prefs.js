@@ -8,6 +8,9 @@ const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
+const Convenience = Extension.imports.convenience;
+const Gettext = imports.gettext.domain('netspeed');
+const _ = Gettext.gettext;
 
 let schemaDir = Extension.dir.get_path();
 let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
@@ -16,6 +19,7 @@ let Schema = new Gio.Settings({ settings_schema: schema });
 
 
 function init() {
+  Convenience.initTranslations("netspeed");
 }
 
 const App = new Lang.Class({
@@ -26,7 +30,7 @@ const App = new Lang.Class({
 		listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
 		let iter = listStore.append();
-		listStore.set (iter, [0], ["ALL"]);
+		listStore.set (iter, [0], [_("ALL")]);
 		listStore.set (iter, [1], ["gtk-network"]);
 
 		let nmc = NMC.Client.new();
@@ -100,16 +104,16 @@ const App = new Lang.Class({
 
 	_init: function() {
 		this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-		this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
-		this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);	
+		this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);	
+		this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);	
+		this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 7, 1, 1);
 
 		//	this.dev = new Gtk.Entry();
 		this.dev = this._get_dev_combo();
-		this.sum = new Gtk.CheckButton({ label: 'Show sum(UP+Down)' });
-		this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
+		this.sum = new Gtk.CheckButton({ label: _("Show sum(UP+Down)") });
+		this.icon = new Gtk.CheckButton({ label: _("Show the Icon") });
 		this.timer = new Gtk.SpinButton({ 
 			adjustment: new Gtk.Adjustment({ 
 				lower: 100,
