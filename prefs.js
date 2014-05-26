@@ -8,14 +8,19 @@ const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 
+const Gettext = imports.gettext;
+const _ = Gettext.gettext;
 
-let schemaDir = Extension.dir.get_path();
+let schemaDir = Extension.dir.get_child('schemas').get_path();
 let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
 let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
 let Schema = new Gio.Settings({ settings_schema: schema });
 
 
 function init() {
+  let localeDir = Extension.dir.get_child('locale');
+  if (localeDir.query_exists(null))
+    Gettext.bindtextdomain('netspeed', localeDir.get_path());
 }
 
 const App = new Lang.Class({
@@ -26,12 +31,12 @@ const App = new Lang.Class({
 		listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
 		let iter = listStore.append();
-		listStore.set (iter, [0], ["ALL"]);
+		listStore.set (iter, [0], [_("ALL")]);
 		listStore.set (iter, [1], ["gtk-network"]);
 
 		let nmc = NMC.Client.new();
 		this._devices = nmc.get_devices() || [ ];
-		
+
 		for each (let dev in this._devices) {
 			let iconname;
 			switch (dev.device_type) {
@@ -51,7 +56,7 @@ const App = new Lang.Class({
 				iconname = "network-wirelss-signal-excellent-symbolic"; // Same for wifi
 				break;
 			case NetworkManager.DeviceType.MODEM:
-				iconname = "gnome-transmit-symbolic"; 
+				iconname = "gnome-transmit-symbolic";
 				break;
 			default:
 				continue;
@@ -61,7 +66,7 @@ const App = new Lang.Class({
 			listStore.set (iter, [1], [iconname]);
 		}
 
-		let combo = new Gtk.ComboBox({model: listStore});	
+		let combo = new Gtk.ComboBox({model: listStore});
 		let rendererPixbuf = new Gtk.CellRendererPixbuf();
 		let rendererText = new Gtk.CellRendererText();
 
@@ -100,18 +105,18 @@ const App = new Lang.Class({
 
 	_init: function() {
 		this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-		this.main.attach (new Gtk.Label({label: 'Device to monitor'}), 1, 1, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Timer (milisec)'}), 1, 4, 1, 1);
-		this.main.attach (new Gtk.Label({label: 'Digits'}), 1, 5, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Label Size'}), 1, 6, 1, 1);	
-		this.main.attach (new Gtk.Label({label: 'Menu Label Size'}), 1, 7, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 7, 1, 1);
 
 		//	this.dev = new Gtk.Entry();
 		this.dev = this._get_dev_combo();
-		this.sum = new Gtk.CheckButton({ label: 'Show sum(UP+Down)' });
-		this.icon = new Gtk.CheckButton({ label: 'Show the Icon' });
-		this.timer = new Gtk.SpinButton({ 
-			adjustment: new Gtk.Adjustment({ 
+		this.sum = new Gtk.CheckButton({ label: _("Show sum(UP+Down)") });
+		this.icon = new Gtk.CheckButton({ label: _("Show the Icon") });
+		this.timer = new Gtk.SpinButton({
+			adjustment: new Gtk.Adjustment({
 				lower: 100,
 				upper: 10000,
 				step_increment: 100
@@ -124,18 +129,18 @@ const App = new Lang.Class({
 				step_increment: 1
 			})
 		});
-		this.label_size = new Gtk.SpinButton({ 
+		this.label_size = new Gtk.SpinButton({
 			adjustment: new Gtk.Adjustment({
 				lower: 1,
 				upper: 100,
-			 	step_increment: 1 
+				step_increment: 1
 			})
 		});
-		this.menu_label_size = new Gtk.SpinButton({ 
+		this.menu_label_size = new Gtk.SpinButton({
 			adjustment: new Gtk.Adjustment({
 				lower: 1,
 				upper: 100,
-				step_increment: 1 
+				step_increment: 1
 			})
 		});
 		this.main.attach(this.dev, 2, 1, 1, 1);
@@ -167,7 +172,7 @@ const App = new Lang.Class({
 		// COLOR
 		let item = new Gtk.CheckButton({label: _('Use custom color')})
 		this.vbox3.add(item)
-		Schema.bind('custom-color', item, 'active', Gio.SettingsBindFlags.DEFAULT);		
+		Schema.bind('custom-color', item, 'active', Gio.SettingsBindFlags.DEFAULT);
 
 		let label = new Gtk.Label({label: "Color: "});
 		let color = new Gtk.ColorButton();

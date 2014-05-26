@@ -5,12 +5,12 @@
   * it under the terms of the GNU General Public License as published by
   * the Free Software Foundation, either version 3 of the License, or
   * (at your option) any later version.
-  * 
+  *
   * This program is distributed in the hope that it will be useful,
   * but WITHOUT ANY WARRANTY; without even the implied warranty of
   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   * GNU General Public License for more details.
-  * 
+  *
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
@@ -31,6 +31,9 @@ const PopupMenu = imports.ui.popupMenu;
 const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Util = imports.misc.util;
+const Gettext = imports.gettext;
+const _ = Gettext.gettext;
 
 /**
  * Class: LayoutMenuItem
@@ -76,7 +79,7 @@ const LayoutMenuItem = new Lang.Class({
 		 */
 		update_speeds: function(up, down) {
 			this._down_label.set_text(down);
-			this._up_label.set_text(up);		
+			this._up_label.set_text(up);
 		},
 });
 
@@ -125,17 +128,20 @@ const NetSpeedStatusIcon = new Lang.Class({
 			// Add pref luncher
 			this._pref = new St.Button({ child: this._get_icon("pref")});
 			this._pref.connect("clicked", function() {
+				/*
 				let app_sys = Shell.AppSystem.get_default();
 				let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
 				if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING)
 					prefs.activate();
 				else
 					prefs.launch(global.display.get_current_time_roundtrip(),	[Extension.metadata.uuid], -1, null);
+					*/
+				Util.spawn(["gnome-shell-extension-prefs", Extension.metadata.uuid]);
 			});
 
-			this._menu_title = new LayoutMenuItem("Device", this._pref, this._net_speed.menu_label_size);
+			this._menu_title = new LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
 			this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
-			this._menu_title.update_speeds("Up", "Down");
+			this._menu_title.update_speeds(_("Up"), _("Down"));
 			this.menu.addMenuItem(this._menu_title);
 			this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 			this._layouts = new Array();
@@ -143,14 +149,14 @@ const NetSpeedStatusIcon = new Lang.Class({
 	},
 
 	/**
-	 * NetSpeedStatusIcon :_change_device 
+	 * NetSpeedStatusIcon :_change_device
 	 * TODO: this seems public so remove _
 	 */
 	_change_device : function(param1, param2, device)	{
 		this._net_speed.device = device;
 		this.updateui();
 		this._net_speed.save();
-	},	
+	},
 
 	/**
 	 * NetSpeedStatusIcon: _toggle_showsum
@@ -174,7 +180,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 		// Set the size of labels
 		this._sum.set_width(this._net_speed.label_size);
 		this._up.set_width(this._net_speed.label_size);
-		this._down.set_width(this._net_speed.label_size); 
+		this._down.set_width(this._net_speed.label_size);
 
 		// Show up + down or sum
 		if (this._net_speed.showsum == false) {
@@ -196,7 +202,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 			this._down.hide();
 			this._downunit.hide();
 		}
-		
+
 		// Change the type of Icon
 		this._icon.destroy();
 		this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.device));
@@ -254,17 +260,17 @@ const NetSpeedStatusIcon = new Lang.Class({
 		default:
 	 		iconname = "network-transmit-receive";
 		}
-			
+
 		return new St.Icon({
 			icon_name: iconname,
 			icon_size: size,
 		});
 	},
-	
+
 	/**
 	 * NetSpeedStatusIcon: set_labels
 	 */
-	set_labels: function(sum, up, down) 
+	set_labels: function(sum, up, down)
 	{
 		this._sum.set_text(sum[0]);
 		this._sumunit.set_text(sum[1]);
@@ -281,7 +287,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 	 */
 	create_menu: function(devices, types) {
 		this._layouts = new Array();
-		for (let i = 0; i < devices.length; ++i) {	
+		for (let i = 0; i < devices.length; ++i) {
 			let icon = this._get_icon(types[i]);
 			let layout = new LayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
 			layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
@@ -297,7 +303,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 		for (let i = 0; i < speeds.length; ++i) {
 			this._layouts[i].update_speeds(speeds[i][0], speeds[i][1]);
 		}
-	}, 
+	},
 
 });
 
@@ -314,6 +320,9 @@ const NetSpeed = new Lang.Class({
 	 * Constructor
 	 */
 	_init : function() {
+    let localeDir = Extension.dir.get_child('locale');
+    if (localeDir.query_exists(null))
+      Gettext.bindtextdomain('netspeed', localeDir.get_path());
 	},
 
 	/**
@@ -335,7 +344,7 @@ const NetSpeed = new Lang.Class({
 	get_device_type: function(device) {
 		let devices =	this._client.get_devices() || [ ];
 
-		for each (let dev in devices) { 
+		for each (let dev in devices) {
 			if (dev.interface == device) {
 				switch (dev.device_type) {
 				case NetworkManager.DeviceType.ETHERNET:
@@ -358,7 +367,7 @@ const NetSpeed = new Lang.Class({
 
 		return "none";
 	},
-	
+
 	/**
 	 * NetSpeed: _speed_to_string
 	 */
@@ -378,8 +387,8 @@ const NetSpeed = new Lang.Class({
 		if (amount >= 100)
 			digits -= 2;
 		else if (amount >= 10)
-			digits -= 1; 
-		let speed_map = ["B/s", "KB/s", "MB/s", "GB/s"];
+			digits -= 1;
+		let speed_map = [_("B/s"), _("KB/s"), _("MB/s"), _("GB/s")];
 		return [amount.toFixed(digits - 1), speed_map[unit]];
 	},
 
@@ -422,13 +431,13 @@ const NetSpeed = new Lang.Class({
 		this._speeds = new Array();
 		this._olddevices = this._devices;
 		this._devices = new Array();
-	
+
 		let time = GLib.get_monotonic_time() / 1000; // current time 1000 is not the net_speed.timer!
 		let delta = time - this._last_time; // Here the difference is evaluated
 		this._last_time = time;
 
 		// parse the file
-		for(let i = 2; i < nlines.length - 1 ; ++i) { //first 2 lines are for header	
+		for(let i = 2; i < nlines.length - 1 ; ++i) { //first 2 lines are for header
 			let line = nlines[i].replace(/ +/g, " ").replace(/^ */g, "");
 			let params = line.split(" ");
 			if (params[0].replace(":","") == "lo") // ignore local device
@@ -441,7 +450,7 @@ const NetSpeed = new Lang.Class({
 		var total = 0;
 		var up = 0;
 		var down = 0;
-		let total_speed = []; 
+		let total_speed = [];
 		let up_speed = [];
 		let down_speed = [];
 		if (this._check_devices() == 1)	{
@@ -456,7 +465,7 @@ const NetSpeed = new Lang.Class({
 					this._speed_to_string(_up / delta, this.digits).join(""), // Upload
 					this._speed_to_string(_down / delta, this.digits).join("") // Download
 				]);
-				total += _down + _up; 
+				total += _down + _up;
 				up += _up;
 				down += _down;
 				if (this.device == this._devices[i]) {
@@ -470,7 +479,7 @@ const NetSpeed = new Lang.Class({
 				up_speed = this._speed_to_string(up / delta, this.digits);
 				down_speed = this._speed_to_string(down / delta, this.digits);
 			}
-			
+
 			this._set_labels(total_speed, up_speed, down_speed);
 			this._update_speeds();
 		} else
@@ -478,14 +487,14 @@ const NetSpeed = new Lang.Class({
 		return true;
 	},
 
-	
+
 	/**
 	 * NetSpeed: _load
 	 */
 	_load: function() {
 		if (this._saving == 1) {
 			return;
-		}			
+		}
 		this.showsum = this._setting.get_boolean('show-sum');
 		this.use_icon = this._setting.get_boolean('icon-display');
 		this.digits = this._setting.get_int('digits');
@@ -513,7 +522,7 @@ const NetSpeed = new Lang.Class({
 		this._status_icon.updateui();
 	},
 
-	
+
 	/**
 	 * NetSpeed: enable
 	 * exported to enable the extension
@@ -527,7 +536,7 @@ const NetSpeed = new Lang.Class({
 		this._devices = new Array();
 		this._client = NMC.Client.new();
 
-		let schemaDir = Extension.dir.get_path();
+		let schemaDir = Extension.dir.get_child('schemas').get_path();
 		let schemaSource = Gio.SettingsSchemaSource.new_from_directory(
 				schemaDir,
 				Gio.SettingsSchemaSource.get_default(),

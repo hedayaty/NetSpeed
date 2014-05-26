@@ -1,0 +1,79 @@
+# Translation to German
+# Copyright (C) 2013
+# This file is distributed under the same license as the netspeed package.
+# Jonatan Zeidler <jonatan_zeidler@gmx.de> 2013
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Netspeed Gnome-Shell Extension\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-25 21:22-0700\n"
+"PO-Revision-Date: 2013-11-13 20:39+0100\n"
+"Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
+"Language-Team: GERMAN <jonatan_zeidler@gmx.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: extension.js:138
+msgid "Device"
+msgstr "Gerät"
+
+#: extension.js:140
+msgid "Up"
+msgstr "Hoch"
+
+#: extension.js:140
+msgid "Down"
+msgstr "Runter"
+
+#: extension.js:387
+msgid "B/s"
+msgstr "B/s"
+
+#: extension.js:387
+msgid "KB/s"
+msgstr "KB/s"
+
+#: extension.js:387
+msgid "MB/s"
+msgstr "MB/s"
+
+#: extension.js:387
+msgid "GB/s"
+msgstr "GB/s"
+
+#: prefs.js:33
+msgid "ALL"
+msgstr "ALLE"
+
+#: prefs.js:107
+msgid "Device to monitor"
+msgstr "Gerät zur Überwachung"
+
+#: prefs.js:108
+msgid "Timer (milisec)"
+msgstr "Anzeigeinterval (Millisekunden)"
+
+#: prefs.js:109
+msgid "Digits"
+msgstr "Ziffern"
+
+#: prefs.js:110
+msgid "Label Size"
+msgstr "Anzeigegröße"
+
+#: prefs.js:111
+msgid "Menu Label Size"
+msgstr "Menügröße"
+
+#: prefs.js:115
+msgid "Show sum(UP+Down)"
+msgstr "Als Summe anzeigen (Hoch+Runter)"
+
+#: prefs.js:116
+msgid "Show the Icon"
+msgstr "Symbol anzeigen"
