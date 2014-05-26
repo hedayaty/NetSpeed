@@ -1,4 +1,4 @@
-* Sun 25 May 2014 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.12.20
+* Sun 25 May 2014 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.12.21
 - Upgrade to 3.12
 - Add localiztion thanks for initiating patch from Jonatan Zeidler jonatan_zeidler AT gmx DOT de
 - add Makefile for automation
