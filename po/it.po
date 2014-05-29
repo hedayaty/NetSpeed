@@ -1,0 +1,78 @@
+# Traduzione in italiano
+# Copyright (C) 2014 Amir Hedayaty <HEDAYATY AT GMAIL DO COM>
+# This file is distributed under the same license as the netspeed package.
+# Alessio Ciregia <alciregi@gmail.com> 2014
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: netspeed\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-05-29 10:20+0200\n"
+"PO-Revision-Date: 2014-06-04 13:43+0200\n"
+"Last-Translator: Alessio Ciregia <alciregi@gmail.com>\n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: extension.js:138
+msgid "Device"
+msgstr "Interfaccia"
+
+#: extension.js:140
+msgid "Up"
+msgstr "Upload"
+
+#: extension.js:140
+msgid "Down"
+msgstr "Download"
+
+#: extension.js:387
+msgid "B/s"
+msgstr "B/s"
+
+#: extension.js:387
+msgid "KB/s"
+msgstr "KB/s"
+
+#: extension.js:387
+msgid "MB/s"
+msgstr "MB/s"
+
+#: extension.js:387
+msgid "GB/s"
+msgstr "GB/s"
+
+#: prefs.js:33
+msgid "ALL"
+msgstr "TUTTE"
+
+#: prefs.js:107
+msgid "Device to monitor"
+msgstr "Interfaccia da monitorare"
+
+#: prefs.js:108
+msgid "Timer (milisec)"
+msgstr "Intervallo di visualizzazione (millisecondi)"
+
+#: prefs.js:109
+msgid "Digits"
+msgstr "Cifre"
+
+#: prefs.js:110
+msgid "Label Size"
+msgstr "Dimensioni dell'etichetta"
+
+#: prefs.js:111
+msgid "Menu Label Size"
+msgstr "Dimensioni del menu"
+
+#: prefs.js:115
+msgid "Show sum(UP+Down)"
+msgstr "Mostra la somma(UP+Down)"
+
+#: prefs.js:116
+msgid "Show the Icon"
+msgstr "Mostra l'icona"
