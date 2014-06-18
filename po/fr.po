@@ -1,4 +1,4 @@
-# English translations for netspeed package.
+# French translation for netspeed package.
 # Copyright (C) 2014 Amir Hedayaty <HEDAYATY AT GMAIL DO COM>
 # This file is distributed under the same license as the netspeed package.
 # Amir Hedayaty <hedayaty@gmail.com>, 2014.
@@ -9,9 +9,9 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-05-25 21:22-0700\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
-"Last-Translator: Amir Hedayaty <hedayaty@gmail.com>\n"
-"Language-Team: English\n"
-"Language: en_CA\n"
+"Last-Translator: Lucien Aubert <lu.aubert84@gmail.com>\n"
+"Language-Team: French\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -71,7 +71,7 @@ msgstr "Taille des champs du menu"
 
 #: prefs.js:115
 msgid "Show sum(UP+Down)"
-msgstr "Afficher somme (reçu+envoyé)"
+msgstr "Afficher la somme (reçu+envoyé)"
 
 #: prefs.js:116
 msgid "Show the Icon"
