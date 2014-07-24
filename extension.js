@@ -182,6 +182,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 		this._up.set_width(this._net_speed.label_size);
 		this._down.set_width(this._net_speed.label_size);
 
+
 		// Show up + down or sum
 		if (this._net_speed.showsum == false) {
 			this._sum.hide();
@@ -280,6 +281,46 @@ const NetSpeedStatusIcon = new Lang.Class({
 
 		this._down.set_text(down[0]);
 		this._downunit.set_text(down[1]);
+
+
+
+        var kbs = /KB.s$/;
+        var mbs = /MB.s$/;
+        var gbs = /GB.s$/;
+
+
+        if (kbs.test(this._downunit.text)) {
+            this._downunit.set_style_class_name('ns-unit-label-yellow');
+        } else if (mbs.test(this._downunit.text)) {
+            this._downunit.set_style_class_name('ns-unit-label-red');
+        } else if (gbs.test(this._downunit.text)) {
+            this._downunit.set_style_class_name('ns-unit-label-red');
+        } else {
+            this._downunit.set_style_class_name('ns-unit-label-green');
+        }
+
+        if (kbs.test(this._upunit.text)) {
+            this._upunit.set_style_class_name('ns-unit-label-yellow');
+        } else if (mbs.test(this._upunit.text)) {
+            this._upunit.set_style_class_name('ns-unit-label-red');
+        } else if (gbs.test(this._upunit.text)) {
+            this._upunit.set_style_class_name('ns-unit-label-red');
+        } else {
+            this._upunit.set_style_class_name('ns-unit-label-green');
+        }
+
+        if (kbs.test(this._sumunit.text)) {
+            this._sumunit.set_style_class_name('ns-unit-label-yellow');
+        } else if (mbs.test(this._sumunit.text)) {
+            this._sumunit.set_style_class_name('ns-unit-label-red');
+        } else if (gbs.test(this._sumunit.text)) {
+            this._sumunit.set_style_class_name('ns-unit-label-red');
+        } else {
+            this._sumunit.set_style_class_name('ns-unit-label-green');
+        }
+
+
+
 	},
 
 	/**
