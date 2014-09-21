@@ -128,15 +128,12 @@ const NetSpeedStatusIcon = new Lang.Class({
 			// Add pref luncher
 			this._pref = new St.Button({ child: this._get_icon("pref")});
 			this._pref.connect("clicked", function() {
-				/*
 				let app_sys = Shell.AppSystem.get_default();
 				let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
 				if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING)
 					prefs.activate();
 				else
-					prefs.launch(global.display.get_current_time_roundtrip(),	[Extension.metadata.uuid], -1, null);
-					*/
-				Util.spawn(["gnome-shell-extension-prefs", Extension.metadata.uuid]);
+					prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
 			});
 
 			this._menu_title = new LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
