@@ -30,11 +30,15 @@
     </key>
     <key type="i" name="label-size">
 		<default>38</default>
-		<summary> The size of label, this may be removed later and automaticly messured for 3 digits the size should be 38 </summary>
+		<summary> The size of label, this may be removed later and automatically measured for 3 digits the size should be 38 </summary>
+    </key>
+    <key type="i" name="unit-label-size">
+		<default>28</default>
+		<summary> The size of label, this may be removed later and automatically. For common units 28 works </summary>
     </key>
     <key type="i" name="menu-label-size">
 		<default>65</default>
-		<summary> The size of labels on the menus, this may be removed later and automaticly messured for 3 digits the size should be 65 </summary>
+		<summary> The size of labels on the menus, this may be removed later and automatically measured for 3 digits the size should be 65 </summary>
     </key>
   </schema>
 </schemalist>

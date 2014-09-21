@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 21:22-0700\n"
+"POT-Creation-Date: 2014-09-20 20:56-0700\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
 "Last-Translator: Lucien Aubert <lu.aubert84@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,62 +17,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: extension.js:138
+#: extension.js:140
 msgid "Device"
 msgstr "Périphérique"
 
-#: extension.js:140
+#: extension.js:142
 msgid "Up"
 msgstr "Envoyé"
 
-#: extension.js:140
+#: extension.js:142
 msgid "Down"
 msgstr "Reçu"
 
-#: extension.js:387
+#: extension.js:394
 msgid "B/s"
 msgstr "B/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "KB/s"
 msgstr "KB/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "MB/s"
 msgstr "MB/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "GB/s"
 msgstr "GB/s"
 
-#: prefs.js:33
+#: prefs.js:34
 msgid "ALL"
 msgstr "TOUS"
 
-#: prefs.js:107
+#: prefs.js:108
 msgid "Device to monitor"
 msgstr "Périphérique(s) à prendre en compte"
 
-#: prefs.js:108
+#: prefs.js:109
 msgid "Timer (milisec)"
 msgstr "Rafraîchissement (milisecondes)"
 
-#: prefs.js:109
+#: prefs.js:110
 msgid "Digits"
 msgstr "Chiffres"
 
-#: prefs.js:110
+#: prefs.js:111
 msgid "Label Size"
 msgstr "Taille des champs"
 
-#: prefs.js:111
+#: prefs.js:112
+#, fuzzy
+msgid "Unit Label Size"
+msgstr "Taille des champs du menu"
+
+#: prefs.js:113
 msgid "Menu Label Size"
 msgstr "Taille des champs du menu"
 
-#: prefs.js:115
+#: prefs.js:117
 msgid "Show sum(UP+Down)"
 msgstr "Afficher la somme (reçu+envoyé)"
 
-#: prefs.js:116
+#: prefs.js:118
 msgid "Show the Icon"
 msgstr "Afficher l'icône"

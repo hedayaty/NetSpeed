@@ -109,7 +109,8 @@ const App = new Lang.Class({
 		this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
 		this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);
 		this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
-		this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 7, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 7, 1, 1);
+		this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
 
 		//	this.dev = new Gtk.Entry();
 		this.dev = this._get_dev_combo();
@@ -136,6 +137,13 @@ const App = new Lang.Class({
 				step_increment: 1
 			})
 		});
+		this.unit_label_size = new Gtk.SpinButton({
+			adjustment: new Gtk.Adjustment({
+				lower: 1,
+				upper: 100,
+				step_increment: 1
+			})
+		});
 		this.menu_label_size = new Gtk.SpinButton({
 			adjustment: new Gtk.Adjustment({
 				lower: 1,
@@ -149,13 +157,15 @@ const App = new Lang.Class({
 		this.main.attach(this.timer, 2, 4, 1, 1);
 		this.main.attach(this.digits, 2, 5, 1, 1);
 		this.main.attach(this.label_size, 2, 6, 1, 1);
-		this.main.attach(this.menu_label_size, 2, 7, 1, 1);
+		this.main.attach(this.unit_label_size, 2, 7, 1, 1);
+		this.main.attach(this.menu_label_size, 2, 8, 1, 1);
 
 		Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
 		Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
 		Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
 		Schema.bind('digits', this.digits, 'value', Gio.SettingsBindFlags.DEFAULT);
 		Schema.bind('label-size', this.label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
+		Schema.bind('unit-label-size', this.unit_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
 		Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
 
 		this._setting = 0;

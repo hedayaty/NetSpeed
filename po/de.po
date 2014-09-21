@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Netspeed Gnome-Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-25 21:22-0700\n"
+"POT-Creation-Date: 2014-09-20 20:56-0700\n"
 "PO-Revision-Date: 2013-11-13 20:39+0100\n"
 "Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
 "Language-Team: GERMAN <jonatan_zeidler@gmx.de>\n"
@@ -18,62 +18,67 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: extension.js:138
+#: extension.js:140
 msgid "Device"
 msgstr "Gerät"
 
-#: extension.js:140
+#: extension.js:142
 msgid "Up"
 msgstr "Hoch"
 
-#: extension.js:140
+#: extension.js:142
 msgid "Down"
 msgstr "Runter"
 
-#: extension.js:387
+#: extension.js:394
 msgid "B/s"
 msgstr "B/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "KB/s"
 msgstr "KB/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "MB/s"
 msgstr "MB/s"
 
-#: extension.js:387
+#: extension.js:394
 msgid "GB/s"
 msgstr "GB/s"
 
-#: prefs.js:33
+#: prefs.js:34
 msgid "ALL"
 msgstr "ALLE"
 
-#: prefs.js:107
+#: prefs.js:108
 msgid "Device to monitor"
 msgstr "Gerät zur Überwachung"
 
-#: prefs.js:108
+#: prefs.js:109
 msgid "Timer (milisec)"
 msgstr "Anzeigeinterval (Millisekunden)"
 
-#: prefs.js:109
+#: prefs.js:110
 msgid "Digits"
 msgstr "Ziffern"
 
-#: prefs.js:110
+#: prefs.js:111
 msgid "Label Size"
 msgstr "Anzeigegröße"
 
-#: prefs.js:111
+#: prefs.js:112
+#, fuzzy
+msgid "Unit Label Size"
+msgstr "Menügröße"
+
+#: prefs.js:113
 msgid "Menu Label Size"
 msgstr "Menügröße"
 
-#: prefs.js:115
+#: prefs.js:117
 msgid "Show sum(UP+Down)"
 msgstr "Als Summe anzeigen (Hoch+Runter)"
 
-#: prefs.js:116
+#: prefs.js:118
 msgid "Show the Icon"
 msgstr "Symbol anzeigen"

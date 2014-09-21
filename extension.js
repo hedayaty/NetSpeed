@@ -18,6 +18,7 @@
 /*
  * Constants
  */
+const Clutter = imports.gi.Clutter;
 const St = imports.gi.St;
 const Mainloop = imports.mainloop;
 const GLib = imports.gi.GLib;
@@ -176,8 +177,11 @@ const NetSpeedStatusIcon = new Lang.Class({
 	updateui : function() {
 		// Set the size of labels
 		this._sum.set_width(this._net_speed.label_size);
+		this._sumunit.set_width(this._net_speed.unit_label_size);
 		this._up.set_width(this._net_speed.label_size);
+		this._upunit.set_width(this._net_speed.unit_label_size);
 		this._down.set_width(this._net_speed.label_size);
+		this._downunit.set_width(this._net_speed.unit_label_size);
 
 		// Show up + down or sum
 		if (this._net_speed.showsum == false) {
@@ -283,6 +287,8 @@ const NetSpeedStatusIcon = new Lang.Class({
 	 * NetSpeedStatusIcon: create_menu
 	 */
 	create_menu: function(devices, types) {
+		for (let i = 0; i < this._layouts.length; ++i)
+			this._layouts[i].destroy();
 		this._layouts = new Array();
 		for (let i = 0; i < devices.length; ++i) {
 			let icon = this._get_icon(types[i]);
@@ -498,6 +504,7 @@ const NetSpeed = new Lang.Class({
 		this.device = this._setting.get_string('device');
 		this.timer = this._setting.get_int('timer');
 		this.label_size = this._setting.get_int('label-size');
+		this.unit_label_size = this._setting.get_int('unit-label-size');
 		this.menu_label_size = this._setting.get_int('menu-label-size');
 	},
 
