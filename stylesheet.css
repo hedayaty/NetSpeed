@@ -1,13 +1,11 @@
 /* Example stylesheet */
 .ns-label {
-/*    color: #bbb; */
 	text-align: right;
 }
 
 .ns-unit-label {
-/*    color: #aaa; */
 	font-size: 65%;
-	padding: 6px 2px 0px 0px;
+	padding: 5px 2px 0px 0px;
 }
 
 .ns-menuitem {
