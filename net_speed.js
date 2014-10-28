@@ -27,7 +27,7 @@ const NMC = imports.gi.NMClient;
 const Panel = Main.panel
 
 const _ = Gettext.gettext;
-const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon.NetSpeedStatusIcon;
+const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
 /**
  * Class NetSpeed
  * The extension
@@ -267,7 +267,7 @@ const NetSpeed = new Lang.Class({
 	this._saving = 0;
 	this._load();
 
-	this._status_icon = new NetSpeedStatusIcon(this);
+	this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
 	this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
 	this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
 	Panel.addToStatusArea('netspeed', this._status_icon, 0);

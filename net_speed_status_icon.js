@@ -24,7 +24,7 @@ const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
 const _ = Gettext.gettext;
-const LayoutMenuItem = Extension.imports.layout_menu_item.LayoutMenuItem;
+const LayoutMenuItem = Extension.imports.layout_menu_item;
 
 /**
  * Class NetSpeedStatusIcon
@@ -79,7 +79,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 		prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
 	});
 
-	this._menu_title = new LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
+	this._menu_title = new LayoutMenuItem.LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
 	this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
 	this._menu_title.update_speeds(_("Up"), _("Down"));
 	this.menu.addMenuItem(this._menu_title);
@@ -234,7 +234,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 	this._layouts = new Array();
 	for (let i = 0; i < devices.length; ++i) {
 	    let icon = this._get_icon(types[i]);
-	    let layout = new LayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
+	    let layout = new LayoutMenuItem.LayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
 	    layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
 	    this._layouts.push(layout);
 	    this.menu.addMenuItem(layout);

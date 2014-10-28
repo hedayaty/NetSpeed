@@ -15,32 +15,15 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-const St = imports.gi.St;
-const Mainloop = imports.mainloop;
-const GLib = imports.gi.GLib;
-const Lang = imports.lang;
-const Gio = imports.gi.Gio;
-const Shell = imports.gi.Shell;
-const Main = imports.ui.main;
-const Panel = Main.panel
-const PanelMenu = imports.ui.panelMenu;
-const PopupMenu = imports.ui.popupMenu;
-const NMC = imports.gi.NMClient;
-const NetworkManager = imports.gi.NetworkManager;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const Util = imports.misc.util;
-const Gettext = imports.gettext;
-const _ = Gettext.gettext;
-
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const NetSpeed = Extension.imports.net_speed.NetSpeed;
+const NetSpeed = Extension.imports.net_speed;
 
 /**
  * init
  * run when gnome-shell loads
  */
 function init() {
-    return new NetSpeed();
+    return new NetSpeed.NetSpeed();
 }
 
 
