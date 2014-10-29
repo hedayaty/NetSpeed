@@ -61,9 +61,9 @@ const LayoutMenuItem = new Lang.Class({
      * LayoutMenuItem: update_speeds
      * update speeds
      */
-    update_speeds: function(up, down) {
-	this._down_label.set_text(down);
-	this._up_label.set_text(up);
+    update_speeds: function(speed) {
+	this._down_label.set_text(speed.down);
+	this._up_label.set_text(speed.up);
     },
 });
 

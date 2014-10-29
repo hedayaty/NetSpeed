@@ -180,10 +180,10 @@ const NetSpeed = new Lang.Class({
 		// Avoid negetive speed in case of device going down, when device goes down,
 		if (_up < 0 )_up = 0;
 		if (_down < 0) _down = 0;
-		this._speeds.push([
-		    this._speed_to_string(_up / delta, this.digits).join(""), // Upload
-		    this._speed_to_string(_down / delta, this.digits).join("") // Download
-		]);
+		this._speeds.push({
+		    up: this._speed_to_string(_up / delta, this.digits).join(""),
+		    down: this._speed_to_string(_down / delta, this.digits).join("")
+		});
 		total += _down + _up;
 		up += _up;
 		down += _down;

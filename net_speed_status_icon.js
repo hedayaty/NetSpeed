@@ -81,7 +81,7 @@ const NetSpeedStatusIcon = new Lang.Class({
 
 	this._menu_title = new LayoutMenuItem.LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
 	this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
-	this._menu_title.update_speeds(_("Up"), _("Down"));
+	this._menu_title.update_speeds({ up: _("Up"), down: _("Down")});
 	this.menu.addMenuItem(this._menu_title);
 	this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
 	this._layouts = new Array();
@@ -246,7 +246,7 @@ const NetSpeedStatusIcon = new Lang.Class({
      */
     update_speeds : function(speeds) {
 	for (let i = 0; i < speeds.length; ++i) {
-	    this._layouts[i].update_speeds(speeds[i][0], speeds[i][1]);
+	    this._layouts[i].update_speeds(speeds[i]);
 	}
     },
 
