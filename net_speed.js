@@ -93,12 +93,12 @@ const NetSpeed = new Lang.Class({
      */
     _speed_to_string: function(amount, digits) {
 	if (amount == 0)
-	    return ["0", "B/s"];
+	    return { text: "0", unit: _("B/s") };
 	if (digits < 3)
 	    digits = 3;
 	amount *= 1000;
 	let unit = 0;
-	while (amount >= 1000) { // 1M=1024K, 1MB/s=1000MB/s
+	while (amount >= 1000 && unit < 3) { // 1M=1024K, 1MB/s=1000MB/s
 	    amount /= 1000;
 	    ++unit;
 	}
@@ -108,7 +108,10 @@ const NetSpeed = new Lang.Class({
 	else if (amount >= 10)
 	    digits -= 1;
 	let speed_map = [_("B/s"), _("KB/s"), _("MB/s"), _("GB/s")];
-	return [amount.toFixed(digits - 1), speed_map[unit]];
+	return {
+	    text: amount.toFixed(digits - 1),
+	    unit: speed_map[unit]
+	};
     },
 
 
@@ -143,8 +146,8 @@ const NetSpeed = new Lang.Class({
 	let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
 	let nlines = ("" + flines[1]).split("\n"); // Break to lines
 
-	let up=0; // set initial
-	let down=0;
+	let up = 0; // set initial
+	let down = 0;
 	this._oldvalues = this._values;
 	this._values = new Array();
 	this._speeds = new Array();
@@ -169,21 +172,27 @@ const NetSpeed = new Lang.Class({
 	var total = 0;
 	var up = 0;
 	var down = 0;
-	let total_speed = [];
-	let up_speed = [];
-	let down_speed = [];
+	var total_speed = null;
+	var up_speed = null;
+	var down_speed = null;
 	if (this._check_devices() == 1)	{
 	    for (let i = 0; i < this._values.length; ++i) {
 		let _up = this._values[i][0] - this._oldvalues[i][0];
 		let _down = this._values[i][1] - this._oldvalues[i][1];
 
 		// Avoid negetive speed in case of device going down, when device goes down,
-		if (_up < 0 )_up = 0;
-		if (_down < 0) _down = 0;
+		if (_up < 0 )
+		    _up = 0;
+		if (_down < 0)
+		    _down = 0;
+
+		let _up_speed = this._speed_to_string(_up / delta, this.digits);
+		let _down_speed = this._speed_to_string(_down / delta, this.digits);
 		this._speeds.push({
-		    up: this._speed_to_string(_up / delta, this.digits).join(""),
-		    down: this._speed_to_string(_down / delta, this.digits).join("")
+		    up: _up_speed.text + _up_speed.unit,
+		    down: _down_speed.text + _down_speed.unit
 		});
+
 		total += _down + _up;
 		up += _up;
 		down += _down;
@@ -193,12 +202,12 @@ const NetSpeed = new Lang.Class({
 		    down_speed = this._speed_to_string(_down / delta, this.digits);
 		}
 	    }
-	    if (total_speed.length == 0) {
+	    if (total_speed == null) {
 		total_speed = this._speed_to_string(total / delta, this.digits);
 		up_speed = this._speed_to_string(up / delta, this.digits);
 		down_speed = this._speed_to_string(down / delta, this.digits);
 	    }
-	    
+
 	    this._set_labels(total_speed, up_speed, down_speed);
 	    this._update_speeds();
 	} else
