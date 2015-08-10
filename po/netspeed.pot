@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-20 21:28-0700\n"
+"POT-Creation-Date: 2015-07-26 11:27-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,66 +17,70 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:140
-msgid "Device"
-msgstr ""
-
-#: extension.js:142
-msgid "Up"
-msgstr ""
-
-#: extension.js:142
-msgid "Down"
-msgstr ""
-
-#: extension.js:394
-msgid "B/s"
-msgstr ""
-
-#: extension.js:394
-msgid "KB/s"
-msgstr ""
-
-#: extension.js:394
-msgid "MB/s"
-msgstr ""
-
-#: extension.js:394
-msgid "GB/s"
-msgstr ""
-
-#: prefs.js:34
+#: prefs.js:53
 msgid "ALL"
 msgstr ""
 
-#: prefs.js:108
+#: prefs.js:57
+msgid "Default Gateway"
+msgstr ""
+
+#: prefs.js:146
 msgid "Device to monitor"
 msgstr ""
 
-#: prefs.js:109
+#: prefs.js:147
 msgid "Timer (milisec)"
 msgstr ""
 
-#: prefs.js:110
+#: prefs.js:148
 msgid "Digits"
 msgstr ""
 
-#: prefs.js:111
+#: prefs.js:149
 msgid "Label Size"
 msgstr ""
 
-#: prefs.js:112
+#: prefs.js:150
 msgid "Unit Label Size"
 msgstr ""
 
-#: prefs.js:113
+#: prefs.js:151
 msgid "Menu Label Size"
 msgstr ""
 
-#: prefs.js:117
+#: prefs.js:155
 msgid "Show sum(UP+Down)"
 msgstr ""
 
-#: prefs.js:118
+#: prefs.js:156
 msgid "Show the Icon"
+msgstr ""
+
+#: net_speed.js:94 net_speed.js:108
+msgid "B/s"
+msgstr ""
+
+#: net_speed.js:108
+msgid "KB/s"
+msgstr ""
+
+#: net_speed.js:108
+msgid "MB/s"
+msgstr ""
+
+#: net_speed.js:108
+msgid "GB/s"
+msgstr ""
+
+#: net_speed_status_icon.js:86
+msgid "Device"
+msgstr ""
+
+#: net_speed_status_icon.js:88
+msgid "Up"
+msgstr ""
+
+#: net_speed_status_icon.js:88
+msgid "Down"
 msgstr ""

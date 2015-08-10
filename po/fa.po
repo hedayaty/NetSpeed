@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-20 20:56-0700\n"
+"POT-Creation-Date: 2015-07-26 11:27-0700\n"
 "PO-Revision-Date: 2014-05-25 19:38-0700\n"
 "Last-Translator: Amir Hedayaty <hedayaty@gmail.com>\n"
 "Language-Team: Persian\n"
@@ -16,66 +16,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:140
-msgid "Device"
-msgstr "تجهیزات"
-
-#: extension.js:142
-msgid "Up"
-msgstr "ارسال"
-
-#: extension.js:142
-msgid "Down"
-msgstr "دریافت"
-
-#: extension.js:394
-msgid "B/s"
-msgstr "B/s"
-
-#: extension.js:394
-msgid "KB/s"
-msgstr "KB/s"
-
-#: extension.js:394
-msgid "MB/s"
-msgstr "MB/s"
-
-#: extension.js:394
-msgid "GB/s"
-msgstr "GB/s"
-
-#: prefs.js:34
+#: prefs.js:53
 msgid "ALL"
 msgstr "همه"
 
-#: prefs.js:108
+#: prefs.js:57
+msgid "Default Gateway"
+msgstr ""
+
+#: prefs.js:146
 msgid "Device to monitor"
 msgstr "تجهیزات تحت نظارت"
 
-#: prefs.js:109
+#: prefs.js:147
 msgid "Timer (milisec)"
 msgstr "زمان‌سنج)بر حسب میلی‌ثانیه("
 
-#: prefs.js:110
+#: prefs.js:148
 msgid "Digits"
 msgstr "تعداد رقم‌ها"
 
-#: prefs.js:111
+#: prefs.js:149
 msgid "Label Size"
 msgstr "اندازه برچسب‌ها"
 
-#: prefs.js:112
+#: prefs.js:150
 msgid "Unit Label Size"
 msgstr "اندازه واحدها در منو"
 
-#: prefs.js:113
+#: prefs.js:151
 msgid "Menu Label Size"
 msgstr "اندازه برچسب‌ها در منو"
 
-#: prefs.js:117
+#: prefs.js:155
 msgid "Show sum(UP+Down)"
 msgstr "نمایش مجموع)دریافت و ارسال("
 
-#: prefs.js:118
+#: prefs.js:156
 msgid "Show the Icon"
 msgstr "نمایش نمایه"
+
+#: net_speed.js:94 net_speed.js:108
+msgid "B/s"
+msgstr "B/s"
+
+#: net_speed.js:108
+msgid "KB/s"
+msgstr "KB/s"
+
+#: net_speed.js:108
+msgid "MB/s"
+msgstr "MB/s"
+
+#: net_speed.js:108
+msgid "GB/s"
+msgstr "GB/s"
+
+#: net_speed_status_icon.js:86
+msgid "Device"
+msgstr "تجهیزات"
+
+#: net_speed_status_icon.js:88
+msgid "Up"
+msgstr "ارسال"
+
+#: net_speed_status_icon.js:88
+msgid "Down"
+msgstr "دریافت"
