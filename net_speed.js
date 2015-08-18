@@ -15,9 +15,17 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
+
+const GLib = imports.gi.GLib;
+const Mainloop = imports.mainloop;
+const Panel = imports.ui.main.panel;
+
+const NMC = imports.gi.NMClient;
+const NetworkManager = imports.gi.NetworkManager;
 
 const _ = Gettext.gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
@@ -153,18 +161,18 @@ const NetSpeed = new Lang.Class(
             if (params.length != 11) // ignore empty lines
                 continue;
             // So store up/down values
-            if (params[1] == "00000000") {}
+            if (params[1] == "00000000") {
                 this._getDefaultGw = params[0];
             }
         }
-    }
+    },
 
     /**
      * NetSpeed: _update
      */
     _update : function()
     {
-        _updateDefaultGw();
+        this._updateDefaultGw();
         let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
         let nlines = ("" + flines[1]).split("\n"); // Break to lines
 
@@ -334,7 +342,7 @@ const NetSpeed = new Lang.Class(
         } else {
             return this._device;
         }
-    }
+    },
 
     setDevice: function(device)
     {
