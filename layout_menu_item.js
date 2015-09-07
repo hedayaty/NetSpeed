@@ -33,24 +33,24 @@ const LayoutMenuItem = new Lang.Class(
      */
     _init: function(device, icon, menu_label_size)
     {
-	      this.parent();
-	      this.device = device;
-	      this._icon = icon;
-	      this._device_title = new St.Label(
-            { text: device
-            , style_class : "ns-menuitem"
-            }
-        );
-	      this._down_label = new St.Label({ text: "", style_class : "ns-menuitem"});
-	      this._up_label = new St.Label({text: "", style_class: "ns-menuitem"});
-	      if (this._icon != null)
-	          this.actor.add(this._icon);
-	      else
-	          this.actor.add(new St.Label());
-	      this.actor.add(this._device_title);
-	      this.actor.add(this._down_label);
-	      this.actor.add(this._up_label);
-	      this.update_ui(menu_label_size);
+        this.parent();
+        this.device = device;
+        this._icon = icon;
+        this._device_title = new St.Label(
+                { text: device
+                , style_class : "ns-menuitem"
+                }
+                );
+       this._down_label = new St.Label({ text: "", style_class : "ns-menuitem"});
+       this._up_label = new St.Label({text: "", style_class: "ns-menuitem"});
+       if (this._icon != null)
+           this.actor.add(this._icon);
+       else
+           this.actor.add(new St.Label());
+       this.actor.add(this._device_title);
+       this.actor.add(this._down_label);
+       this.actor.add(this._up_label);
+       this.update_ui(menu_label_size);
     },
 
     /**
@@ -59,9 +59,9 @@ const LayoutMenuItem = new Lang.Class(
      */
     update_ui: function(menu_label_size)
     {
-	      this._down_label.set_width(menu_label_size);
-	      this._up_label.set_width(menu_label_size);
-	      this._device_title.set_width(menu_label_size);
+        this._down_label.set_width(menu_label_size);
+        this._up_label.set_width(menu_label_size);
+        this._device_title.set_width(menu_label_size);
     },
 
     /**
@@ -70,7 +70,7 @@ const LayoutMenuItem = new Lang.Class(
      */
     update_speeds: function(speed)
     {
-	      this._down_label.set_text(speed.down);
-	      this._up_label.set_text(speed.up);
+        this._down_label.set_text(speed.down);
+        this._up_label.set_text(speed.up);
      },
 });

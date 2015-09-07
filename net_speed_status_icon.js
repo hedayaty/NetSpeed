@@ -45,7 +45,7 @@ const NetSpeedStatusIcon = new Lang.Class(
         this.parent(0.0);
         this._box = new St.BoxLayout();
         this._icon_box = new St.BoxLayout();
-        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice));
+        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
         this._upicon = this._get_icon("up");
         this._downicon = this._get_icon("down");
         this._sum = new St.Label({ text: "---", style_class: 'ns-label'});
@@ -97,7 +97,7 @@ const NetSpeedStatusIcon = new Lang.Class(
      */
      _change_device : function(param1, param2, device)
     {
-        this._net_speed.setDevice = device;
+        this._net_speed.setDevice(device);
         this.updateui();
         this._net_speed.save();
     },
@@ -153,8 +153,9 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         // Change the type of Icon
         this._icon.destroy();
-        device = this._net_speed.getDevice;
-        this._icon = this._get_icon(this._net_speed.get_device_type);
+        device = this._net_speed.getDevice();
+	log("Device -> " + device);
+        this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
         // Show icon or not
         if (this._net_speed.use_icon)

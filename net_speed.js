@@ -46,6 +46,7 @@ const NetSpeed = new Lang.Class(
         let localeDir = Extension.dir.get_child('locale');
         if (localeDir.query_exists(null))
             Gettext.bindtextdomain('netspeed', localeDir.get_path());
+        this._updateDefaultGw();
     },
 
     /**
@@ -149,20 +150,20 @@ const NetSpeed = new Lang.Class(
     },
 
     /**
-     * NetSpeed: _getDefaultGw
+     * NetSpeed: _updateDefaultGw
      */
     _updateDefaultGw : function()
     {
         let flines = GLib.file_get_contents('/proc/net/route'); // Read the file
         let nlines = ("" + flines[1]).split("\n"); // Break to lines
         for(let i = 0; i < nlines.length - 1 ; ++i) { //first 2 lines are for header
-            let line = nlines[i].replace(/ +/g, " ").replace(/^ */g, "");
-            let params = line.split(" ");
+            let line = nlines[i].replace(/^ */g, "");
+            let params = line.split("\t");
             if (params.length != 11) // ignore empty lines
                 continue;
             // So store up/down values
             if (params[1] == "00000000") {
-                this._getDefaultGw = params[0];
+                this._defaultGw = params[0];
             }
         }
     },
@@ -226,7 +227,7 @@ const NetSpeed = new Lang.Class(
                 total += _down + _up;
                 up += _up;
                 down += _down;
-                if (this.getDevice == this._devices[i]) {
+                if (this.getDevice() == this._devices[i]) {
                     total_speed = this._speed_to_string((_up + _down) / delta, this.digits);
                     up_speed = this._speed_to_string(_up / delta, this.digits);
                     down_speed = this._speed_to_string(_down / delta, this.digits);
@@ -338,7 +339,7 @@ const NetSpeed = new Lang.Class(
     getDevice: function()
     {
         if (this._device == "defaultGW") {
-            return this._getDefaultGw;
+            return this._defaultGw;
         } else {
             return this._device;
         }
