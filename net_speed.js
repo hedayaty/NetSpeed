@@ -255,6 +255,7 @@ const NetSpeed = new Lang.Class(
         if (this._saving == 1) {
             return;
         }
+        this.compact_view = this._setting.get_boolean('compact-view');
         this.showsum = this._setting.get_boolean('show-sum');
         this.use_icon = this._setting.get_boolean('icon-display');
         this.digits = this._setting.get_int('digits');
