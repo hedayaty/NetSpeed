@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Dingzhong Chen <wsxy162@gmail.com>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-02-20 20:43+0800\n"
+"PO-Revision-Date: 2016-02-20 20:55+0800\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_TW\n"
+
+#: prefs.js:53
+msgid "ALL"
+msgstr "全部"
+
+#: prefs.js:57
+msgid "Default Gateway"
+msgstr "默認網關"
+
+#: prefs.js:146
+msgid "Device to monitor"
+msgstr "監控的設備"
+
+#: prefs.js:147
+msgid "Timer (milisec)"
+msgstr "定時(毫秒)"
+
+#: prefs.js:148
+msgid "Digits"
+msgstr "位數"
+
+#: prefs.js:149
+msgid "Label Size"
+msgstr "標籤大小"
+
+#: prefs.js:150
+msgid "Unit Label Size"
+msgstr "單位標籤大小"
+
+#: prefs.js:151
+msgid "Menu Label Size"
+msgstr "菜單標籤大小"
+
+#: prefs.js:155
+msgid "Show sum(UP+Down)"
+msgstr "顯示總和(上傳+下載)"
+
+#: prefs.js:156
+msgid "Show the Icon"
+msgstr "顯示圖標"
+
+#: net_speed.js:94 net_speed.js:108
+msgid "B/s"
+msgstr "B/s"
+
+#: net_speed.js:108
+msgid "KB/s"
+msgstr "KB/s"
+
+#: net_speed.js:108
+msgid "MB/s"
+msgstr "MB/s"
+
+#: net_speed.js:108
+msgid "GB/s"
+msgstr "GB/s"
+
+#: net_speed_status_icon.js:86
+msgid "Device"
+msgstr "設備"
+
+#: net_speed_status_icon.js:88
+msgid "Up"
+msgstr "上傳"
+
+#: net_speed_status_icon.js:88
+msgid "Down"
+msgstr "下載"
