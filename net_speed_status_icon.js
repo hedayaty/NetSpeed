@@ -22,6 +22,7 @@ const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
+const Clutter = imports.gi.Clutter;
 
 const _ = Gettext.gettext;
 const LayoutMenuItem = Extension.imports.layout_menu_item;
@@ -48,12 +49,12 @@ const NetSpeedStatusIcon = new Lang.Class(
         this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
         this._upicon = this._get_icon("up");
         this._downicon = this._get_icon("down");
-        this._sum = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
-        this._up = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
-        this._down = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
+        this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._up = new St.Label({ text: "---", style_class: 'ns-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._down = new St.Label({ text: "---", style_class: 'ns-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_expand: true, y_align: Clutter.ActorAlign.CENTER});
 
         this._box.add_actor(this._sum);
         this._box.add_actor(this._sumunit);
