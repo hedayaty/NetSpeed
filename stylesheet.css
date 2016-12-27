@@ -1,6 +1,7 @@
 /* Example stylesheet */
 .ns-label {
 	text-align: right;
+	padding-top: 3px;
 }
 
 .ns-unit-label {
