@@ -201,8 +201,6 @@ const NetSpeed = new Lang.Class(
         }
 
         var total = 0;
-        var up = 0;
-        var down = 0;
         var total_speed = null;
         var up_speed = null;
         var down_speed = null;
