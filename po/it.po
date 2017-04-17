@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-26 11:27-0700\n"
-"PO-Revision-Date: 2014-06-04 13:43+0200\n"
-"Last-Translator: Alessio Ciregia <alciregi@gmail.com>\n"
+"PO-Revision-Date: 2017-04-17 15:58+0200\n"
+"Last-Translator: Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: prefs.js:53
 msgid "ALL"
@@ -23,7 +24,7 @@ msgstr "TUTTE"
 
 #: prefs.js:57
 msgid "Default Gateway"
-msgstr ""
+msgstr "Gateway di default"
 
 #: prefs.js:146
 msgid "Device to monitor"
@@ -31,7 +32,7 @@ msgstr "Interfaccia da monitorare"
 
 #: prefs.js:147
 msgid "Timer (milisec)"
-msgstr "Intervallo di visualizzazione (millisecondi)"
+msgstr "Timer (millisecondi)"
 
 #: prefs.js:148
 msgid "Digits"
@@ -42,13 +43,12 @@ msgid "Label Size"
 msgstr "Dimensioni dell'etichetta"
 
 #: prefs.js:150
-#, fuzzy
 msgid "Unit Label Size"
-msgstr "Dimensioni del menu"
+msgstr "Unità dimensioni dell'etichetta"
 
 #: prefs.js:151
 msgid "Menu Label Size"
-msgstr "Dimensioni del menu"
+msgstr "Dimensioni dell'etichetta menu"
 
 #: prefs.js:155
 msgid "Show sum(UP+Down)"
