@@ -177,8 +177,6 @@ const NetSpeed = new Lang.Class(
         let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
         let nlines = ("" + flines[1]).split("\n"); // Break to lines
 
-        let up = 0; // set initial
-        let down = 0;
         this._oldvalues = this._values;
         this._values = new Array();
         this._speeds = new Array();
@@ -200,12 +198,12 @@ const NetSpeed = new Lang.Class(
             this._devices.push(params[0].replace(":",""));
         }
 
-        var total = 0;
-        var up = 0;
-        var down = 0;
-        var total_speed = null;
-        var up_speed = null;
-        var down_speed = null;
+        let total = 0;
+        let up = 0;
+        let down = 0;
+        let total_speed = null;
+        let up_speed = null;
+        let down_speed = null;
         if (this._check_devices() == 1)	{
             for (let i = 0; i < this._values.length; ++i) {
                 let _up = this._values[i][0] - this._oldvalues[i][0];
