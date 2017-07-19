@@ -27,8 +27,10 @@ const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 const _ = Gettext.domain('netspeed').gettext;
 
-let schemaDir = Extension.dir.get_child('schemas').get_path();
-let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);
+let schemaDir = Extension.dir.get_child('schemas');
+let schemaSource = schemaDir.query_exists(null)?
+                    Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false):
+                    Gio.SettingsSchemaSource.get_default();
 let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
 let Schema = new Gio.Settings({ settings_schema: schema });
 
