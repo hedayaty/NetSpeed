@@ -27,7 +27,7 @@ const Panel = imports.ui.main.panel;
 const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
 
-const _ = Gettext.gettext;
+const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
 /**
  * Class NetSpeed

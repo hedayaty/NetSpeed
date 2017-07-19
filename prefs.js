@@ -25,7 +25,7 @@ const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
 const NMC = imports.gi.NMClient;
 const NetworkManager = imports.gi.NetworkManager;
-const _ = Gettext.gettext;
+const _ = Gettext.domain('netspeed').gettext;
 
 let schemaDir = Extension.dir.get_child('schemas').get_path();
 let schemaSource = Gio.SettingsSchemaSource.new_from_directory(schemaDir, Gio.SettingsSchemaSource.get_default(), false);

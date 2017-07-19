@@ -23,7 +23,7 @@ const PopupMenu = imports.ui.popupMenu;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
-const _ = Gettext.gettext;
+const _ = Gettext.domain('netspeed').gettext;
 const LayoutMenuItem = Extension.imports.layout_menu_item;
 
 /**
