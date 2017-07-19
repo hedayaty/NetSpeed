@@ -46,17 +46,22 @@ const NetSpeedStatusIcon = new Lang.Class(
         this._box = new St.BoxLayout();
         this._icon_box = new St.BoxLayout();
         this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
+
+        //compact view
+        this._speedicons = new St.Label({text: "⬆\n⬇", style_class: "ns-icons-label-compact"});
+        this._speed = new St.Label({text: "---", style_class: "ns-label-compact"});
+        this._speedunit = new St.Label({text: "", style_class: "ns-unit-label-compact"});
+        this._box.add_actor(this._speedicons);
+        this._box.add_actor(this._speed);
+        this._box.add_actor(this._speedunit);
+
+        //default view
         this._upicon = this._get_icon("up");
         this._downicon = this._get_icon("down");
-        this._sum = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
-        this._up = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
-        this._down = new St.Label({ text: "---", style_class: 'ns-label'});
-        this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label'});
-
-        this._box.add_actor(this._sum);
-        this._box.add_actor(this._sumunit);
+        this._up = new St.Label({text: "---", style_class: 'ns-label'});
+        this._upunit = new St.Label({text: "", style_class: 'ns-unit-label'});
+        this._down = new St.Label({text: "---", style_class: 'ns-label'});
+        this._downunit = new St.Label({text: "", style_class: 'ns-unit-label'});
 
         this._box.add_actor(this._down);
         this._box.add_actor(this._downunit);
@@ -65,6 +70,13 @@ const NetSpeedStatusIcon = new Lang.Class(
         this._box.add_actor(this._up);
         this._box.add_actor(this._upunit);
         this._box.add_actor(this._upicon);
+
+        //sum view
+        this._sum = new St.Label({text: "---", style_class: 'ns-label-sum'});
+        this._sumunit = new St.Label({text: "", style_class: 'ns-unit-label-sum'});
+
+        this._box.add_actor(this._sum);
+        this._box.add_actor(this._sumunit);
         this._box.add_actor(this._icon_box);
         this._icon_box.add_actor(this._icon);
         this.actor.add_actor(this._box);
@@ -125,6 +137,10 @@ const NetSpeedStatusIcon = new Lang.Class(
         // Set the size of labels
         this._sum.set_width(this._net_speed.label_size);
         this._sumunit.set_width(this._net_speed.unit_label_size);
+
+        this._speed.set_width(this._net_speed.label_size);
+        this._speedunit.set_width(this._net_speed.label_size);
+
         this._up.set_width(this._net_speed.label_size);
         this._upunit.set_width(this._net_speed.unit_label_size);
         this._down.set_width(this._net_speed.label_size);
@@ -134,15 +150,38 @@ const NetSpeedStatusIcon = new Lang.Class(
         if (this._net_speed.showsum == false) {
             this._sum.hide();
             this._sumunit.hide();
-            this._upicon.show();
-            this._up.show();
-            this._upunit.show();
-            this._downicon.show();
-            this._down.show();
-            this._downunit.show();
+
+            if (this._net_speed.compact_view) {
+                this._speedicons.show();
+                this._speed.show();
+                this._speedunit.show();
+
+                this._upicon.hide();
+                this._up.hide();
+                this._upunit.hide();
+                this._downicon.hide();
+                this._down.hide();
+                this._downunit.hide();
+            } else {
+                this._speedicons.hide();
+                this._speed.hide();
+                this._speedunit.hide();
+
+                this._upicon.show();
+                this._up.show();
+                this._upunit.show();
+                this._downicon.show();
+                this._down.show();
+                this._downunit.show();
+            }
         } else {
             this._sum.show();
             this._sumunit.show();
+
+            this._speedicons.hide();
+            this._speed.hide();
+            this._speedunit.hide();
+
             this._upicon.hide();
             this._up.hide();
             this._upunit.hide();
@@ -154,7 +193,7 @@ const NetSpeedStatusIcon = new Lang.Class(
         // Change the type of Icon
         this._icon.destroy();
         device = this._net_speed.getDevice();
-	log("Device -> " + device);
+	    log("Device -> " + device);
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
         // Show icon or not
@@ -231,6 +270,9 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         this._down.set_text(down.text);
         this._downunit.set_text(down.unit);
+
+        this._speed.set_text(up.text + '\n' + down.text);
+        this._speedunit.set_text(up.unit + '\n' + down.unit);
     },
 
     /**

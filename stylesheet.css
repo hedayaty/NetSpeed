@@ -1,12 +1,35 @@
 /* Example stylesheet */
-.ns-label {
+.ns-label,
+.ns-label-compact,
+.ns-icons-label-compact,
+.ns-label-sum {
 	text-align: right;
 }
 
-.ns-unit-label {
-	font-size: 65%;
-	padding: 5px 2px 0px 0px;
+.ns-label-compact,
+.ns-icons-label-compact {
+	font-size: 70%;
 }
+
+.ns-label-compact {
+    padding-top: 2px;
+}
+
+.ns-unit-label,
+.ns-unit-label-compact,
+.ns-unit-label-sum {
+	font-size: 65%;
+}
+
+.ns-unit-label,
+.ns-unit-label-sum {
+	padding: 5px 2px 0px px;
+}
+
+.ns-unit-label-compact {
+	padding: 2px 0px 0px 1px;
+}
+
 
 .ns-menuitem {
 }

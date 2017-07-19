@@ -144,16 +144,17 @@ const App = new Lang.Class(
 
     _init: function()
     {
-        this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
+        this.main = new Gtk.Grid({row_spacing: 11, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
         this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 7, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 5, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 6, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 7, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 8, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 9, 1, 1);
 
         //	this.dev = new Gtk.Entry();
         this.dev = this._get_dev_combo();
+        this.compact_view = new Gtk.CheckButton({ label: _("Compact view") });
         this.sum = new Gtk.CheckButton({ label: _("Show sum(UP+Down)") });
         this.icon = new Gtk.CheckButton({ label: _("Show the Icon") });
         this.timer = new Gtk.SpinButton({
@@ -192,14 +193,16 @@ const App = new Lang.Class(
             })
         });
         this.main.attach(this.dev, 2, 1, 1, 1);
-        this.main.attach(this.sum, 1, 2, 2, 1);
-        this.main.attach(this.icon, 1, 3, 2, 1);
-        this.main.attach(this.timer, 2, 4, 1, 1);
-        this.main.attach(this.digits, 2, 5, 1, 1);
-        this.main.attach(this.label_size, 2, 6, 1, 1);
-        this.main.attach(this.unit_label_size, 2, 7, 1, 1);
-        this.main.attach(this.menu_label_size, 2, 8, 1, 1);
+        this.main.attach(this.compact_view, 1, 2, 2, 1);
+        this.main.attach(this.sum, 1, 3, 2, 1);
+        this.main.attach(this.icon, 1, 4, 2, 1);
+        this.main.attach(this.timer, 2, 5, 1, 1);
+        this.main.attach(this.digits, 2, 6, 1, 1);
+        this.main.attach(this.label_size, 2, 7, 1, 1);
+        this.main.attach(this.unit_label_size, 2, 8, 1, 1);
+        this.main.attach(this.menu_label_size, 2, 9, 1, 1);
 
+        Schema.bind('compact-view', this.compact_view, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);

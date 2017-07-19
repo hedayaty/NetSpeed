@@ -1,5 +1,10 @@
 <schemalist gettext-domain="gnome-shell-extensions">
   <schema id="org.gnome.shell.extensions.netspeed" path="/org/gnome/shell/extensions/netspeed/">
+    <key name="compact-view" type="b">
+        <default>false</default>
+        <summary>Compact view</summary>
+        <description>Compact view</description>
+    </key>
     <key name="icon-display" type="b">
       <default>false</default>
       <summary>Display icon</summary>
