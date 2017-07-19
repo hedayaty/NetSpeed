@@ -3,7 +3,7 @@ PACKAGE=netspeed
 GETTEXT_PACKAGE = $(PACKAGE)
 UUID = netspeed@hedayaty.gmail.com
 
-LANGUAGES=de fa en_CA it fr
+LANGUAGES=de fa en_CA it fr pt_BR zh_CN zh_TW
 DOC_FILES=CHANGELOG README
 SRC_FILES=extension.js prefs.js layout_menu_item.js net_speed.js net_speed_status_icon.js
 MO_FILES=$(foreach LANGUAGE, $(LANGUAGES), locale/$(LANGUAGE)/LC_MESSAGES/$(GETTEXT_PACKAGE).mo)
