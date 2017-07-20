@@ -1,6 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Translation to Chinese, Simplified
+# Copyright (C) 2016
+# This file is distributed under the same license as the netspeed package.
 # Dingzhong Chen <wsxy162@gmail.com>, 2016.
 #
 msgid ""
