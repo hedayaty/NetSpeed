@@ -15,6 +15,10 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+/* Ugly. This is here so that we don't crash old libnm-glib based shells unnecessarily
+ * by loading the new libnm.so. Should go away eventually */
+const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
+
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
@@ -23,8 +27,8 @@ const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
-const NMC = imports.gi.NMClient;
-const NetworkManager = imports.gi.NetworkManager;
+const NMC = libnm_glib ? imports.gi.NMClient : imports.gi.NM;
+const NM = libnm_glib ? imports.gi.NetworkManager : NMC;
 const _ = Gettext.domain('netspeed').gettext;
 
 let schemaDir = Extension.dir.get_child('schemas').get_path();
@@ -59,28 +63,28 @@ const App = new Lang.Class(
         listStore.set (defaultGw, [0], [_("Default Gateway")]);
         listStore.set (defaultGw, [1], ["gtk-network"]);
 
-        let nmc = NMC.Client.new();
+        let nmc = libnm_glib ? NMC.Client.new() : NMC.Client.new(null);
         this._devices = nmc.get_devices() || [ ];
 
         for each (let dev in this._devices) {
             let iconname;
             switch (dev.device_type) {
-                case NetworkManager.DeviceType.ETHERNET:
+                case NM.DeviceType.ETHERNET:
                     iconname = "network-wired-symbolic";
                     break;
-                case NetworkManager.DeviceType.WIFI:
+                case NM.DeviceType.WIFI:
                     iconname = "network-wireless-signal-excellent-symbolic";
                     break;
-                case NetworkManager.DeviceType.BT:
+                case NM.DeviceType.BT:
                     iconname = "bluetooth-active-symbolic";
                     break;
-                case NetworkManager.DeviceType.OLPC_MESH:
+                case NM.DeviceType.OLPC_MESH:
                     iconname = "network-wired-symbolic";
                     break;
-                case NetworkManager.DeviceType.WIMAX:
+                case NM.DeviceType.WIMAX:
                     iconname = "network-wirelss-signal-excellent-symbolic"; // Same for wifi
                     break;
-                case NetworkManager.DeviceType.MODEM:
+                case NM.DeviceType.MODEM:
                     iconname = "gnome-transmit-symbolic";
                     break;
                 default:
