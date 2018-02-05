@@ -15,6 +15,10 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+/* Ugly. This is here so that we don't crash old libnm-glib based shells unnecessarily
+ * by loading the new libnm.so. Should go away eventually */
+const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
+
 const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
@@ -24,8 +28,8 @@ const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
 const Panel = imports.ui.main.panel;
 
-const NMC = imports.gi.NMClient;
-const NetworkManager = imports.gi.NetworkManager;
+const NMC = libnm_glib ? imports.gi.NMClient : imports.gi.NM;
+const NetworkManager = libnm_glib ? imports.gi.NetworkManager : NMC;
 
 const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
@@ -298,7 +302,7 @@ const NetSpeed = new Lang.Class(
 
         this._values = new Array();
         this._devices = new Array();
-        this._client = NMC.Client.new();
+        this._client = libnm_glib ? NMC.Client.new() : NMC.Client.new(null);
 
         let schemaDir = Extension.dir.get_child('schemas');
         let schemaSource = schemaDir.query_exists(null)?
