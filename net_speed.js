@@ -56,15 +56,18 @@ const NetSpeed = new Lang.Class(
     },
 
     /**
-     * NetSpeed: _check_devices
+     * NetSpeed: _is_up2date
+
      */
-    _check_devices: function()
+    _is_up2date: function()
     {
-        if (this._devices.length != this._olddevices.length)
+        if (this._devices.length != this._olddevices.length) {
             return 0;
-        for (let i = 0; i < this._devices.length; ++i)
+        }
+        for (let i = 0; i < this._devices.length; ++i) {
             if (this._devices[i] != this._olddevices[i])
                 return 0;
+        }
         return 1;
     },
 
@@ -210,7 +213,7 @@ const NetSpeed = new Lang.Class(
         var total_speed = null;
         var up_speed = null;
         var down_speed = null;
-        if (this._check_devices() == 1)	{
+        if (this._is_up2date() == 1)	{
             for (let i = 0; i < this._values.length; ++i) {
                 let _up = this._values[i][0] - this._oldvalues[i][0];
                 let _down = this._values[i][1] - this._oldvalues[i][1];

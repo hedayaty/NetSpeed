@@ -41,19 +41,19 @@ const NetSpeedStatusIcon = new Lang.Class(
      * Constructor
      */
     _init: function(net_speed) {
-	this._net_speed = net_speed;
-	this.parent(0.0);
-	this._box = new St.BoxLayout();
-	this._icon_box = new St.BoxLayout();
+	    this._net_speed = net_speed;
+	    this.parent(0.0);
+	    this._box = new St.BoxLayout();
+	    this._icon_box = new St.BoxLayout();
         this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
-	this._upicon = this._get_icon("up");
-	this._downicon = this._get_icon("down");
-	this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-	this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-	this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
+	    this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
+	    this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+	    this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
 
         this._box.add_actor(this._sum);
         this._box.add_actor(this._sumunit);
@@ -76,10 +76,11 @@ const NetSpeedStatusIcon = new Lang.Class(
             {
                 let app_sys = Shell.AppSystem.get_default();
                 let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
-                if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING)
+                if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING) {
                     prefs.activate();
-                else
+                } else {
                     prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
+                }
             }
         );
 

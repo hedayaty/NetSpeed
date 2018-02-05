@@ -1,13 +1,18 @@
 /* Example stylesheet */
 .ns-label {
 	text-align: right;
-	padding-top : 3px;
+	padding-top: 3px;
 }
 
 .ns-unit-label {
 	font-size: 65%;
-	padding-top : 3px;
+	padding-top: 3px;
 }
 
+.ns-icon {
+	text-align: left;
+	padding-right: 3px;
+	padding-top: 3px;
+}
 .ns-menuitem {
 }

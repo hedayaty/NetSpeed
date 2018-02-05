@@ -15,8 +15,10 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
+
 /* Ugly. This is here so that we don't crash old libnm-glib based shells unnecessarily
- * by loading the new libnm.so. Should go away eventually */
+ * by loading the new libnm.so. Should go away eventually
+ */
 const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
 
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
@@ -223,29 +225,6 @@ const App = new Lang.Class(
 
         Schema.connect('changed::device', Lang.bind(this, this._pick_dev));
 
-/*
-
-// COLOR
-let item = new Gtk.CheckButton({label: _('Use custom color')});
-this.vbox3.add(item);
-Schema.bind('custom-color', item, 'active', Gio.SettingsBindFlags.DEFAULT);
-
-let label = new Gtk.Label({label: "Color: "});
-let color = new Gtk.ColorButton();
-let _actor = new Gtk.HBox();
-_actor.add(label);
-_actor.add(color);
-
-let _color = getColorByHexadecimal(Schema.get_string('color'));
-color.set_color(_color);
-
-this.vbox3.add(_actor);
-color.connect('color-set', function(color)
-{
-Schema.set_string('color', getHexadecimalByColor(color.get_color()));
-});
-
-*/
         this.main.show_all();
     }
 });

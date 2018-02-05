@@ -37,20 +37,21 @@ const LayoutMenuItem = new Lang.Class(
         this.device = device;
         this._icon = icon;
         this._device_title = new St.Label(
-                { text: device
-                , style_class : "ns-menuitem"
-                }
-                );
-       this._down_label = new St.Label({ text: "", style_class : "ns-menuitem"});
-       this._up_label = new St.Label({text: "", style_class: "ns-menuitem"});
-       if (this._icon != null)
+            { text: device
+            , style_class : "ns-menuitem"
+            }
+        );
+        this._down_label = new St.Label({ text: "", style_class : "ns-menuitem"});
+        this._up_label = new St.Label({text: "", style_class: "ns-menuitem"});
+        if (this._icon != null) {
            this.actor.add(this._icon);
-       else
+        } else {
            this.actor.add(new St.Label());
-       this.actor.add(this._device_title);
-       this.actor.add(this._down_label);
-       this.actor.add(this._up_label);
-       this.update_ui(menu_label_size);
+        }
+        this.actor.add(this._device_title);
+        this.actor.add(this._down_label);
+        this.actor.add(this._up_label);
+        this.update_ui(menu_label_size);
     },
 
     /**
