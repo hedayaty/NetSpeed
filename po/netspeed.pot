@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the net-speed package.
 # Amir Hedayaty <hedayaty@gmail.com>, 2017.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"

@@ -1,8 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2016
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# FULL NAME <EMAIL@ADDRESS>, 2016.
 # Junquera <javier.junquera.sanchez@gmail.com>, 2016.
 # Javier Junquera <javier.junquera.sanchez@gmail.com>, 2016.
 #

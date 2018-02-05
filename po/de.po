@@ -1,7 +1,7 @@
 # Translation to German
 # Copyright (C) 2013
 # This file is distributed under the same license as the netspeed package.
-# Jonatan Zeidler <jonatan_zeidler@gmx.de> 2013
+# Jonatan Zeidler <jonatan_zeidler@gmx.de>, 2013.
 #
 msgid ""
 msgstr ""
