@@ -24,8 +24,20 @@ const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
 const Panel = imports.ui.main.panel;
 
-const NMC = imports.gi.NMClient;
-const NetworkManager = imports.gi.NetworkManager;
+let NMClientGenerator = null;
+let NMDeviceType = null;
+
+try {
+    const NMC = imports.gi.NMClient;
+    const NetworkManager = imports.gi.NetworkManager;
+    NMClientGenerator = () => (NMC.Client.new());
+    NMDeviceType = NetworkManager.DeviceType
+    if (! NMClient || ! NMDeviceType) throw new Error('Wrong Version');
+} catch (e) {
+    const NM = imports.gi.NM;
+    NMClientGenerator = () => (new NM.Client());
+    NMDeviceType = NM.DeviceType
+}
 
 const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
@@ -75,17 +87,17 @@ const NetSpeed = new Lang.Class(
         for each (let dev in devices) {
             if (dev.interface == device) {
                 switch (dev.device_type) {
-                case NetworkManager.DeviceType.ETHERNET:
+                case NMDeviceType.ETHERNET:
                     return "ethernet";
-                case NetworkManager.DeviceType.WIFI:
+                case NMDeviceType.WIFI:
                     return "wifi";
-                case NetworkManager.DeviceType.BT:
+                case NMDeviceType.BT:
                     return "bt";
-                case NetworkManager.DeviceType.OLPC_MESH:
+                case NMDeviceType.OLPC_MESH:
                     return "olpcmesh";
-                case NetworkManager.DeviceType.WIMAX:
+                case NMDeviceType.WIMAX:
                     return "wimax";
-                case NetworkManager.DeviceType.MODEM:
+                case NMDeviceType.MODEM:
                     return "modem";
                 default:
                     return "none";
@@ -298,7 +310,7 @@ const NetSpeed = new Lang.Class(
 
         this._values = new Array();
         this._devices = new Array();
-        this._client = NMC.Client.new();
+        this._client = NMClientGenerator();
 
         let schemaDir = Extension.dir.get_child('schemas').get_path();
         let schemaSource = Gio.SettingsSchemaSource.new_from_directory(
