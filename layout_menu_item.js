@@ -22,7 +22,7 @@ const St = imports.gi.St;
 /**
  * Class: LayoutMenuItem
  */
-const LayoutMenuItem = new Lang.Class(
+var LayoutMenuItem = new Lang.Class(
 {
     Name: 'LayoutMenuItem',
     Extends: PopupMenu.PopupBaseMenuItem,

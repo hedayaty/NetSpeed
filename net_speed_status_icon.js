@@ -30,7 +30,7 @@ const LayoutMenuItem = Extension.imports.layout_menu_item;
  * Class NetSpeedStatusIcon
  * status icon, texts for speeds, the drodown menu
  */
-const NetSpeedStatusIcon = new Lang.Class(
+var NetSpeedStatusIcon = new Lang.Class(
 {
     Name: 'NetSpeedStatusIcon',
     Extends: PanelMenu.Button,
@@ -153,7 +153,7 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         // Change the type of Icon
         this._icon.destroy();
-        device = this._net_speed.getDevice();
+        let device = this._net_speed.getDevice();
 	log("Device -> " + device);
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);

@@ -45,7 +45,7 @@ const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
  * Class NetSpeed
  * The extension
  */
-const NetSpeed = new Lang.Class(
+var NetSpeed = new Lang.Class(
 {
     Name: 'NetSpeed',
 
@@ -84,7 +84,7 @@ const NetSpeed = new Lang.Class(
     {
         let devices = this._client.get_devices() || [ ];
 
-        for each (let dev in devices) {
+        for (let dev of devices) {
             if (dev.interface == device) {
                 switch (dev.device_type) {
                 case NMDeviceType.ETHERNET:
