@@ -1,3 +1,10 @@
+* Sun 04 Feb 2018 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.26
+- Clean up po files
+- Dutch translation
+- Utilize libnm
+- Fix vertical align
+- Version 28
+
 * Wed 19 Jul 2017 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.24
 - Merge serveral pull requests, apply some feedback
 
