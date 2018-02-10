@@ -45,7 +45,6 @@ function init()
 {
     let localeDir = Extension.dir.get_child('locale');
     if (localeDir.query_exists(null)) {
-        Gettext.textdomain("netspeed");
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
 	}
 }
