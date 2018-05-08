@@ -48,6 +48,10 @@ const NetSpeedStatusIcon = new Lang.Class(
         this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
 	    this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
 	    this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
+	    this._sumupicon = this._get_icon("sumup");
+	    this._sumdownicon = this._get_icon("sumdown");
+	    this._sumupdownicon = this._get_icon("sumupdown");
+	    this._sumnoupnodownicon = this._get_icon("sumnoupnodown");
 	    this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
 	    this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
 	    this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
@@ -57,6 +61,10 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         this._box.add_actor(this._sum);
         this._box.add_actor(this._sumunit);
+        this._box.add_actor(this._sumupicon);
+        this._box.add_actor(this._sumdownicon);
+        this._box.add_actor(this._sumupdownicon);
+        this._box.add_actor(this._sumnoupnodownicon);
 
         this._box.add_actor(this._down);
         this._box.add_actor(this._downunit);
@@ -209,6 +217,18 @@ const NetSpeedStatusIcon = new Lang.Class(
             case "pref":
                 iconname = "emblem-system-symbolic";
                 break;
+            case "sumup":
+                iconname = "network-transmit-symbolic";
+                break;
+            case "sumdown":
+                iconname = "network-receive-symbolic";
+                break;
+            case "sumupdown":
+                iconname = "network-transmit-receive-symbolic";
+                break;
+             case "sumnoupnodown":
+                iconname = "network-idle-symbolic";
+                break;
             default:
                 iconname = "network-transmit-receive";
         }
@@ -226,6 +246,26 @@ const NetSpeedStatusIcon = new Lang.Class(
     {
         this._sum.set_text(sum.text);
         this._sumunit.set_text(sum.unit);
+
+		if (this._net_speed.showsum == true) {
+		    this._sumupicon.hide();
+		    this._sumdownicon.hide();
+		    this._sumupdownicon.hide();
+		    this._sumnoupnodownicon.hide();
+		    if (up.text == "0") {
+		        if (down.text == "0") {
+		            this._sumnoupnodownicon.show();
+		        } else {
+		            this._sumdownicon.show();
+		        }
+		    } else {
+		        if (down.text == "0") {
+		            this._sumupicon.show();
+		        } else {
+		            this._sumupdownicon.show();
+		        }
+		    }
+        }
 
         this._up.set_text(up.text);
         this._upunit.set_text(up.unit);
