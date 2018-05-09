@@ -247,11 +247,11 @@ const NetSpeedStatusIcon = new Lang.Class(
         this._sum.set_text(sum.text);
         this._sumunit.set_text(sum.unit);
 
+		this._sumupicon.hide();
+		this._sumdownicon.hide();
+		this._sumupdownicon.hide();
+		this._sumnoupnodownicon.hide();
 		if (this._net_speed.showsum == true) {
-		    this._sumupicon.hide();
-		    this._sumdownicon.hide();
-		    this._sumupdownicon.hide();
-		    this._sumnoupnodownicon.hide();
 		    if (up.text == "0") {
 		        if (down.text == "0") {
 		            this._sumnoupnodownicon.show();
