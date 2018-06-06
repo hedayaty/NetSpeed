@@ -15,8 +15,9 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-/* Ugly. This is here so that we don't crash old libnm-glib based shells unnecessarily
- * by loading the new libnm.so. Should go away eventually */
+// Ugly:
+// This is here so that we don't crash old libnm-glib based shells unnecessarily by loading the new libnm.so.
+// Should go away eventually
 const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
 
 const Lang = imports.lang;
@@ -78,7 +79,7 @@ const NetSpeed = new Lang.Class(
     {
         let devices = this._client.get_devices() || [ ];
 
-        for each (let dev in devices) {
+        for (let dev of devices) {
             if (dev.interface == device) {
                 switch (dev.device_type) {
                 case NetworkManager.DeviceType.ETHERNET:
@@ -152,8 +153,9 @@ const NetSpeed = new Lang.Class(
     _create_menu: function()
     {
         let types = new Array();
-        for (let i = 0; i < this._devices.length; ++i)
-            types.push(this.get_device_type(this._devices[i]));
+        for (let dev of this._devices) {
+            types.push(this.get_device_type(dev));
+        }
         this._status_icon.create_menu(this._devices, types);
     },
 
@@ -164,8 +166,8 @@ const NetSpeed = new Lang.Class(
     {
         let flines = GLib.file_get_contents('/proc/net/route'); // Read the file
         let nlines = ("" + flines[1]).split("\n"); // Break to lines
-        for(let i = 0; i < nlines.length - 1 ; ++i) { //first 2 lines are for header
-            let line = nlines[i].replace(/^ */g, "");
+        for(let nline of nlines) { //first 2 lines are for header
+            let line = nline.replace(/^ */g, "");
             let params = line.split("\t");
             if (params.length != 11) // ignore empty lines
                 continue;
