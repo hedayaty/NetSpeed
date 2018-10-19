@@ -15,10 +15,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: prefs.js:53
 msgid "ALL"
-msgstr "Tümü"
+msgstr "HEPSİ"
 
 #: prefs.js:57
 msgid "Default Gateway"
@@ -26,35 +28,35 @@ msgstr "Varsayılan Geçit"
 
 #: prefs.js:146
 msgid "Device to monitor"
-msgstr "İzlenecek cihazlar"
+msgstr "İzlemek için Cihaz"
 
 #: prefs.js:147
 msgid "Timer (milisec)"
-msgstr "Zaman (milisaniye)"
+msgstr "Zamanlayıcı (Millisaniye)"
 
 #: prefs.js:148
 msgid "Digits"
-msgstr "Rakamlar"
+msgstr "Basamak"
 
 #: prefs.js:149
 msgid "Label Size"
-msgstr "Etiket boyutu"
+msgstr "Etiket Boyutu"
 
 #: prefs.js:150
 msgid "Unit Label Size"
-msgstr "Birim etiket boyutu"
+msgstr "Basamak Etiket Boyutu"
 
 #: prefs.js:151
 msgid "Menu Label Size"
-msgstr "Menü etiket boyutu"
+msgstr "Menü Etiket Boyutu"
 
 #: prefs.js:155
 msgid "Show sum(UP+Down)"
-msgstr "Toplamı göster (Yükleme+İndirme)"
+msgstr "Toplamı Göster (Yükleme+İndirme)"
 
 #: prefs.js:156
 msgid "Show the Icon"
-msgstr "Simgeyi göster"
+msgstr "Sembolü Göster"
 
 #: net_speed.js:94 net_speed.js:108
 msgid "B/s"
@@ -74,12 +76,12 @@ msgstr "GB/s"
 
 #: net_speed_status_icon.js:86
 msgid "Device"
-msgstr "Aygıt"
+msgstr "Cihaz"
 
 #: net_speed_status_icon.js:88
 msgid "Up"
-msgstr "Giden"
+msgstr "Yükleme"
 
 #: net_speed_status_icon.js:88
 msgid "Down"
-msgstr "Gelen"
+msgstr "İndirme"
