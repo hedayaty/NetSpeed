@@ -1,16 +1,16 @@
-# Translation to German
-# Copyright (C) 2013
-# This file is distributed under the same license as the netspeed package.
-# Jonatan Zeidler <jonatan_zeidler@gmx.de>, 2013.
+# İnternet Hızını Gösterir
+# Copyright (C) 2011-2018
+# Bu dosya, net-speed paketi ile aynı lisans altında dağıtılmaktadır.
+# Serdar Sağlam <teknomobil@yandex.com>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Netspeed Gnome-Shell Extension\n"
+"Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-07-26 11:27-0700\n"
-"PO-Revision-Date: 2018-09-21 19:03+0300\n"
-"Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
-"Language-Team: Turkish <orhanenginokay@hotmail.com>\n"
+"PO-Revision-Date: 2018-09-96 00:38-PST\n"
+"Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
+"Language-Team: Türkçe <teknomobil@yandex.com>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"

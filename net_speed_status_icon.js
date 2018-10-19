@@ -155,7 +155,7 @@ const NetSpeedStatusIcon = new Lang.Class(
         // Change the type of Icon
         this._icon.destroy();
         device = this._net_speed.getDevice();
-	log("Device -> " + device);
+	    log("Device -> " + device);
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
         // Show icon or not
@@ -164,8 +164,8 @@ const NetSpeedStatusIcon = new Lang.Class(
         else
             this._icon.hide();
         // Update Menu sizes
-        for (let i = 0; i < this._layouts.length; ++i) {
-            this._layouts[i].update_ui(this._net_speed.menu_label_size);
+        for (let layout of this._layouts) {
+            layout.update_ui(this._net_speed.menu_label_size);
         }
     },
 
@@ -239,8 +239,9 @@ const NetSpeedStatusIcon = new Lang.Class(
      */
     create_menu: function(devices, types)
     {
-        for (let i = 0; i < this._layouts.length; ++i)
-            this._layouts[i].destroy();
+        for (let layout of this._layouts) {
+            layout.destroy();
+         }
         this._layouts = new Array();
         for (let i = 0; i < devices.length; ++i) {
             let icon = this._get_icon(types[i]);

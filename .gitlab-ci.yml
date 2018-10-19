@@ -1,0 +1,10 @@
+image: fedora:latest
+
+stages:
+  - build
+  - test
+
+pack:
+  stage: build
+  script:
+    - make pack
