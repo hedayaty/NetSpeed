@@ -194,7 +194,7 @@ const App = new Lang.Class(
         this.menu_label_size = new Gtk.SpinButton({
             adjustment: new Gtk.Adjustment({
                 lower: 1,
-                upper: 100,
+                upper: 300,
                 step_increment: 1
             })
         });
