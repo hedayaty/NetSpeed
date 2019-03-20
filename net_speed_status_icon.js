@@ -21,6 +21,7 @@ const Lang = imports.lang;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Clutter = imports.gi.Clutter;
+const GObject = imports.gi.GObject;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
@@ -31,29 +32,27 @@ const LayoutMenuItem = Extension.imports.layout_menu_item;
  * Class NetSpeedStatusIcon
  * status icon, texts for speeds, the drodown menu
  */
-const NetSpeedStatusIcon = new Lang.Class(
+const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends PanelMenu.Button
 {
-    Name: 'NetSpeedStatusIcon',
-    Extends: PanelMenu.Button,
-
     /**
      * NetSpeedStatusIcon: _init
      * Constructor
      */
-    _init: function(net_speed) {
-	    this._net_speed = net_speed;
-	    this.parent(0.0);
-	    this._box = new St.BoxLayout();
-	    this._icon_box = new St.BoxLayout();
+    _init(net_speed)
+    {
+        this._net_speed = net_speed;
+        super._init(0.0);
+        this._box = new St.BoxLayout();
+        this._icon_box = new St.BoxLayout();
         this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
-	    this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-	    this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-	    this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	    this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-	    this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	    this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-	    this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-	    this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+        this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
 
         this._box.add_actor(this._sum);
         this._box.add_actor(this._sumunit);
@@ -91,22 +90,22 @@ const NetSpeedStatusIcon = new Lang.Class(
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._layouts = new Array();
         this.updateui();
-    },
+    }
 
     /**
      * NetSpeedStatusIcon :_change_device
      */
-     _change_device : function(param1, param2, device)
+    _change_device(param1, param2, device)
     {
         this._net_speed.setDevice(device);
         this.updateui();
         this._net_speed.save();
-    },
+    }
 
     /**
      * NetSpeedStatusIcon: _toggle_showsum
      */
-    _toggle_showsum : function(actor, event)
+    _toggle_showsum(actor, event)
     {
         let button = event.get_button();
         if (button == 2) { // middle
@@ -114,14 +113,13 @@ const NetSpeedStatusIcon = new Lang.Class(
             this.updateui();
             this._net_speed.save();
         }
-    },
-
+    }
 
     /**
      * NetSpeedStatusIcon: updateui
      * update ui according to settings
      */
-    updateui : function()
+    updateui()
     {
         // Set the size of labels
         this._sum.set_width(this._net_speed.label_size);
@@ -154,8 +152,8 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         // Change the type of Icon
         this._icon.destroy();
-        device = this._net_speed.getDevice();
-	    log("Device -> " + device);
+        const device = this._net_speed.getDevice();
+        log("Device -> " + device);
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
         // Show icon or not
@@ -167,13 +165,13 @@ const NetSpeedStatusIcon = new Lang.Class(
         for (let layout of this._layouts) {
             layout.update_ui(this._net_speed.menu_label_size);
         }
-    },
+    }
 
     /**
      * NetSpeedStatusIcon: _get_icon
      * Utility function to create icon from name
      */
-    _get_icon: function(name, size)
+    _get_icon(name, size)
     {
         if (arguments.length == 1)
             size = 16;
@@ -217,12 +215,12 @@ const NetSpeedStatusIcon = new Lang.Class(
             icon_name: iconname,
             icon_size: size,
         });
-    },
+    }
 
     /**
      * NetSpeedStatusIcon: set_labels
      */
-    set_labels: function(sum, up, down)
+    set_labels(sum, up, down)
     {
         this._sum.set_text(sum.text);
         this._sumunit.set_text(sum.unit);
@@ -232,16 +230,16 @@ const NetSpeedStatusIcon = new Lang.Class(
 
         this._down.set_text(down.text);
         this._downunit.set_text(down.unit);
-    },
+    }
 
     /**
      * NetSpeedStatusIcon: create_menu
      */
-    create_menu: function(devices, types)
+    create_menu(devices, types)
     {
         for (let layout of this._layouts) {
             layout.destroy();
-         }
+        }
         this._layouts = new Array();
         for (let i = 0; i < devices.length; ++i) {
             let icon = this._get_icon(types[i]);
@@ -250,16 +248,15 @@ const NetSpeedStatusIcon = new Lang.Class(
             this._layouts.push(layout);
             this.menu.addMenuItem(layout);
         }
-    },
+    }
 
     /**
      * NetSpeedStatusIcon: update_speeds
      */
-    update_speeds : function(speeds)
+    update_speeds(speeds)
     {
         for (let i = 0; i < speeds.length; ++i) {
             this._layouts[i].update_speeds(speeds[i]);
         }
-    },
-
+    }
 });

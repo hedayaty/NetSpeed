@@ -49,11 +49,9 @@ function init()
 	}
 }
 
-const App = new Lang.Class(
+const App = class NetSpeed_App
 {
-    Name: 'NetSpeed.App',
-
-    _get_dev_combo: function()
+    _get_dev_combo()
     {
         let listStore = new Gtk.ListStore();
         listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
@@ -110,9 +108,9 @@ const App = new Lang.Class(
         combo.add_attribute (rendererText, "text", 0);
         combo.add_attribute (rendererPixbuf, "icon_name", 1);
         return combo;
-    },
+    }
 
-    _put_dev: function()
+    _put_dev()
     {
         let active = this.dev.get_active();
         if (active == -1)
@@ -129,9 +127,9 @@ const App = new Lang.Class(
             Schema.set_string ('device', this._devices[active - 2].interface);
         }
         this._setting = 0;
-    },
+    }
 
-    _pick_dev: function()
+    _pick_dev()
     {
         if (this._setting == 1)
             return;
@@ -147,9 +145,9 @@ const App = new Lang.Class(
                     active = i + 2;
         }
         this.dev.set_active (active);
-    },
+    }
 
-    _init: function()
+    constructor()
     {
         this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
         this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
@@ -226,7 +224,7 @@ const App = new Lang.Class(
 
         this.main.show_all();
     }
-});
+};
 
 function buildPrefsWidget()
 {
