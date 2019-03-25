@@ -38,7 +38,7 @@ const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
  * Class NetSpeed
  * The extension
  */
-const NetSpeed = new Lang.Class(
+var NetSpeed = new Lang.Class(
 {
     Name: 'NetSpeed',
 
