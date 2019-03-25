@@ -289,8 +289,10 @@ var NetSpeed = new Lang.Class(
      */
     _reload: function()
     {
-        this._load();
-        this._status_icon.updateui();
+	if (this._setting !== null) {
+            this._load();
+            this._status_icon.updateui();
+	}
     },
 
 
