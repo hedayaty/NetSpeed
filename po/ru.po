@@ -1,8 +1,6 @@
-# English translations for netspeed package.
-# Copyright (C) 2014 Amir Hedayaty <HEDAYATY AT GMAIL DO COM>
+# Russian translation for the netspeed package.
+# Copyright (C) 2014 Ruslan Nigmatyanov <ruslan@nigmatyanov.ru>
 # This file is distributed under the same license as the netspeed package.
-# Amir Hedayaty <hedayaty@gmail.com>, 2014.
-# Руслан Нигматьянов <ruslan@nigmatyanov.ru>, 2019.
 #
 msgid ""
 msgstr ""
@@ -11,7 +9,7 @@ msgstr ""
 "POT-Creation-Date: 2015-07-26 11:27-0700\n"
 "PO-Revision-Date: 2019-04-23 11:19+0500\n"
 "Last-Translator: Руслан Нигматьянов <ruslan@nigmatyanov.ru>\n"
-"Language-Team: Russian <translations@openbsd.org.ru>\n"
+"Language-Team: Russian\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,11 +52,11 @@ msgstr "Длина заголовка меню"
 
 #: prefs.js:155
 msgid "Show sum(UP+Down)"
-msgstr "Показывать сумму передачи"
+msgstr "Показывать общую сумму передачи"
 
 #: prefs.js:156
 msgid "Show the Icon"
-msgstr "Показывать пиктограмму"
+msgstr "Показывать иконку"
 
 #: net_speed.js:94 net_speed.js:108
 msgid "B/s"
