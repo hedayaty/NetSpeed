@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-26 11:27-0700\n"
+"POT-Creation-Date: 2019-04-30 00:30-0700\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
 "Last-Translator: Lucien Aubert <lu.aubert84@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,60 +17,60 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: prefs.js:53
+#: prefs.js:60
 msgid "ALL"
 msgstr "TOUS"
 
-#: prefs.js:57
+#: prefs.js:64
 msgid "Default Gateway"
 msgstr ""
 
-#: prefs.js:146
+#: prefs.js:153
 msgid "Device to monitor"
 msgstr "Périphérique(s) à prendre en compte"
 
-#: prefs.js:147
+#: prefs.js:154
 msgid "Timer (milisec)"
 msgstr "Rafraîchissement (milisecondes)"
 
-#: prefs.js:148
+#: prefs.js:155
 msgid "Digits"
 msgstr "Chiffres"
 
-#: prefs.js:149
+#: prefs.js:156
 msgid "Label Size"
 msgstr "Taille des champs"
 
-#: prefs.js:150
+#: prefs.js:157
 #, fuzzy
 msgid "Unit Label Size"
 msgstr "Taille des champs du menu"
 
-#: prefs.js:151
+#: prefs.js:158
 msgid "Menu Label Size"
 msgstr "Taille des champs du menu"
 
-#: prefs.js:155
+#: prefs.js:162
 msgid "Show sum(UP+Down)"
 msgstr "Afficher la somme (reçu+envoyé)"
 
-#: prefs.js:156
+#: prefs.js:163
 msgid "Show the Icon"
 msgstr "Afficher l'icône"
 
-#: net_speed.js:94 net_speed.js:108
+#: net_speed.js:108 net_speed.js:122
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "KB/s"
 msgstr "KB/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "GB/s"
 msgstr "GB/s"
 

@@ -17,7 +17,7 @@ pack: $(OUTPUT)
 
 $(POT_FILE): $(SRC_FILES)
 	mkdir -p po
-	xgettext -d $(GETTEXT_PACKAGE) -o $@ $(SRC_FILES)
+	xgettext -d $(GETTEXT_PACKAGE) -o $@ $(SRC_FILES) --from-code=UTF-8
 
 update-po: $(POT_FILE)
 	for lang in $(LANGUAGES); do \
@@ -35,3 +35,6 @@ install: pack
 	mkdir -p $(LOCAL_INSTALL)
 	rm -rf $(LOCAL_INSTALL)
 	unzip $(UUID).zip -d $(LOCAL_INSTALL)
+
+enable:
+	gnome-shell-extension-tool --enable $(UUID)
