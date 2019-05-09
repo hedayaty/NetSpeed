@@ -24,6 +24,7 @@ const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
+const ByteArray = imports.byteArray;
 
 const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
@@ -160,7 +161,7 @@ const NetSpeed = class NetSpeed
     _updateDefaultGw()
     {
         let flines = GLib.file_get_contents('/proc/net/route'); // Read the file
-        let nlines = ("" + flines[1]).split("\n"); // Break to lines
+        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
         for(let nline of nlines) { //first 2 lines are for header
             let line = nline.replace(/^ */g, "");
             let params = line.split("\t");
@@ -180,7 +181,7 @@ const NetSpeed = class NetSpeed
     {
         this._updateDefaultGw();
         let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
-        let nlines = ("" + flines[1]).split("\n"); // Break to lines
+        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
 
         let up = 0; // set initial
         let down = 0;
