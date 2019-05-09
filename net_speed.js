@@ -284,8 +284,10 @@ const NetSpeed = class NetSpeed
      */
     _reload()
     {
-        this._load();
-        this._status_icon.updateui();
+	if (this._setting !== null) {
+            this._load();
+            this._status_icon.updateui();
+	}
     }
 
     /**
