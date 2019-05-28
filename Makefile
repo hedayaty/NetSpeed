@@ -3,7 +3,7 @@ PACKAGE=netspeed
 GETTEXT_PACKAGE = $(PACKAGE)
 UUID = netspeed@hedayaty.gmail.com
 
-LANGUAGES=de fa en_CA it fr pt_BR zh_CN zh_TW
+LANGUAGES=de en_CA fa fr it pt_BR ru zh_CN zh_TW
 DOC_FILES=CHANGELOG README
 SRC_FILES=extension.js prefs.js layout_menu_item.js net_speed.js net_speed_status_icon.js
 MO_FILES=$(foreach LANGUAGE, $(LANGUAGES), locale/$(LANGUAGE)/LC_MESSAGES/$(GETTEXT_PACKAGE).mo)
@@ -17,7 +17,7 @@ pack: $(OUTPUT)
 
 $(POT_FILE): $(SRC_FILES)
 	mkdir -p po
-	xgettext -d $(GETTEXT_PACKAGE) -o $@ $(SRC_FILES)
+	xgettext -d $(GETTEXT_PACKAGE) -o $@ $(SRC_FILES) --from-code=UTF-8
 
 update-po: $(POT_FILE)
 	for lang in $(LANGUAGES); do \
@@ -35,3 +35,6 @@ install: pack
 	mkdir -p $(LOCAL_INSTALL)
 	rm -rf $(LOCAL_INSTALL)
 	unzip $(UUID).zip -d $(LOCAL_INSTALL)
+
+enable:
+	gnome-shell-extension-tool --enable $(UUID)

@@ -15,25 +15,21 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-const Lang = imports.lang;
 const PopupMenu = imports.ui.popupMenu;
 const St = imports.gi.St;
 
 /**
  * Class: LayoutMenuItem
  */
-const LayoutMenuItem = new Lang.Class(
+const LayoutMenuItem = class LayoutMenuItem extends PopupMenu.PopupBaseMenuItem
 {
-    Name: 'LayoutMenuItem',
-    Extends: PopupMenu.PopupBaseMenuItem,
-
     /**
      * LayoutMenuItem: _init
      * Constructor
      */
-    _init: function(device, icon, menu_label_size)
+    constructor(device, icon, menu_label_size)
     {
-        this.parent();
+        super();
         this.device = device;
         this._icon = icon;
         this._device_title = new St.Label(
@@ -52,26 +48,26 @@ const LayoutMenuItem = new Lang.Class(
         this.actor.add(this._down_label);
         this.actor.add(this._up_label);
         this.update_ui(menu_label_size);
-    },
+    }
 
     /**
      * LayoutMenuItem: update_ui
      * update settings
      */
-    update_ui: function(menu_label_size)
+    update_ui(menu_label_size)
     {
         this._down_label.set_width(menu_label_size);
         this._up_label.set_width(menu_label_size);
         this._device_title.set_width(menu_label_size);
-    },
+    }
 
     /**
      * LayoutMenuItem: update_speeds
      * update speeds
      */
-    update_speeds: function(speed)
+    update_speeds(speed)
     {
         this._down_label.set_text(speed.down);
         this._up_label.set_text(speed.up);
-     },
-});
+    }
+};

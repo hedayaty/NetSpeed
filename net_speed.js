@@ -24,6 +24,7 @@ const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
+const ByteArray = imports.byteArray;
 
 const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
@@ -38,28 +39,25 @@ const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
  * Class NetSpeed
  * The extension
  */
-const NetSpeed = new Lang.Class(
+const NetSpeed = class NetSpeed
 {
-    Name: 'NetSpeed',
-
     /**
      * NetSpeed: _init
      * Constructor
      */
-    _init : function()
+    constructor()
     {
         let localeDir = Extension.dir.get_child('locale');
         if (localeDir.query_exists(null)) {
             Gettext.bindtextdomain('netspeed', localeDir.get_path());
-		}
+        }
         this._updateDefaultGw();
-    },
+    }
 
     /**
      * NetSpeed: _is_up2date
-
      */
-    _is_up2date: function()
+    _is_up2date()
     {
         if (this._devices.length != this._olddevices.length) {
             return 0;
@@ -69,13 +67,12 @@ const NetSpeed = new Lang.Class(
                 return 0;
         }
         return 1;
-    },
-
+    }
 
     /**
      * NetSpeed: get_device_type
      */
-    get_device_type: function(device)
+    get_device_type(device)
     {
         let devices = this._client.get_devices() || [ ];
 
@@ -101,12 +98,12 @@ const NetSpeed = new Lang.Class(
         }
 
         return "none";
-    },
+    }
 
     /**
      * NetSpeed: _speed_to_string
      */
-    _speed_to_string: function(amount, digits)
+    _speed_to_string(amount, digits)
     {
         if (amount == 0)
             return { text: "0", unit: _("B/s") };
@@ -128,44 +125,43 @@ const NetSpeed = new Lang.Class(
             text: amount.toFixed(digits - 1),
             unit: speed_map[unit]
         };
-    },
-
+    }
 
     /**
      * NetSpeed: _set_labels
      */
-    _set_labels: function(sum, up, down)
+    _set_labels(sum, up, down)
     {
         this._status_icon.set_labels(sum, up, down);
-    },
+    }
 
     /**
      * NetSpeed: _update_speeds
      */
-    _update_speeds: function()
+    _update_speeds()
     {
         this._status_icon.update_speeds(this._speeds);
-    },
+    }
 
     /**
      * NetSpeed: _create_menu
      */
-    _create_menu: function()
+    _create_menu()
     {
         let types = new Array();
         for (let dev of this._devices) {
             types.push(this.get_device_type(dev));
         }
         this._status_icon.create_menu(this._devices, types);
-    },
+    }
 
     /**
      * NetSpeed: _updateDefaultGw
      */
-    _updateDefaultGw : function()
+    _updateDefaultGw()
     {
         let flines = GLib.file_get_contents('/proc/net/route'); // Read the file
-        let nlines = ("" + flines[1]).split("\n"); // Break to lines
+        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
         for(let nline of nlines) { //first 2 lines are for header
             let line = nline.replace(/^ */g, "");
             let params = line.split("\t");
@@ -176,16 +172,16 @@ const NetSpeed = new Lang.Class(
                 this._defaultGw = params[0];
             }
         }
-    },
+    }
 
     /**
      * NetSpeed: _update
      */
-    _update : function()
+    _update()
     {
         this._updateDefaultGw();
         let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
-        let nlines = ("" + flines[1]).split("\n"); // Break to lines
+        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
 
         let up = 0; // set initial
         let down = 0;
@@ -252,13 +248,12 @@ const NetSpeed = new Lang.Class(
         } else
             this._create_menu();
         return true;
-    },
-
+    }
 
     /**
      * NetSpeed: _load
      */
-    _load: function()
+    _load()
     {
         if (this._saving == 1) {
             return;
@@ -271,34 +266,35 @@ const NetSpeed = new Lang.Class(
         this.label_size = this._setting.get_int('label-size');
         this.unit_label_size = this._setting.get_int('unit-label-size');
         this.menu_label_size = this._setting.get_int('menu-label-size');
-    },
+    }
 
     /**
      * NetSpeed: save
      */
-    save: function()
+    save()
     {
         this._saving = 1; // Disable Load
         this._setting.set_boolean('show-sum', this.showsum);
         this._setting.set_string('device', this._device);
         this._saving = 0; // Enable Load
-    },
+    }
 
     /**
      * NetSpeed: _reload
      */
-    _reload: function()
+    _reload()
     {
-        this._load();
-        this._status_icon.updateui();
-    },
-
+	if (this._setting !== null) {
+            this._load();
+            this._status_icon.updateui();
+	}
+    }
 
     /**
      * NetSpeed: enable
      * exported to enable the extension
      */
-    enable: function()
+    enable()
     {
         this._last_up = 0; // size of upload in previous snapshot
         this._last_down = 0; // size of download in previous snapshot
@@ -321,13 +317,13 @@ const NetSpeed = new Lang.Class(
         this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
         this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
         Panel.addToStatusArea('netspeed', this._status_icon, 0);
-    },
+    }
 
     /**
      * NetSpeed: disable
      * exported to disable the extension
      */
-    disable: function()
+    disable()
     {
         if (this._timerid != 0) {
             Mainloop.source_remove(this._timerid);
@@ -340,19 +336,19 @@ const NetSpeed = new Lang.Class(
         this._setting = null;
         this._client = null;
         this._status_icon.destroy();
-    },
+    }
 
-    getDevice: function()
+    getDevice()
     {
         if (this._device == "defaultGW") {
             return this._defaultGw;
         } else {
             return this._device;
         }
-    },
+    }
 
-    setDevice: function(device)
+    setDevice(device)
     {
         this._device = device;
     }
-});
+};
