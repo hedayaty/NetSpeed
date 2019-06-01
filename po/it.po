@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-04-30 00:30-0700\n"
 "PO-Revision-Date: 2017-04-17 15:58+0200\n"
-"Last-Translator: Giuseppe Pignataro (Fastbyte01) <rogepix@gmail.com>\n"
+"Last-Translator: l3nn4rt <l3nn4rt@protonmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: prefs.js:60
 msgid "ALL"
-msgstr "TUTTE"
+msgstr "Tutte"
 
 #: prefs.js:64
 msgid "Default Gateway"
@@ -32,27 +32,27 @@ msgstr "Interfaccia da monitorare"
 
 #: prefs.js:154
 msgid "Timer (milisec)"
-msgstr "Timer (millisecondi)"
+msgstr "Frequenza di aggiornamento (ms)"
 
 #: prefs.js:155
 msgid "Digits"
-msgstr "Cifre"
+msgstr "Numero di cifre da mostrare"
 
 #: prefs.js:156
 msgid "Label Size"
-msgstr "Dimensioni dell'etichetta"
+msgstr "Larghezza per le cifre"
 
 #: prefs.js:157
 msgid "Unit Label Size"
-msgstr "Unità dimensioni dell'etichetta"
+msgstr "Larghezza per le unità di misura"
 
 #: prefs.js:158
 msgid "Menu Label Size"
-msgstr "Dimensioni dell'etichetta menu"
+msgstr "Larghezza per le colonne del menu"
 
 #: prefs.js:162
 msgid "Show sum(UP+Down)"
-msgstr "Mostra la somma(UP+Down)"
+msgstr "Mostra la velocità complessiva (upload + download)"
 
 #: prefs.js:163
 msgid "Show the Icon"
