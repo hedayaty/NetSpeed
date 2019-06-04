@@ -4,7 +4,7 @@ GETTEXT_PACKAGE = $(PACKAGE)
 UUID = netspeed@hedayaty.gmail.com
 
 LANGUAGES=de en_CA fa fr it pt_BR ru zh_CN zh_TW
-DOC_FILES=CHANGELOG README
+DOC_FILES=CHANGELOG README.md
 SRC_FILES=extension.js prefs.js layout_menu_item.js net_speed.js net_speed_status_icon.js
 MO_FILES=$(foreach LANGUAGE, $(LANGUAGES), locale/$(LANGUAGE)/LC_MESSAGES/$(GETTEXT_PACKAGE).mo)
 SCHEMA_FILES=schemas/gschemas.compiled schemas/org.gnome.shell.extensions.netspeed.gschema.xml
