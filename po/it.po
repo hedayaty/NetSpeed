@@ -88,4 +88,4 @@ msgstr "Download"
 
 #: prefs.js:199
 msgid "Use multiples of byte"
-msgstr ""
+msgstr "Usa multipli del byte"
