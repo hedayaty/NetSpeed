@@ -85,3 +85,7 @@ msgstr "Отправка"
 #: net_speed_status_icon.js:88
 msgid "Down"
 msgstr "Загрузка"
+
+#: prefs.js:199
+msgid "Use multiples of byte"
+msgstr ""
