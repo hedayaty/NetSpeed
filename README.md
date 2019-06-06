@@ -10,3 +10,9 @@
 
 - to enable
 ```make enable```
+
+- to disable
+```make disable```
+
+- to reload
+```make reload```
