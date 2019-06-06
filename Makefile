@@ -38,3 +38,9 @@ install: pack
 
 enable:
 	gnome-shell-extension-tool --enable $(UUID)
+
+disable:
+	gnome-shell-extension-tool --disable $(UUID)
+
+reload:
+	gnome-shell-extension-tool --reload $(UUID)
