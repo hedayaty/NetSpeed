@@ -162,6 +162,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         else
             this._icon.hide();
         // Update Menu sizes
+        this._menu_title.update_ui(this._net_speed.menu_label_size);
         for (let layout of this._layouts) {
             layout.update_ui(this._net_speed.menu_label_size);
         }
