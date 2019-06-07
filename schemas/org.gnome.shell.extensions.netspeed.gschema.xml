@@ -45,5 +45,10 @@
       <summary>Use bytes per second</summary>
       <description>Set to true to show B/s (bytes per second), false to use b/s (bits per second)</description>
     </key>
+    <key name="bin-prefixes" type="b">
+      <default>false</default>
+      <summary>Use binary prefixes</summary>
+      <description>Set to true to show binary prefixes (Mib/s, GiB/s, etc), false for decimal prefixes (Mb/s, GB/s, etc)</description>
+    </key>
   </schema>
 </schemalist>

@@ -103,16 +103,26 @@ const NetSpeed = class NetSpeed
     /**
      * NetSpeed: _speed_to_string
      */
-    _speed_to_string(amount, digits, use_bytes)
+    _speed_to_string(amount, digits, use_bytes, bin_prefixes)
     {
+        let divider, byte_speed_map, bit_speed_map;
+        if (bin_prefixes) {
+            divider = 1024; // 1MiB = 1024kiB
+            byte_speed_map = [_("B/s"), _("kiB/s"), _("MiB/s"), _("GiB/s")];
+            bit_speed_map = [_("b/s"), _("kib/s"), _("Mib/s"), _("Gib/s")];
+        } else {
+            divider = 1000; // 1MB = 1000kB
+            byte_speed_map = [_("B/s"), _("kB/s"), _("MB/s"), _("GB/s")];
+            bit_speed_map = [_("b/s"), _("kb/s"), _("Mb/s"), _("Gb/s")];
+        }
         if (amount == 0)
             return { text: "0", unit: _(use_bytes ? "B/s" : "b/s") };
         if (digits < 3)
             digits = 3;
         amount *= 1000 * (use_bytes ? 1 : 8);
         let unit = 0;
-        while (amount >= 1000 && unit < 3) { // 1M=1024K, 1MB/s=1000MB/s
-            amount /= 1000;
+        while (amount >= divider && unit < 3) { // 1M=1024K, 1MB/s=1000MB/s
+            amount /= divider;
             ++unit;
         }
 
@@ -120,8 +130,6 @@ const NetSpeed = class NetSpeed
             digits -= 2;
         else if (amount >= 10)
             digits -= 1;
-        let byte_speed_map = [_("B/s"), _("kB/s"), _("MB/s"), _("GB/s")];
-        let bit_speed_map = [_("b/s"), _("kb/s"), _("Mb/s"), _("Gb/s")];
         return {
             text: amount.toFixed(digits - 1),
             unit: (use_bytes ? byte_speed_map : bit_speed_map)[unit]
@@ -222,8 +230,8 @@ const NetSpeed = class NetSpeed
                 if (_down < 0)
                     _down = 0;
 
-                let _up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes);
-                let _down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes);
+                let _up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                let _down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes, this.bin_prefixes);
                 this._speeds.push({
                     up: _up_speed.text + _up_speed.unit,
                     down: _down_speed.text + _down_speed.unit
@@ -233,15 +241,15 @@ const NetSpeed = class NetSpeed
                 up += _up;
                 down += _down;
                 if (this.getDevice() == this._devices[i]) {
-                    total_speed = this._speed_to_string((_up + _down) / delta, this.digits, this.use_bytes);
-                    up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes);
-                    down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes);
+                    total_speed = this._speed_to_string((_up + _down) / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                    up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                    down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes, this.bin_prefixes);
                 }
             }
             if (total_speed == null) {
-                total_speed = this._speed_to_string(total / delta, this.digits, this.use_bytes);
-                up_speed = this._speed_to_string(up / delta, this.digits, this.use_bytes);
-                down_speed = this._speed_to_string(down / delta, this.digits, this.use_bytes);
+                total_speed = this._speed_to_string(total / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                up_speed = this._speed_to_string(up / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                down_speed = this._speed_to_string(down / delta, this.digits, this.use_bytes, this.bin_prefixes);
             }
 
             this._set_labels(total_speed, up_speed, down_speed);
@@ -268,6 +276,7 @@ const NetSpeed = class NetSpeed
         this.unit_label_size = this._setting.get_int('unit-label-size');
         this.menu_label_size = this._setting.get_int('menu-label-size');
         this.use_bytes = this._setting.get_boolean('use-bytes');
+        this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
     }
 
     /**

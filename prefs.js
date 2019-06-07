@@ -197,6 +197,7 @@ const App = class NetSpeed_App
             })
         });
         this.use_bytes = new Gtk.CheckButton({ label: _("Use multiples of byte") });
+        this.bin_prefixes = new Gtk.CheckButton({ label: _("Use binary prefixes") });
 
         this.main.attach(this.dev, 2, 1, 1, 1);
         this.main.attach(this.sum, 1, 2, 2, 1);
@@ -207,6 +208,7 @@ const App = class NetSpeed_App
         this.main.attach(this.unit_label_size, 2, 7, 1, 1);
         this.main.attach(this.menu_label_size, 2, 8, 1, 1);
         this.main.attach(this.use_bytes, 1, 9, 1, 1);
+        this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
 
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -216,6 +218,7 @@ const App = class NetSpeed_App
         Schema.bind('unit-label-size', this.unit_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('use-bytes', this.use_bytes, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind('bin-prefixes', this.bin_prefixes, 'active', Gio.SettingsBindFlags.DEFAULT);
 
         this._setting = 0;
 
