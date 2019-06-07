@@ -103,10 +103,11 @@ const NetSpeed = class NetSpeed
     /**
      * NetSpeed: _speed_to_string
      */
-    _speed_to_string(amount, digits, use_bytes, bin_prefixes)
+    _speed_to_string(amount)
     {
+        let m_digits = this.digits;
         let divider, byte_speed_map, bit_speed_map;
-        if (bin_prefixes) {
+        if (this.bin_prefixes) {
             divider = 1024; // 1MiB = 1024kiB
             byte_speed_map = [_("B/s"), _("kiB/s"), _("MiB/s"), _("GiB/s")];
             bit_speed_map = [_("b/s"), _("kib/s"), _("Mib/s"), _("Gib/s")];
@@ -116,10 +117,10 @@ const NetSpeed = class NetSpeed
             bit_speed_map = [_("b/s"), _("kb/s"), _("Mb/s"), _("Gb/s")];
         }
         if (amount == 0)
-            return { text: "0", unit: _(use_bytes ? "B/s" : "b/s") };
-        if (digits < 3)
-            digits = 3;
-        amount *= 1000 * (use_bytes ? 1 : 8);
+            return { text: "0", unit: _(this.use_bytes ? "B/s" : "b/s") };
+        if (m_digits < 3)
+            m_digits = 3;
+        amount *= 1000 * (this.use_bytes ? 1 : 8);
         let unit = 0;
         while (amount >= divider && unit < 3) { // 1M=1024K, 1MB/s=1000MB/s
             amount /= divider;
@@ -127,12 +128,12 @@ const NetSpeed = class NetSpeed
         }
 
         if (amount >= 100)
-            digits -= 2;
+            m_digits -= 2;
         else if (amount >= 10)
-            digits -= 1;
+            m_digits -= 1;
         return {
-            text: amount.toFixed(digits - 1),
-            unit: (use_bytes ? byte_speed_map : bit_speed_map)[unit]
+            text: amount.toFixed(m_digits - 1),
+            unit: (this.use_bytes ? byte_speed_map : bit_speed_map)[unit]
         };
     }
 
@@ -230,8 +231,8 @@ const NetSpeed = class NetSpeed
                 if (_down < 0)
                     _down = 0;
 
-                let _up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes, this.bin_prefixes);
-                let _down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                let _up_speed = this._speed_to_string(_up / delta);
+                let _down_speed = this._speed_to_string(_down / delta);
                 this._speeds.push({
                     up: _up_speed.text + _up_speed.unit,
                     down: _down_speed.text + _down_speed.unit
@@ -241,15 +242,15 @@ const NetSpeed = class NetSpeed
                 up += _up;
                 down += _down;
                 if (this.getDevice() == this._devices[i]) {
-                    total_speed = this._speed_to_string((_up + _down) / delta, this.digits, this.use_bytes, this.bin_prefixes);
-                    up_speed = this._speed_to_string(_up / delta, this.digits, this.use_bytes, this.bin_prefixes);
-                    down_speed = this._speed_to_string(_down / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                    total_speed = this._speed_to_string((_up + _down) / delta);
+                    up_speed = this._speed_to_string(_up / delta);
+                    down_speed = this._speed_to_string(_down / delta);
                 }
             }
             if (total_speed == null) {
-                total_speed = this._speed_to_string(total / delta, this.digits, this.use_bytes, this.bin_prefixes);
-                up_speed = this._speed_to_string(up / delta, this.digits, this.use_bytes, this.bin_prefixes);
-                down_speed = this._speed_to_string(down / delta, this.digits, this.use_bytes, this.bin_prefixes);
+                total_speed = this._speed_to_string(total / delta);
+                up_speed = this._speed_to_string(up / delta);
+                down_speed = this._speed_to_string(down / delta);
             }
 
             this._set_labels(total_speed, up_speed, down_speed);
