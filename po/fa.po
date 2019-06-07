@@ -87,3 +87,7 @@ msgstr "دریافت"
 #: prefs.js:199
 msgid "Use multiples of byte"
 msgstr ""
+
+#: prefs.js:200
+msgid "Use binary prefixes"
+msgstr ""
