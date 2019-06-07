@@ -92,4 +92,4 @@ msgstr "Usa multipli del byte"
 
 #: prefs.js:200
 msgid "Use binary prefixes"
-msgstr ""
+msgstr "Usa prefissi binari"
