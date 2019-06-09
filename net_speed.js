@@ -224,8 +224,8 @@ const NetSpeed = class NetSpeed
                 let _up_speed = this._speed_to_string(_up / delta, this.digits);
                 let _down_speed = this._speed_to_string(_down / delta, this.digits);
                 this._speeds.push({
-                    up: _up_speed.text + _up_speed.unit,
-                    down: _down_speed.text + _down_speed.unit
+                    up: _up_speed.text + " " + _up_speed.unit,
+                    down: _down_speed.text + " " + _down_speed.unit
                 });
 
                 total += _down + _up;
