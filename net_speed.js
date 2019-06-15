@@ -262,7 +262,11 @@ const NetSpeed = class NetSpeed
         this.use_icon = this._setting.get_boolean('icon-display');
         this.digits = this._setting.get_int('digits');
         this._device = this._setting.get_string('device');
-        this.timer = this._setting.get_int('timer');
+        if (this.timer !== this._setting.get_int('timer')) {
+            this.timer = this._setting.get_int('timer');
+            Mainloop.source_remove(this._timerid);
+            this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
+        }
         this.label_size = this._setting.get_int('label-size');
         this.unit_label_size = this._setting.get_int('unit-label-size');
         this.menu_label_size = this._setting.get_int('menu-label-size');
