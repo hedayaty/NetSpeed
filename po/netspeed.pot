@@ -84,3 +84,11 @@ msgstr ""
 #: net_speed_status_icon.js:88
 msgid "Down"
 msgstr ""
+
+#: prefs.js:199
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:200
+msgid "Use binary prefixes"
+msgstr ""
