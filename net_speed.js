@@ -284,10 +284,16 @@ const NetSpeed = class NetSpeed
      */
     _reload()
     {
-	if (this._setting !== null) {
+        if (this._setting !== null) {
+            let m_timer = this._setting.get_int('timer');
+            if (m_timer !== this.timer) {
+                Mainloop.source_remove(this._timerid);
+                this._timerid = Mainloop.timeout_add(m_timer, Lang.bind(this, this._update));
+                // this.timer will be updated within this._load, so no need to update it here
+            }
             this._load();
             this._status_icon.updateui();
-	}
+        }
     }
 
     /**
