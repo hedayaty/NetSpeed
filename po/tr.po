@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-26 11:27-0700\n"
+"POT-Creation-Date: 2019-04-30 00:30-0700\n"
 "PO-Revision-Date: 2019-03-21 09:18+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
@@ -18,59 +18,59 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: prefs.js:53
+#: prefs.js:60
 msgid "ALL"
 msgstr "Tümü"
 
-#: prefs.js:57
+#: prefs.js:64
 msgid "Default Gateway"
 msgstr "Öntanımlı Ağ Geçidi"
 
-#: prefs.js:146
+#: prefs.js:153
 msgid "Device to monitor"
 msgstr "İzlenecek Aygıt"
 
-#: prefs.js:147
+#: prefs.js:154
 msgid "Timer (milisec)"
 msgstr "Zaman (millisaniye)"
 
-#: prefs.js:148
+#: prefs.js:155
 msgid "Digits"
 msgstr "Basamak"
 
-#: prefs.js:149
+#: prefs.js:156
 msgid "Label Size"
 msgstr "Etiket Boyutu"
 
-#: prefs.js:150
+#: prefs.js:157
 msgid "Unit Label Size"
 msgstr "Birim Etiketi Boyutu"
 
-#: prefs.js:151
+#: prefs.js:158
 msgid "Menu Label Size"
 msgstr "Menü Etiket Boyutu"
 
-#: prefs.js:155
+#: prefs.js:162
 msgid "Show sum(UP+Down)"
 msgstr "Toplamı Göster (Yükleme+İndirme)"
 
-#: prefs.js:156
+#: prefs.js:163
 msgid "Show the Icon"
 msgstr "Simgeyi Göster"
 
-#: net_speed.js:94 net_speed.js:108
+#: net_speed.js:108 net_speed.js:122
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "KB/s"
 msgstr "KB/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:108
+#: net_speed.js:122
 msgid "GB/s"
 msgstr "GB/s"
 
