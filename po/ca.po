@@ -1,0 +1,94 @@
+#
+# This file is distributed under the same license as the PACKAGE package.
+# Jordi Mas i Hernandez <jmas@softcatala.org>, 2019
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Netspeed Gnome-Shell Extension\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-30 00:30-0700\n"
+"PO-Revision-Date: 2019-07-28 13:37+0200\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Jordi Mas i Hernandez <jmas@softcatala.org>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: prefs.js:60
+#. N.T.: Es refereix a tots els dispositius
+msgid "ALL"
+msgstr "Tots"
+
+#: prefs.js:64
+msgid "Default Gateway"
+msgstr "Passarel·la per defecte"
+
+#: prefs.js:153
+msgid "Device to monitor"
+msgstr "Dispositiu a fer seguiment"
+
+#: prefs.js:154
+msgid "Timer (milisec)"
+msgstr "Temporitzador (mil·lisegons)"
+
+#: prefs.js:155
+msgid "Digits"
+msgstr "Dígits"
+
+#: prefs.js:156
+msgid "Label Size"
+msgstr "Mida de l'etiqueta"
+
+#: prefs.js:157
+msgid "Unit Label Size"
+msgstr "Mida de l'etiqueta de la unitat"
+
+#: prefs.js:158
+msgid "Menu Label Size"
+msgstr "Mida de l'etiqueta del menú"
+
+#: prefs.js:162
+msgid "Show sum(UP+Down)"
+msgstr "Mostra la suma (pujada + baixada)"
+
+#: prefs.js:163
+msgid "Show the Icon"
+msgstr "Mostra la icona"
+
+#: net_speed.js:108 net_speed.js:122
+msgid "B/s"
+msgstr "B/s"
+
+#: net_speed.js:122
+msgid "KB/s"
+msgstr "KB/s"
+
+#: net_speed.js:122
+msgid "MB/s"
+msgstr "MB/s"
+
+#: net_speed.js:122
+msgid "GB/s"
+msgstr "GB/s"
+
+#: net_speed_status_icon.js:86
+msgid "Device"
+msgstr "Dispositiu"
+
+#: net_speed_status_icon.js:88
+msgid "Up"
+msgstr "Pujada"
+
+#: net_speed_status_icon.js:88
+msgid "Down"
+msgstr "Baixada"
+
+#: prefs.js:199
+msgid "Use multiples of byte"
+msgstr "Usa múltiples de byte"
+
+#: prefs.js:200
+msgid "Use binary prefixes"
+msgstr "Usa prefixos binaris"
