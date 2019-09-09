@@ -42,32 +42,39 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     {
         this._net_speed = net_speed;
         super._init(0.0);
+
+        // extension button
         this._box = new St.BoxLayout();
-        this._icon_box = new St.BoxLayout();
-        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
-        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-        this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-        this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
-        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this.actor.add_actor(this._box);
+        this.actor.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
+
+        // download
         this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
         this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-
-        this._box.add_actor(this._sum);
-        this._box.add_actor(this._sumunit);
-
+        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
         this._box.add_actor(this._down);
         this._box.add_actor(this._downunit);
         this._box.add_actor(this._downicon);
 
+        // upload
+        this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
         this._box.add_actor(this._up);
         this._box.add_actor(this._upunit);
         this._box.add_actor(this._upicon);
-        this._box.add_actor(this._icon_box);
+
+        // download + upload
+        this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
+        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._box.add_actor(this._sum);
+        this._box.add_actor(this._sumunit);
+
+        // interface icon
+        this._icon_box = new St.BoxLayout();
+        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
         this._icon_box.add_actor(this._icon);
-        this.actor.add_actor(this._box);
-        this.actor.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
+        this._box.add_actor(this._icon_box);
 
         // Add pref luncher
         this._pref = new St.Button({ child: this._get_icon("pref")});
