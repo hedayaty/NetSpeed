@@ -49,26 +49,36 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         this.actor.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
 
         // download
+        this._download_box = new St.BoxLayout();
         this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
         this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
         this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-        this._box.add_actor(this._down);
-        this._box.add_actor(this._downunit);
-        this._box.add_actor(this._downicon);
+        this._download_box.add_actor(this._down);
+        this._download_box.add_actor(this._downunit);
+        this._download_box.add_actor(this._downicon);
 
         // upload
+        this._upload_box = new St.BoxLayout();
         this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
         this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
         this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER});
-        this._box.add_actor(this._up);
-        this._box.add_actor(this._upunit);
-        this._box.add_actor(this._upicon);
+        this._upload_box.add_actor(this._up);
+        this._upload_box.add_actor(this._upunit);
+        this._upload_box.add_actor(this._upicon);
 
         // download + upload
+        this._sum_box = new St.BoxLayout();
         this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER});
         this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER});
-        this._box.add_actor(this._sum);
-        this._box.add_actor(this._sumunit);
+        this._sum_box.add_actor(this._sum);
+        this._sum_box.add_actor(this._sumunit);
+
+        // metrics box
+        this._metrics_box = new St.BoxLayout();
+        this._metrics_box.add_actor(this._download_box);
+        this._metrics_box.add_actor(this._upload_box);
+        this._metrics_box.add_actor(this._sum_box);
+        this._box.add_actor(this._metrics_box);
 
         // interface icon
         this._icon_box = new St.BoxLayout();
