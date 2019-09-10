@@ -93,3 +93,7 @@ msgstr "Usa multipli del byte"
 #: prefs.js:200
 msgid "Use binary prefixes"
 msgstr "Usa prefissi binari"
+
+#: prefs.js:201
+msgid "Align vertically"
+msgstr ""

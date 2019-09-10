@@ -92,3 +92,7 @@ msgstr "Usa múltiples de byte"
 #: prefs.js:200
 msgid "Use binary prefixes"
 msgstr "Usa prefixos binaris"
+
+#: prefs.js:201
+msgid "Align vertically"
+msgstr ""
