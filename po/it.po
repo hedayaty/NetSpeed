@@ -96,4 +96,4 @@ msgstr "Usa prefissi binari"
 
 #: prefs.js:201
 msgid "Align vertically"
-msgstr ""
+msgstr "Allinea verticalmente"
