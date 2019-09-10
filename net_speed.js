@@ -278,6 +278,7 @@ const NetSpeed = class NetSpeed
         this.menu_label_size = this._setting.get_int('menu-label-size');
         this.use_bytes = this._setting.get_boolean('use-bytes');
         this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
+        this.vert_align = this._setting.get_boolean('vert-align');
     }
 
     /**

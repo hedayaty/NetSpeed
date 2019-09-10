@@ -156,6 +156,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
             this._downicon.show();
             this._down.show();
             this._downunit.show();
+            this.set_vertical_alignment(this._net_speed.vert_align);
         } else {
             this._sum.show();
             this._sumunit.show();
@@ -165,6 +166,8 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
             this._downicon.hide();
             this._down.hide();
             this._downunit.hide();
+            // ignore vertical alignment with sum
+            this.set_vertical_alignment(false);
         }
 
         // Change the type of Icon
@@ -276,5 +279,20 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         for (let i = 0; i < speeds.length; ++i) {
             this._layouts[i].update_speeds(speeds[i]);
         }
+    }
+
+    /**
+     * NetSpeedStatusIcon: set_vertical_alignment
+     */
+    set_vertical_alignment(tof)
+    {
+        this._metrics_box.set_vertical(tof);
+        let align = tof ? 'vertical' : 'horizontal';
+        this._down.set_style_class_name('ns-' + align + '-label');
+        this._downunit.set_style_class_name('ns-' + align + '-unit-label');
+        this._downicon.set_style_class_name('ns-' + align + '-icon');
+        this._up.set_style_class_name('ns-' + align + '-label');
+        this._upunit.set_style_class_name('ns-' + align + '-unit-label');
+        this._upicon.set_style_class_name('ns-' + align + '-icon');
     }
 });
