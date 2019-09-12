@@ -74,7 +74,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         this._sum_box.add_actor(this._sumunit);
 
         // metrics box
-        this._metrics_box = new St.BoxLayout();
+        this._metrics_box = new St.BoxLayout({y_align: Clutter.ActorAlign.CENTER});
         this._metrics_box.add_actor(this._download_box);
         this._metrics_box.add_actor(this._upload_box);
         this._metrics_box.add_actor(this._sum_box);
