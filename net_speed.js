@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 Amir Hedayaty < hedayaty AT gmail DOT com >
+ * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,11 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Ugly:
-// This is here so that we don't crash old libnm-glib based shells unnecessarily by loading the new libnm.so.
-// Should go away eventually
-const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
-
 const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
@@ -30,8 +25,7 @@ const GLib = imports.gi.GLib;
 const Mainloop = imports.mainloop;
 const Panel = imports.ui.main.panel;
 
-const NMC = libnm_glib ? imports.gi.NMClient : imports.gi.NM;
-const NetworkManager = libnm_glib ? imports.gi.NetworkManager : NMC;
+const NetworkManager = imports.gi.NM;
 
 const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
@@ -306,7 +300,7 @@ var NetSpeed = class NetSpeed {
 
         this._values = new Array();
         this._devices = new Array();
-        this._client = libnm_glib ? NMC.Client.new() : NMC.Client.new(null);
+        this._client = NetworkManager.Client.new(null);
 
         let schemaDir = Extension.dir.get_child('schemas');
         let schemaSource = schemaDir.query_exists(null) ?

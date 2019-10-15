@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 Amir Hedayaty < hedayaty AT gmail DOT com >
+ * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ const NetSpeedLayoutMenuItem = Extension.imports.net_speed_layout_menu_item;
 
 /**
  * Class NetSpeedStatusIcon
- * status icon, texts for speeds, the drodown menu
+ * status icon, texts for speeds, the drop-down menu
  */
 var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends PanelMenu.Button {
     /**

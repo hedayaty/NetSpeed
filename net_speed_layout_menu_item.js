@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2013 Amir Hedayaty < hedayaty AT gmail DOT com >
+ * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

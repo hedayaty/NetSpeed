@@ -37,10 +37,10 @@ install: pack
 	unzip $(UUID).zip -d $(LOCAL_INSTALL)
 
 enable:
-	gnome-shell-extension-tool --enable $(UUID)
+	gnome-extensions enable $(UUID)
 
 disable:
-	gnome-shell-extension-tool --disable $(UUID)
+	gnome-extensions disable $(UUID)
 
 reload:
-	gnome-shell-extension-tool --reload $(UUID)
+	gnome-extensions reset $(UUID)

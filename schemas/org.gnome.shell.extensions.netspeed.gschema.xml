@@ -50,5 +50,10 @@
       <summary>Use binary prefixes</summary>
       <description>Set to true to show binary prefixes (Mib/s, GiB/s, etc), false for decimal prefixes (Mb/s, GB/s, etc)</description>
     </key>
+    <key name = "hi-dpi-factor" type="i">
+      <default>1</default>
+      <summary>Factor for HiDPI screens</summary>
+      <description>For normal displays this will be 1. If you want to be able to have bigger labels increase the value for this.</description>
+    </key>
   </schema>
 </schemalist>
