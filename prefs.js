@@ -1,5 +1,5 @@
  /*
-  * Copyright 2011-2013 Amir Hedayaty < hedayaty AT gmail DOT com >
+  * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -16,11 +16,6 @@
   */
 
 
-/* Ugly. This is here so that we don't crash old libnm-glib based shells unnecessarily
- * by loading the new libnm.so. Should go away eventually
- */
-const libnm_glib = imports.gi.GIRepository.Repository.get_default().is_registered("NMClient", "1.0");
-
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
@@ -29,8 +24,7 @@ const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const Lang = imports.lang;
-const NMC = libnm_glib ? imports.gi.NMClient : imports.gi.NM;
-const NM = libnm_glib ? imports.gi.NetworkManager : NMC;
+const NM = imports.gi.NM;
 const _ = Gettext.domain('netspeed').gettext;
 
 let schemaDir = Extension.dir.get_child('schemas');
@@ -41,18 +35,15 @@ let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
 let Schema = new Gio.Settings({ settings_schema: schema });
 
 
-function init()
-{
+function init() {
     let localeDir = Extension.dir.get_child('locale');
     if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
-	}
+    }
 }
 
-const App = class NetSpeed_App
-{
-    _get_dev_combo()
-    {
+const App = class NetSpeed_App {
+    _get_dev_combo() {
         let listStore = new Gtk.ListStore();
         listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
@@ -64,10 +55,11 @@ const App = class NetSpeed_App
         listStore.set (defaultGw, [0], [_("Default Gateway")]);
         listStore.set (defaultGw, [1], ["gtk-network"]);
 
-        let nmc = libnm_glib ? NMC.Client.new() : NMC.Client.new(null);
-        this._devices = nmc.get_devices() || [ ];
+        let nmc = NM.Client.new(null);
+        let devices = nmc.get_devices() || [ ];
+        this._devices = [];
 
-        for (let dev of this._devices) {
+        for (let dev of devices) {
             let iconname;
             switch (dev.device_type) {
                 case NM.DeviceType.ETHERNET:
@@ -91,6 +83,7 @@ const App = class NetSpeed_App
                 default:
                     continue;
             }
+            this._devices.push(dev.interface);
             let iter = listStore.append();
             listStore.set (iter, [0], [dev.interface]);
             listStore.set (iter, [1], [iconname]);
@@ -110,12 +103,10 @@ const App = class NetSpeed_App
         return combo;
     }
 
-    _put_dev()
-    {
+    _put_dev() {
         let active = this.dev.get_active();
         if (active == -1)
             return;
-        this._setting = 1;
         switch (active) {
         case 0:
             Schema.set_string ('device', "all");
@@ -124,31 +115,58 @@ const App = class NetSpeed_App
             Schema.set_string ('device', "defaultGW");
             break;
         default:
-            Schema.set_string ('device', this._devices[active - 2].interface);
+            Schema.set_string ('device', this._devices[active - 2]);
         }
-        this._setting = 0;
+        log("device <- " + Schema.get_string('device'));
     }
 
-    _pick_dev()
-    {
-        if (this._setting == 1)
-            return;
+    _changed() {
+        let factor = Schema.get_int('hi-dpi-factor');
+        if (factor != this._factor) {
+            this._change_factor();
+        }
+
+
+    }
+
+    _pick_dev() {
         let activeDev = Schema.get_string('device');
+        this._device = activeDev;
         let active = 0;
         if (activeDev == "all") {
             active = 0;
         } else if (activeDev == "defaultGw") {
             active = 1;
         } else {
-            for (let i = 0; i < this._devices.length; ++i)
-                if (this._devices[i].interface == activeDev)
+            for (let i = 0; i < this._devices.length; ++i) {
+                if (this._devices[i] == activeDev) {
                     active = i + 2;
+                }
+            }
         }
-        this.dev.set_active (active);
+        this.dev.set_active(active);
     }
 
-    constructor()
-    {
+    _change_factor() {
+        let old_factor = this._factor;
+        let factor = Schema.get_int('hi-dpi-factor');
+        this._factor = factor;
+
+        this._label_adjustment.upper = 100 * factor;
+        this._label_adjustment.step_increment = factor;
+        Schema.set_int('label-size', Schema.get_int('label-size') * factor / old_factor);
+
+        this._unit_label_adjustment.upper = 100 * factor;
+        this._unit_label_adjustment.step_increment = factor;
+        Schema.set_int('unit-label-size', Schema.get_int('unit-label-size') * factor / old_factor);
+
+        this._menu_label_adjustment.upper = 100 * factor;
+        this._menu_label_adjustment.step_increment = factor;
+        Schema.set_int('menu-label-size', Schema.get_int('menu-label-size') * factor / old_factor);
+    }
+
+    constructor() {
+        this._factor = Schema.get_int('hi-dpi-factor');
         this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
         this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
@@ -156,8 +174,9 @@ const App = class NetSpeed_App
         this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 7, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("HiDPI factor")}), 1, 11, 1, 1);
 
-        //	this.dev = new Gtk.Entry();
+        //this.dev = new Gtk.Entry();
         this.dev = this._get_dev_combo();
         this.sum = new Gtk.CheckButton({ label: _("Show sum(UP+Down)") });
         this.icon = new Gtk.CheckButton({ label: _("Show the Icon") });
@@ -175,30 +194,44 @@ const App = class NetSpeed_App
                 step_increment: 1
             })
         });
+
+        this._label_adjustment = new Gtk.Adjustment({
+            lower: 1,
+            upper: 100 * this._factor,
+            step_increment: this._factor
+        });
         this.label_size = new Gtk.SpinButton({
-            adjustment: new Gtk.Adjustment({
-                lower: 1,
-                upper: 100,
-                step_increment: 1
-            })
+            adjustment: this._label_adjustment
+        });
+
+        this._unit_label_adjustment = new Gtk.Adjustment({
+            lower: 1,
+            upper: 100 * this._factor,
+            step_increment: this._factor
         });
         this.unit_label_size = new Gtk.SpinButton({
-            adjustment: new Gtk.Adjustment({
-                lower: 1,
-                upper: 100,
-                step_increment: 1
-            })
+            adjustment: this._unit_label_adjustment
+        });
+
+        this._menu_label_adjustment = new Gtk.Adjustment({
+            lower: 1,
+            upper: 100 * this._factor,
+            step_increment: this._factor
         });
         this.menu_label_size = new Gtk.SpinButton({
-            adjustment: new Gtk.Adjustment({
-                lower: 1,
-                upper: 300,
-                step_increment: 1
-            })
+            adjustment: this._menu_label_adjustment
         });
+
         this.use_bytes = new Gtk.CheckButton({ label: _("Use multiples of byte") });
         this.bin_prefixes = new Gtk.CheckButton({ label: _("Use binary prefixes") });
         this.vert_align = new Gtk.CheckButton({ label: _("Align vertically") });
+        this.hi_dpi_factor = new Gtk.SpinButton({
+            adjustment: new Gtk.Adjustment({
+                lower: 1,
+                upper: 100,
+                step_increment: 1
+            })
+        });
 
         this.main.attach(this.dev, 2, 1, 1, 1);
         this.main.attach(this.sum, 1, 2, 2, 1);
@@ -210,7 +243,8 @@ const App = class NetSpeed_App
         this.main.attach(this.menu_label_size, 2, 8, 1, 1);
         this.main.attach(this.use_bytes, 1, 9, 1, 1);
         this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
-        this.main.attach(this.vert_align, 1, 11, 1, 1);
+        this.main.attach(this.hi_dpi_factor, 2, 11, 2, 1);
+        this.main.attach(this.vert_align, 1, 12, 1, 1);
 
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -222,22 +256,20 @@ const App = class NetSpeed_App
         Schema.bind('use-bytes', this.use_bytes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('bin-prefixes', this.bin_prefixes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('vert-align', this.vert_align, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind('hi-dpi-factor', this.hi_dpi_factor, 'value', Gio.SettingsBindFlags.DEFAULT);
 
-        this._setting = 0;
-
-        //Schema.bind('device', this.dev, 'active_id', Gio.SettingsBindFlags.DEFAULT);
         this._pick_dev();
+        this._factor = Schema.get_int('hi-dpi-factor');
 
         this.dev.connect('changed', Lang.bind(this, this._put_dev));
 
-        Schema.connect('changed::device', Lang.bind(this, this._pick_dev));
+        Schema.connect('changed', Lang.bind(this, this._changed));
 
         this.main.show_all();
     }
 };
 
-function buildPrefsWidget()
-{
+function buildPrefsWidget() {
     let widget = new App();
     return widget.main;
 };

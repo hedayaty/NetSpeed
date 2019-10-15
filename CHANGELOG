@@ -1,3 +1,9 @@
+* Tue 15 Oct 2019 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.34
+- Upgrade to 3.34
+- Impalement HiDPI mode
+- Get rid of NM hack
+
+
 * Tue 30 Apt 2019 Amir Hedayaty <hedayaty AT gmail DOT COM>- 3.32
 Upgrade to be compatible 3.32
 Since, not compatible with older versions no need to update them all

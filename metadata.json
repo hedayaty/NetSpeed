@@ -3,8 +3,8 @@
   "description": "Displays Internet Speed",
   "name": "NetSpeed",
   "original-author": "hedayaty@gmail.com",
-  "shell-version": [ "3.20", "3.32" ],
+  "shell-version": [ "3.34" ],
   "url": "https://github.com/hedayaty/NetSpeed",
   "uuid": "netspeed@hedayaty.gmail.com",
-  "version": 30
+  "version": 31
 }

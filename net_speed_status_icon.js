@@ -1,19 +1,19 @@
- /*
-  * Copyright 2011-2013 Amir Hedayaty < hedayaty AT gmail DOT com >
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 3 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
+/*
+ * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
@@ -26,27 +26,25 @@ const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 
 const _ = Gettext.domain('netspeed').gettext;
-const LayoutMenuItem = Extension.imports.layout_menu_item;
+const NetSpeedLayoutMenuItem = Extension.imports.net_speed_layout_menu_item;
 
 /**
  * Class NetSpeedStatusIcon
- * status icon, texts for speeds, the drodown menu
+ * status icon, texts for speeds, the drop-down menu
  */
-const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends PanelMenu.Button
-{
+var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends PanelMenu.Button {
     /**
      * NetSpeedStatusIcon: _init
      * Constructor
      */
-    _init(net_speed)
-    {
+    _init(net_speed) {
         this._net_speed = net_speed;
         super._init(0.0);
 
         // extension button
         this._box = new St.BoxLayout();
-        this.actor.add_actor(this._box);
-        this.actor.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
+        this.add_actor(this._box);
+        this.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
 
         // download
         this._download_box = new St.BoxLayout();
@@ -66,7 +64,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         this._upload_box.add_actor(this._upunit);
         this._upload_box.add_actor(this._upicon);
 
-        // download + upload
+        // sum
         this._sum_box = new St.BoxLayout();
         this._sum = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
         this._sumunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
@@ -87,22 +85,20 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
         this._box.add_actor(this._icon_box);
 
         // Add pref luncher
-        this._pref = new St.Button({ child: this._get_icon("pref")});
-        this._pref.connect("clicked", function()
-            {
-                let app_sys = Shell.AppSystem.get_default();
-                let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
-                if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING) {
-                    prefs.activate();
-                } else {
-                    prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
-                }
+        this._pref = new St.Button({ child: this._get_icon("pref") });
+        this._pref.connect("clicked", function () {
+            let app_sys = Shell.AppSystem.get_default();
+            let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
+            if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING) {
+                prefs.activate();
+            } else {
+                prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
             }
-        );
+        });
 
-        this._menu_title = new LayoutMenuItem.LayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
+        this._menu_title = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
         this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
-        this._menu_title.update_speeds({ up: _("Up"), down: _("Down")});
+        this._menu_title.update_speeds({ up: _("Up"), down: _("Down") });
         this.menu.addMenuItem(this._menu_title);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._layouts = new Array();
@@ -112,8 +108,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon :_change_device
      */
-    _change_device(param1, param2, device)
-    {
+    _change_device(param1, param2, device) {
         this._net_speed.setDevice(device);
         this.updateui();
         this._net_speed.save();
@@ -122,11 +117,10 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon: _toggle_showsum
      */
-    _toggle_showsum(actor, event)
-    {
+    _toggle_showsum(actor, event) {
         let button = event.get_button();
         if (button == 2) { // middle
-            this._net_speed.showsum = ! this._net_speed.showsum;
+            this._net_speed.showsum = !this._net_speed.showsum;
             this.updateui();
             this._net_speed.save();
         }
@@ -136,8 +130,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
      * NetSpeedStatusIcon: updateui
      * update ui according to settings
      */
-    updateui()
-    {
+    updateui() {
         // Set the size of labels
         this._sum.set_width(this._net_speed.label_size);
         this._sumunit.set_width(this._net_speed.unit_label_size);
@@ -192,8 +185,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
      * NetSpeedStatusIcon: _get_icon
      * Utility function to create icon from name
      */
-    _get_icon(name, size)
-    {
+    _get_icon(name, size) {
         if (arguments.length == 1)
             size = 16;
         let iconname = "";
@@ -207,10 +199,10 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
             case "wifi":
                 iconname = "network-wireless-signal-excellent-symbolic";
                 break;
-            case "bt" :
+            case "bt":
                 iconname = "bluetooth-active-symbolic";
                 break;
-            case "olpcmesh" :
+            case "olpcmesh":
                 iconname = "network-wired-symbolic";
                 break;
             case "wimax":
@@ -241,8 +233,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon: set_labels
      */
-    set_labels(sum, up, down)
-    {
+    set_labels(sum, up, down) {
         this._sum.set_text(sum.text);
         this._sumunit.set_text(sum.unit);
 
@@ -256,15 +247,14 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon: create_menu
      */
-    create_menu(devices, types)
-    {
+    create_menu(devices, types) {
         for (let layout of this._layouts) {
             layout.destroy();
         }
         this._layouts = new Array();
         for (let i = 0; i < devices.length; ++i) {
             let icon = this._get_icon(types[i]);
-            let layout = new LayoutMenuItem.LayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
+            let layout = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
             layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
             this._layouts.push(layout);
             this.menu.addMenuItem(layout);
@@ -274,8 +264,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon: update_speeds
      */
-    update_speeds(speeds)
-    {
+    update_speeds(speeds) {
         for (let i = 0; i < speeds.length; ++i) {
             this._layouts[i].update_speeds(speeds[i]);
         }
@@ -284,8 +273,7 @@ const NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extend
     /**
      * NetSpeedStatusIcon: set_vertical_alignment
      */
-    set_vertical_alignment(tof)
-    {
+    set_vertical_alignment(tof) {
         this._metrics_box.set_vertical(tof);
         let align = tof ? 'vertical' : 'horizontal';
         this._down.set_style_class_name('ns-' + align + '-label');
