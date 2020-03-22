@@ -38,8 +38,11 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
                     , style_class: "ns-menuitem"
                 }
             );
+
             this._down_label = new St.Label({ text: "", style_class: "ns-menuitem" });
             this._up_label = new St.Label({ text: "", style_class: "ns-menuitem" });
+            this._ips_label = new St.Label({ text: "", style_class: "ns-menuitem" });
+
             if (this._icon != null) {
                 this.add(this._icon);
             } else {
@@ -48,6 +51,7 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this.add(this._device_title);
             this.add(this._down_label);
             this.add(this._up_label);
+            this.add(this._ips_label);
             this.update_ui(menu_label_size);
         }
 
@@ -59,6 +63,7 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._down_label.set_width(menu_label_size);
             this._up_label.set_width(menu_label_size);
             this._device_title.set_width(menu_label_size);
+            this._ips_label.set_width(menu_label_size);
         }
 
         /**
@@ -69,4 +74,13 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._down_label.set_text(speed.down);
             this._up_label.set_text(speed.up);
         }
+
+        /**
+         * NetSpeedLayoutMenuItem: update_ips
+         * update ips
+         */
+        update_ips(ips) {
+            this._ips_label.set_text(ips.join("\n"));
+        }
+
     });

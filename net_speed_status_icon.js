@@ -28,6 +28,9 @@ const St = imports.gi.St;
 const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedLayoutMenuItem = Extension.imports.net_speed_layout_menu_item;
 
+const Lib = Extension.imports.lib;
+const Logger = Lib.getLogger();
+
 /**
  * Class NetSpeedStatusIcon
  * status icon, texts for speeds, the drop-down menu
@@ -83,6 +86,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         this._menu_title = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
         this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
         this._menu_title.update_speeds({ up: _("Up"), down: _("Down") });
+        this._menu_title.update_ips([_("IP")]);
         this.menu.addMenuItem(this._menu_title);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._layouts = new Array();
@@ -147,7 +151,9 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         // Change the type of Icon
         this._icon.destroy();
         const device = this._net_speed.getDevice();
-        log("Device -> " + device);
+
+        Logger.message("Device -> " + device);
+
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
         // Show icon or not
@@ -202,8 +208,10 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
                 iconname = "emblem-system-symbolic";
                 break;
             default:
-                iconname = "network-transmit-receive";
+                iconname = "network-transmit-receive-symbolic";
         }
+
+        Logger.info(`Get icon for '${name}': '${iconname}'`);
 
         return new St.Icon({
             icon_name: iconname,
@@ -250,4 +258,15 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             this._layouts[i].update_speeds(speeds[i]);
         }
     }
+
+    /**
+     * NetSpeedStatusIcon: update_ips
+     */
+    update_ips(ips) {
+        for (let i = 0; i < ips.length; ++i) {
+            this._layouts[i].update_ips(ips[i]);
+        }
+    }
+
+
 });

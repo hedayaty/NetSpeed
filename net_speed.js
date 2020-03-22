@@ -17,6 +17,7 @@
 
 const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Lib = Extension.imports.lib;
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 const ByteArray = imports.byteArray;
@@ -29,6 +30,9 @@ const NetworkManager = imports.gi.NM;
 
 const _ = Gettext.domain('netspeed').gettext;
 const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
+
+const Logger = Lib.getLogger();
+
 /**
  * Class NetSpeed
  * The extension
@@ -141,6 +145,13 @@ var NetSpeed = class NetSpeed {
     }
 
     /**
+     * NetSpeed: _update_ips
+     */
+    _update_ips() {
+        this._status_icon.update_ips(this._ips);
+    }
+
+    /**
      * NetSpeed: _create_menu
      */
     _create_menu() {
@@ -182,6 +193,7 @@ var NetSpeed = class NetSpeed {
         this._oldvalues = this._values;
         this._values = new Array();
         this._speeds = new Array();
+        this._ips = new Array();
         this._olddevices = this._devices;
         this._devices = new Array();
 
@@ -199,6 +211,8 @@ var NetSpeed = class NetSpeed {
             this._values.push([parseInt(params[9]), parseInt(params[1])]);
             this._devices.push(params[0].replace(":", ""));
         }
+
+        //log("[netspeed] Devices: " + this._devices);
 
         var total = 0;
         var total_speed = null;
@@ -241,6 +255,15 @@ var NetSpeed = class NetSpeed {
             this._update_speeds();
         } else
             this._create_menu();
+
+
+
+
+        if (this._reload_ips) {
+            this._retrieve_ips();
+            this._update_ips();
+        }
+
         return true;
     }
 
@@ -261,6 +284,7 @@ var NetSpeed = class NetSpeed {
         this.menu_label_size = this._setting.get_int('menu-label-size');
         this.use_bytes = this._setting.get_boolean('use-bytes');
         this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
+        this.show_ips = this._setting.get_boolean('show-ips');
     }
 
     /**
@@ -270,6 +294,7 @@ var NetSpeed = class NetSpeed {
         this._saving = 1; // Disable Load
         this._setting.set_boolean('show-sum', this.showsum);
         this._setting.set_string('device', this._device);
+        this._setting.set_boolean('show-ips', this.show_ips);
         this._saving = 0; // Enable Load
     }
 
@@ -297,10 +322,18 @@ var NetSpeed = class NetSpeed {
         this._last_up = 0; // size of upload in previous snapshot
         this._last_down = 0; // size of download in previous snapshot
         this._last_time = 0; // time of the latest snapshot
+        this._reload_ips = true; // flag to trigger IPs retrieving
 
         this._values = new Array();
         this._devices = new Array();
         this._client = NetworkManager.Client.new(null);
+        this._nm_signals = new Array();
+        this._nm_signals.push(this._client.connect('any-device-added', Lang.bind(this, this._nm_device_changed)));
+        this._nm_signals.push(this._client.connect('any-device-removed', Lang.bind(this, this._nm_device_changed)));
+        this._nm_signals.push(this._client.connect('connection-added', Lang.bind(this, this._nm_connection_changed)));
+        this._nm_signals.push(this._client.connect('connection-removed', Lang.bind(this, this._nm_connection_changed)));
+        this._nm_signals.push(this._client.connect('active-connection-added', Lang.bind(this, this._nm_connection_changed)));
+        this._nm_signals.push(this._client.connect('active-connection-removed', Lang.bind(this, this._nm_connection_changed)));
 
         let schemaDir = Extension.dir.get_child('schemas');
         let schemaSource = schemaDir.query_exists(null) ?
@@ -331,6 +364,9 @@ var NetSpeed = class NetSpeed {
         this._olddevices = null;
         this._oldvalues = null;
         this._setting = null;
+        for (const sig_id in this._nm_signals) {
+            this._client.disconnect(sig_id);
+        }
         this._client = null;
         this._status_icon.destroy();
     }
@@ -346,4 +382,77 @@ var NetSpeed = class NetSpeed {
     setDevice(device) {
         this._device = device;
     }
+
+    /**
+     * NetSpeed: _nm_device_changed
+     */
+    _nm_device_changed(client, device) {
+        log("_nm_device_changed");
+        this._trigger_ips_reload();
+    }
+
+    /**
+     * NetSpeed: _nm_connection_changed
+     */
+    _nm_connection_changed(client, connection) {
+        log("_nm_connection_changed");
+        this._trigger_ips_reload();
+    }
+    /**
+     * NetSpeed: _trigger_ips_reload
+     */
+    _trigger_ips_reload() {
+        this._reload_ips = true;
+    }
+
+    /**
+     * NetSpeed: retrieve_ips
+     */
+    _retrieve_ips() {
+        // get ips v4
+        for (let dev of this._devices) {
+            let nm_dev = this._client.get_device_by_iface(dev);
+            let addresses = this._getAddresses(nm_dev, GLib.SYSDEF_AF_INET);
+            this._ips.push(addresses);
+        }
+        //FIXME: manage signals from all devices
+        //this._reload_ips = false;
+
+    }
+
+    /**
+     * NetSpeed: getAddresses
+     * @param {NM.Device}: NetWorkManager Device
+     * @param {Glib.SYSDEF_AF_INET}: family - Glib.SYSDEF_AF_INET or Glib.SYSDEF_AF_INET6
+     * @returns {string[]}: Array of 'address/prefix'
+     */
+    _getAddresses(nm_device, family) {
+        let ip_cfg;
+        if (family == GLib.SYSDEF_AF_INET)
+            ip_cfg = nm_device.get_ip4_config();
+        else
+            ip_cfg = nm_device.get_ip6_config();
+
+        if (ip_cfg == null) {
+            Logger.info(`No config for device '${nm_device.get_iface()}'`);
+            return new Array();
+        }
+
+        let nm_addresses = ip_cfg.get_addresses();
+        if (nm_addresses.length == 0) {
+            Logger.info(`No IP addresses for device '${nm_device.get_iface()}'`);
+            return new Array();
+        }
+
+        let addresses = new Array();
+        for (let nm_address of nm_addresses) {
+            let addr = nm_address.get_address();
+            let prefix = nm_address.get_prefix();
+            addresses.push(addr + "/" + prefix);
+        }
+
+        Logger.debug(`'${nm_device.get_iface()}' addresses: ${addresses}`);
+        return addresses;
+    }
+
 };
