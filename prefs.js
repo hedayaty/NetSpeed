@@ -250,7 +250,7 @@ const App = class NetSpeed_App {
         this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
         this.main.attach(this.hi_dpi_factor, 2, 11, 2, 1);
 
-        if (Lib.showIPs()) {
+        if (Lib.canShowIPs()) {
             this.main.attach(this.show_ip, 1, 12, 2, 1);
         }
 

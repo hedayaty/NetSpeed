@@ -163,8 +163,10 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             this._icon.hide();
         // Update Menu sizes
         this._menu_title.update_ui(this._net_speed.menu_label_size);
+        this._menu_title.show_ip(this._net_speed.show_ips);
         for (let layout of this._layouts) {
             layout.update_ui(this._net_speed.menu_label_size);
+            layout.show_ip(this._net_speed.show_ips);
         }
     }
 

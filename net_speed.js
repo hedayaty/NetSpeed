@@ -387,7 +387,6 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: _nm_device_changed
      */
     _nm_device_changed(client, device) {
-        log("_nm_device_changed");
         this._trigger_ips_reload();
     }
 
@@ -395,7 +394,6 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: _nm_connection_changed
      */
     _nm_connection_changed(client, connection) {
-        log("_nm_connection_changed");
         this._trigger_ips_reload();
     }
     /**

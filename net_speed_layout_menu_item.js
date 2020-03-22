@@ -75,6 +75,15 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._up_label.set_text(speed.up);
         }
 
+        show_ip(value) {
+            if (value) {
+                this._ips_label.show();
+            }
+            else {
+                this._ips_label.hide();
+            }
+        }
+
         /**
          * NetSpeedLayoutMenuItem: update_ips
          * update ips

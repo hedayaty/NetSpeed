@@ -140,21 +140,21 @@ function splitVersion(version) {
 
 
 /**
- * showIPs:
+ * canShowIPs:
  * @returns {boolean} - true if panel can show IPs, false otherwise
  */
 
-function showIPs() {
+function canShowIPs() {
 
     let version_array = splitVersion(Config.PACKAGE_VERSION);
 
     // Gnome 3.32 have a bug on GObject introspection for GPtrArray
     // so NetworkManager crash on returning ip_config
     if (version_array[0] == 3 && (version_array[1] < 32 || version_array[1] >= 34)) {
-        getLogger().log(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
+        getLogger().debug(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
         return true;
     }
-    getLogger().log(`Show IP cannot be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
+    getLogger().warning(`Show IP cannot be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
     Schema.set_boolean('show-ips', false);
     return false;
 }
