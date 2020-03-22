@@ -23,15 +23,20 @@ const Config = imports.misc.config;
 var SCHEMA = "org.gnome.shell.extensions.netspeed";
 
 // Debug Mode Settings
-var DEBUG = true;
+var DEBUG = false;
 
 // Logging
 const LOG_DOMAIN = SCHEMA;
 const LOG_PREFIX = `[${LOG_DOMAIN}]`;
 
 // Log all messages when connected to the journal if DEBUG
-//if (GLib.log_writer_is_journald(2) && DEBUG)
-//    GLib.setenv('G_MESSAGES_DEBUG', LOG_DOMAIN, false);
+if (GLib.log_writer_is_journald(2) && DEBUG){
+    log("G_MESSAGES_DEBUG");
+    GLib.setenv('G_MESSAGES_DEBUG', LOG_DOMAIN, false);
+} else {
+    // FIXME: manage already existing env var
+    GLib.unsetenv('G_MESSAGES_DEBUG');
+}
 
 /**
  * A Logger class inspired to GJS doc/Logging.md
@@ -45,9 +50,7 @@ var _loggerClass = class _Logger {
     _getMessage(event, file, func, line) {
         let timestamp = new Date(new Date().getTime()).toISOString();
         let message = `${event}`;
-        if (DEBUG) {
-            message = `[${Extension.uuid}:${file}:${func}:${line}] ${event}`;
-        }
+        message = `[${Extension.uuid}:${file}:${func}:${line}] -> ${event}`;
         return message;
     }
 
@@ -126,7 +129,6 @@ function getLogger() {
  *
  * @version must be in the format <major>.<minor>.<micro>.<pre-tag>
  * <micro> and <pre-tag> are always ignored
- * @version must be at least <major> and <minor>
  */
 
 function splitVersion(version) {
