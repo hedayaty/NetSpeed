@@ -20,6 +20,7 @@ const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Lib = Extension.imports.lib;
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
+const GObject = imports.gi.GObject;
 const ByteArray = imports.byteArray;
 
 const GLib = imports.gi.GLib;
@@ -260,6 +261,7 @@ var NetSpeed = class NetSpeed {
         if (this._reload_ips && this.show_ips) {
             this._retrieve_ips();
             this._update_ips();
+            Logger.debug("Retrieved ips");
         }
 
         return true;
@@ -333,6 +335,9 @@ var NetSpeed = class NetSpeed {
         this._nm_signals.push(this._client.connect('active-connection-added', Lang.bind(this, this._nm_connection_changed)));
         this._nm_signals.push(this._client.connect('active-connection-removed', Lang.bind(this, this._nm_connection_changed)));
 
+        // store NM Device 'state-changed' signal bindings to disconnect on disable
+        this._nm_devices_signals_map = new Map();
+
         let schemaDir = Extension.dir.get_child('schemas');
         let schemaSource = schemaDir.query_exists(null) ?
             Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false) :
@@ -362,9 +367,12 @@ var NetSpeed = class NetSpeed {
         this._olddevices = null;
         this._oldvalues = null;
         this._setting = null;
-        for (const sig_id in this._nm_signals) {
+
+        this._nm_signals.forEach(sig_id => {
             this._client.disconnect(sig_id);
-        }
+        });
+
+        this._disconnect_all_nm_device_state_changed();
         this._client = null;
         this._status_icon.destroy();
     }
@@ -402,25 +410,66 @@ var NetSpeed = class NetSpeed {
     }
 
     /**
-     * NetSpeed: retrieve_ips
+     * NetSpeed: _retrieve_ips
+     * get ips v4
      */
     _retrieve_ips() {
-        // get ips v4
+        // remove previous connects
+        this._disconnect_all_nm_device_state_changed();
+
         for (let dev of this._devices) {
             let nm_dev = this._client.get_device_by_iface(dev);
             let addresses = this._getAddresses(nm_dev, GLib.SYSDEF_AF_INET);
             this._ips.push(addresses);
+            this._connect_nm_device_state_changed(nm_dev);
         }
-        //FIXME: manage signals from all devices
-        //this._reload_ips = false;
-
+        this._reload_ips = false;
+    }
+    /**
+     * NetSpeed: _connect_nm_device_state_changed
+     * @param {NM.Device} nm_device: NetworkManager Device instance
+     */
+    _connect_nm_device_state_changed(nm_device) {
+        if (!this._nm_devices_signals_map.has(nm_device.get_iface())) {
+            let signal_id = nm_device.connect('state-changed', this._nm_device_state_changed);
+            this._nm_devices_signals_map.set(nm_device.get_iface(), [nm_device, signal_id]);
+        }
     }
 
     /**
-     * NetSpeed: getAddresses
+     * NetSpeed: _disconnect_nm_device_state_changed
+     * Use GObject.signal_handler_disconnect to avoid override of disconnect 
+     * due ot introspection on NM.Device .
+     */
+    _disconnect_all_nm_device_state_changed() {
+        for (let [nm_device, signal_id] of this._nm_devices_signals_map.values()) {
+            GObject.signal_handler_disconnect(nm_device, signal_id);
+        }
+        this._nm_devices_signals_map.clear();
+    }
+
+    /**
+     * NetSpeed: _nm_device_state_changed
+     * Handler for NM.Device 'state-chaged' signal
+     * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceState for states
+     * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceStateReason for reasons
+     */
+    _nm_device_state_changed(nm_device, old_state, new_state, reason) {
+        //Logger.debug(`${nm_device.get_iface()} move from ${old_state} to ${new_state}: reason ${reason}`);
+        if (this == null) {
+            //gnome-shell issue: https://gitlab.gnome.org/GNOME/gnome-shell/issues/2127 
+            Logger.warning("this is null");
+            return;
+        }
+        this._trigger_ips_reload();
+    }
+
+    /**
+     * NetSpeed: _getAddresses
+     * function from https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/blob/master/examples/js/get_ips.js#L16
      * @param {NM.Device}: NetWorkManager Device
      * @param {Glib.SYSDEF_AF_INET}: family - Glib.SYSDEF_AF_INET or Glib.SYSDEF_AF_INET6
-     * @returns {string[]}: Array of 'address/prefix'
+     * @returns {string[]}: Array of 'address/prefix' string
      */
     _getAddresses(nm_device, family) {
         let ip_cfg;
@@ -447,7 +496,6 @@ var NetSpeed = class NetSpeed {
             addresses.push(addr + "/" + prefix);
         }
 
-        Logger.debug(`'${nm_device.get_iface()}' addresses: ${addresses}`);
         return addresses;
     }
 

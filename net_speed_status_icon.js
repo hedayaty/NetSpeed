@@ -153,7 +153,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         this._icon.destroy();
         const device = this._net_speed.getDevice();
 
-        Logger.message("Device -> " + device);
+        Logger.debug("Device -> " + device);
 
         this._icon = this._get_icon(this._net_speed.get_device_type(device));
         this._icon_box.add_actor(this._icon);
@@ -214,8 +214,6 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
                 iconname = "network-transmit-receive-symbolic";
         }
 
-        Logger.info(`Get icon for '${name}': '${iconname}'`);
-
         return new St.Icon({
             icon_name: iconname,
             icon_size: size,
@@ -247,6 +245,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         for (let i = 0; i < devices.length; ++i) {
             let icon = this._get_icon(types[i]);
             let layout = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
+            layout.show_ip(this._net_speed.show_ips);
             layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
             this._layouts.push(layout);
             this.menu.addMenuItem(layout);

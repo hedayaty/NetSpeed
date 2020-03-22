@@ -29,9 +29,8 @@ var DEBUG = false;
 const LOG_DOMAIN = SCHEMA;
 const LOG_PREFIX = `[${LOG_DOMAIN}]`;
 
-// Log all messages when connected to the journal if DEBUG
-if (GLib.log_writer_is_journald(2) && DEBUG){
-    log("G_MESSAGES_DEBUG");
+// Log all messages when connected to the journal
+if (GLib.log_writer_is_journald(2) && DEBUG) {
     GLib.setenv('G_MESSAGES_DEBUG', LOG_DOMAIN, false);
 } else {
     // FIXME: manage already existing env var
@@ -41,7 +40,7 @@ if (GLib.log_writer_is_journald(2) && DEBUG){
 /**
  * A Logger class inspired to GJS doc/Logging.md
  * 
- * */
+ */
 var _loggerClass = class _Logger {
 
     constructor(module) {
@@ -152,7 +151,7 @@ function canShowIPs() {
 
     let version_array = splitVersion(Config.PACKAGE_VERSION);
 
-    
+
     if (version_array[0] == 3 && (version_array[1] < 28 || version_array[1] >= 34)) {
         getLogger().debug(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
         return true;
