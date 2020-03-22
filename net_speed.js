@@ -253,13 +253,11 @@ var NetSpeed = class NetSpeed {
 
             this._set_labels(total_speed, up_speed, down_speed);
             this._update_speeds();
-        } else
+        } else {
             this._create_menu();
+        }
 
-
-
-
-        if (this._reload_ips) {
+        if (this._reload_ips && this.show_ips) {
             this._retrieve_ips();
             this._update_ips();
         }

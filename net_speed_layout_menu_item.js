@@ -53,6 +53,9 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this.add(this._up_label);
             this.add(this._ips_label);
             this.update_ui(menu_label_size);
+            this.show_ip(false);
+
+            //log(`${getMethods(this)}`);
         }
 
         /**
@@ -74,7 +77,11 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._down_label.set_text(speed.down);
             this._up_label.set_text(speed.up);
         }
-
+        
+        /**
+         * NetSpeedLayoutMenuItem: show_ip
+         * @param {boolean} value 
+         */
         show_ip(value) {
             if (value) {
                 this._ips_label.show();
@@ -87,6 +94,7 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
         /**
          * NetSpeedLayoutMenuItem: update_ips
          * update ips
+         * @param {string[]} ips: IPs addresses array
          */
         update_ips(ips) {
             this._ips_label.set_text(ips.join("\n"));

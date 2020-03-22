@@ -44,7 +44,13 @@ function init()
     let localeDir = Extension.dir.get_child('locale');
     if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
-	}
+    }
+    
+    if (!Lib.canShowIPs()){
+        // Force to false at startup
+        // FIXME: hide Schema key
+        Schema.set_boolean('show-ips', false);
+    }
 }
 
 const App = class NetSpeed_App {
@@ -237,7 +243,7 @@ const App = class NetSpeed_App {
         });
 
         this.show_ip = new Gtk.CheckButton({ label: _("Show IPs") });
-
+        
         this.main.attach(this.dev, 2, 1, 1, 1);
         this.main.attach(this.sum, 1, 2, 2, 1);
         this.main.attach(this.icon, 1, 3, 2, 1);
@@ -250,10 +256,6 @@ const App = class NetSpeed_App {
         this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
         this.main.attach(this.hi_dpi_factor, 2, 11, 2, 1);
 
-        if (Lib.canShowIPs()) {
-            this.main.attach(this.show_ip, 1, 12, 2, 1);
-        }
-
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('timer', this.timer, 'value', Gio.SettingsBindFlags.DEFAULT);
@@ -265,6 +267,15 @@ const App = class NetSpeed_App {
         Schema.bind('bin-prefixes', this.bin_prefixes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('hi-dpi-factor', this.hi_dpi_factor, 'value', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('show-ips', this.show_ip, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind_writable('show-ips', this.show_ip, 'visible', false);
+
+        if (Lib.canShowIPs()) {
+            this.main.attach(this.show_ip, 1, 12, 2, 1);
+            this.show_ip.show();
+        } else {
+            this.show_ip.hide();
+        }
+        
 
         this._pick_dev();
         this._factor = Schema.get_int('hi-dpi-factor');

@@ -87,6 +87,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
         this._menu_title.update_speeds({ up: _("Up"), down: _("Down") });
         this._menu_title.update_ips([_("IP")]);
+        this._menu_title.show_ip(this._net_speed.show_ips);
         this.menu.addMenuItem(this._menu_title);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this._layouts = new Array();
