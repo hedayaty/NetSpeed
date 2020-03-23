@@ -17,6 +17,8 @@
 
 
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Lib = Extension.imports.lib;
+
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gdk = imports.gi.Gdk;
@@ -31,8 +33,10 @@ let schemaDir = Extension.dir.get_child('schemas');
 let schemaSource = schemaDir.query_exists(null)?
                     Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false):
                     Gio.SettingsSchemaSource.get_default();
-let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
+let schema = schemaSource.lookup(Lib.SCHEMA, false);
 let Schema = new Gio.Settings({ settings_schema: schema });
+
+let Logger = Lib.getLogger();
 
 
 function init()
@@ -40,7 +44,13 @@ function init()
     let localeDir = Extension.dir.get_child('locale');
     if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
-	}
+    }
+    
+    if (!Lib.canShowIPs()){
+        // Force to false at startup
+        // FIXME: hide Schema key
+        Schema.set_boolean('show-ips', false);
+    }
 }
 
 const App = class NetSpeed_App {
@@ -50,11 +60,11 @@ const App = class NetSpeed_App {
 
         let all = listStore.append();
         listStore.set (all, [0], [_("ALL")]);
-        listStore.set (all, [1], ["gtk-network"]);
+        listStore.set (all, [1], ["network-workgroup-symbolic"]);
 
         let defaultGw = listStore.append();
         listStore.set (defaultGw, [0], [_("Default Gateway")]);
-        listStore.set (defaultGw, [1], ["gtk-network"]);
+        listStore.set (defaultGw, [1], ["network-workgroup-symbolic"]);
 
         let nmc = NM.Client.new(null);
         let devices = nmc.get_devices() || [ ];
@@ -79,7 +89,7 @@ const App = class NetSpeed_App {
                     iconname = "network-wirelss-signal-excellent-symbolic"; // Same for wifi
                     break;
                 case NM.DeviceType.MODEM:
-                    iconname = "gnome-transmit-symbolic";
+                    iconname = "network-transmit-receive-symbolic";
                     break;
                 default:
                     continue;
@@ -118,7 +128,7 @@ const App = class NetSpeed_App {
         default:
             Schema.set_string ('device', this._devices[active - 2]);
         }
-        log("device <- " + Schema.get_string('device'))
+        Logger.debug("device <- " + Schema.get_string('device'))
     }
 
     _changed() {
@@ -126,8 +136,6 @@ const App = class NetSpeed_App {
         if (factor != this._factor) {
             this._change_factor();
         }
-
-
     }
 
     _pick_dev() {
@@ -233,6 +241,9 @@ const App = class NetSpeed_App {
                 step_increment: 1
             })
         });
+
+        this.show_ip = new Gtk.CheckButton({ label: _("Show IPs") });
+        
         this.main.attach(this.dev, 2, 1, 1, 1);
         this.main.attach(this.sum, 1, 2, 2, 1);
         this.main.attach(this.icon, 1, 3, 2, 1);
@@ -255,6 +266,16 @@ const App = class NetSpeed_App {
         Schema.bind('use-bytes', this.use_bytes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('bin-prefixes', this.bin_prefixes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('hi-dpi-factor', this.hi_dpi_factor, 'value', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind('show-ips', this.show_ip, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind_writable('show-ips', this.show_ip, 'visible', false);
+
+        if (Lib.canShowIPs()) {
+            this.main.attach(this.show_ip, 1, 12, 2, 1);
+            this.show_ip.show();
+        } else {
+            this.show_ip.hide();
+        }
+        
 
         this._pick_dev();
         this._factor = Schema.get_int('hi-dpi-factor');
