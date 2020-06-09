@@ -60,5 +60,10 @@
       <summary>Factor for HiDPI screens</summary>
       <description>For normal displays this will be 1. If you want to be able to have bigger labels increase the value for this.</description>
     </key>
+    <key name="show-ips" type="b">
+      <default>false</default>
+      <summary>Use binary prefixes</summary>
+      <description>Set to true to show IPs for each interface</description>
+    </key>
   </schema>
 </schemalist>

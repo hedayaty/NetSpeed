@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Netspeed Gnome-Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 00:30-0700\n"
+"POT-Creation-Date: 2020-06-09 11:39+0200\n"
 "PO-Revision-Date: 2016-10-12 20:53+0200\n"
 "Last-Translator: Javier Junquera <javier.junquera.sanchez@gmail.com>\n"
 "Language-Team: Español; Castellano <>\n"
@@ -19,82 +19,136 @@ msgstr ""
 "X-Generator: Gtranslator 2.91.7\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: prefs.js:60
-msgid "ALL"
-msgstr "Todos"
-
-#: prefs.js:64
-msgid "Default Gateway"
-msgstr "Puerta de enlace predeterminadas"
-
-#: prefs.js:153
-msgid "Device to monitor"
-msgstr "Dispositivo a monitorizar"
-
-#: prefs.js:154
-msgid "Timer (milisec)"
-msgstr "Temporizados (ms)"
-
-#: prefs.js:155
-msgid "Digits"
-msgstr "Digitos"
-
-#: prefs.js:156
-msgid "Label Size"
-msgstr "Tamaño de etiqueta"
-
-#: prefs.js:157
-msgid "Unit Label Size"
-msgstr "Tamaño de etiqueta de unidades"
-
-#: prefs.js:158
-msgid "Menu Label Size"
-msgstr "Tamaño de etiqueta de menú"
-
-#: prefs.js:162
-msgid "Show sum(UP+Down)"
-msgstr "Mostrar suma (subida+bajada)"
-
-#: prefs.js:163
-msgid "Show the Icon"
-msgstr "Mostrar icono"
-
-#: net_speed.js:108 net_speed.js:122
+#: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:122
-msgid "KB/s"
-msgstr "KB/s"
+#: net_speed.js:106
+msgid "kiB/s"
+msgstr ""
 
-#: net_speed.js:122
+#: net_speed.js:106
+msgid "MiB/s"
+msgstr ""
+
+#: net_speed.js:106
+msgid "GiB/s"
+msgstr ""
+
+#: net_speed.js:107 net_speed.js:111
+#, fuzzy
+msgid "b/s"
+msgstr "B/s"
+
+#: net_speed.js:107
+msgid "kib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Mib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Gib/s"
+msgstr ""
+
+#: net_speed.js:110
+msgid "kB/s"
+msgstr ""
+
+#: net_speed.js:110
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:122
+#: net_speed.js:110
 msgid "GB/s"
 msgstr "GB/s"
 
-#: net_speed_status_icon.js:86
+#: net_speed.js:111
+msgid "kb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Mb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Gb/s"
+msgstr ""
+
+#: net_speed_status_icon.js:102
 msgid "Device"
 msgstr "Dispositivo"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Up"
 msgstr "Subida"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Down"
 msgstr "Bajada"
 
-#: prefs.js:199
+#: net_speed_status_icon.js:105
+msgid "IP"
+msgstr ""
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "Todos"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "Puerta de enlace predeterminadas"
+
+#: prefs.js:180
+msgid "Device to monitor"
+msgstr "Dispositivo a monitorizar"
+
+#: prefs.js:181
+msgid "Timer (milisec)"
+msgstr "Temporizados (ms)"
+
+#: prefs.js:182
+msgid "Digits"
+msgstr "Digitos"
+
+#: prefs.js:183
+msgid "Label Size"
+msgstr "Tamaño de etiqueta"
+
+#: prefs.js:184
+msgid "Unit Label Size"
+msgstr "Tamaño de etiqueta de unidades"
+
+#: prefs.js:185
+msgid "Menu Label Size"
+msgstr "Tamaño de etiqueta de menú"
+
+#: prefs.js:186
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:190
+msgid "Show sum(UP+Down)"
+msgstr "Mostrar suma (subida+bajada)"
+
+#: prefs.js:191
+msgid "Show the Icon"
+msgstr "Mostrar icono"
+
+#: prefs.js:234
 msgid "Use multiples of byte"
 msgstr ""
 
-#: prefs.js:200
+#: prefs.js:235
 msgid "Use binary prefixes"
 msgstr ""
 
-#: prefs.js:201
+#: prefs.js:236
 msgid "Align vertically"
 msgstr ""
+
+#: prefs.js:245
+msgid "Show IPs"
+msgstr ""
+

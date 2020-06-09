@@ -6,93 +6,146 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Netspeed Gnome-Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 00:30-0700\n"
+"POT-Creation-Date: 2020-06-09 11:39+0200\n"
 "PO-Revision-Date: 2019-07-28 13:37+0200\n"
+"Last-Translator: Jordi Mas i Hernandez <jmas@softcatala.org>\n"
+"Language-Team: \n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Jordi Mas i Hernandez <jmas@softcatala.org>\n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: prefs.js:60
-#. N.T.: Es refereix a tots els dispositius
-msgid "ALL"
-msgstr "Tots"
-
-#: prefs.js:64
-msgid "Default Gateway"
-msgstr "Passarel·la per defecte"
-
-#: prefs.js:153
-msgid "Device to monitor"
-msgstr "Dispositiu a fer seguiment"
-
-#: prefs.js:154
-msgid "Timer (milisec)"
-msgstr "Temporitzador (mil·lisegons)"
-
-#: prefs.js:155
-msgid "Digits"
-msgstr "Dígits"
-
-#: prefs.js:156
-msgid "Label Size"
-msgstr "Mida de l'etiqueta"
-
-#: prefs.js:157
-msgid "Unit Label Size"
-msgstr "Mida de l'etiqueta de la unitat"
-
-#: prefs.js:158
-msgid "Menu Label Size"
-msgstr "Mida de l'etiqueta del menú"
-
-#: prefs.js:162
-msgid "Show sum(UP+Down)"
-msgstr "Mostra la suma (pujada + baixada)"
-
-#: prefs.js:163
-msgid "Show the Icon"
-msgstr "Mostra la icona"
-
-#: net_speed.js:108 net_speed.js:122
+#: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:122
-msgid "KB/s"
-msgstr "KB/s"
+#: net_speed.js:106
+msgid "kiB/s"
+msgstr ""
 
-#: net_speed.js:122
+#: net_speed.js:106
+msgid "MiB/s"
+msgstr ""
+
+#: net_speed.js:106
+msgid "GiB/s"
+msgstr ""
+
+#: net_speed.js:107 net_speed.js:111
+#, fuzzy
+msgid "b/s"
+msgstr "B/s"
+
+#: net_speed.js:107
+msgid "kib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Mib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Gib/s"
+msgstr ""
+
+#: net_speed.js:110
+msgid "kB/s"
+msgstr ""
+
+#: net_speed.js:110
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:122
+#: net_speed.js:110
 msgid "GB/s"
 msgstr "GB/s"
 
-#: net_speed_status_icon.js:86
+#: net_speed.js:111
+msgid "kb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Mb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Gb/s"
+msgstr ""
+
+#: net_speed_status_icon.js:102
 msgid "Device"
 msgstr "Dispositiu"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Up"
 msgstr "Pujada"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Down"
 msgstr "Baixada"
 
-#: prefs.js:199
+#: net_speed_status_icon.js:105
+msgid "IP"
+msgstr ""
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "Tots"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "Passarel·la per defecte"
+
+#: prefs.js:180
+msgid "Device to monitor"
+msgstr "Dispositiu a fer seguiment"
+
+#: prefs.js:181
+msgid "Timer (milisec)"
+msgstr "Temporitzador (mil·lisegons)"
+
+#: prefs.js:182
+msgid "Digits"
+msgstr "Dígits"
+
+#: prefs.js:183
+msgid "Label Size"
+msgstr "Mida de l'etiqueta"
+
+#: prefs.js:184
+msgid "Unit Label Size"
+msgstr "Mida de l'etiqueta de la unitat"
+
+#: prefs.js:185
+msgid "Menu Label Size"
+msgstr "Mida de l'etiqueta del menú"
+
+#: prefs.js:186
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:190
+msgid "Show sum(UP+Down)"
+msgstr "Mostra la suma (pujada + baixada)"
+
+#: prefs.js:191
+msgid "Show the Icon"
+msgstr "Mostra la icona"
+
+#: prefs.js:234
 msgid "Use multiples of byte"
 msgstr "Usa múltiples de byte"
 
-#: prefs.js:200
+#: prefs.js:235
 msgid "Use binary prefixes"
 msgstr "Usa prefixos binaris"
 
-#: prefs.js:201
+#: prefs.js:236
 msgid "Align vertically"
 msgstr ""
+
+#: prefs.js:245
+msgid "Show IPs"
+msgstr ""
+

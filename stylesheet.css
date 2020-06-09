@@ -4,18 +4,14 @@
 
 .ns-horizontal-label {
 	text-align: right;
-	padding-top: 3px;
 }
 
 .ns-horizontal-unit-label {
-	font-size: 65%;
-	padding-top: 3px;
+	font-size: 80%;
 }
 
 .ns-horizontal-icon {
 	text-align: left;
-	padding-right: 3px;
-	padding-top: 3px;
 }
 
 /**
