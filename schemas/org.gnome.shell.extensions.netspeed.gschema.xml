@@ -41,7 +41,7 @@
 		<summary> The size of labels on the menus, this may be removed later and automatically measured for 3 digits the size should be 65 </summary>
     </key>
     <key name="use-bytes" type="b">
-      <default>false</default>
+      <default>true</default>
       <summary>Use bytes per second</summary>
       <description>Set to true to show B/s (bytes per second), false to use b/s (bits per second)</description>
     </key>
