@@ -263,7 +263,7 @@ const App = class NetSpeed_App {
 
         Schema.connect('changed', Lang.bind(this, this._changed));
 
-        this.main.show_all();
+        //this.main.show_all();
     }
 };
 
