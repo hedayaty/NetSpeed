@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 23:26+0100\n"
+"POT-Creation-Date: 2020-06-09 11:39+0200\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
 "Last-Translator: Amir Hedayaty <hedayaty@gmail.com>\n"
 "Language-Team: English\n"
@@ -16,63 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: prefs.js:62
-msgid "ALL"
-msgstr "ALL"
-
-#: prefs.js:66
-msgid "Default Gateway"
-msgstr ""
-
-#: prefs.js:181
-msgid "Device to monitor"
-msgstr "Device to monitor"
-
-#: prefs.js:182
-msgid "Timer (milisec)"
-msgstr "Timer (milisec)"
-
-#: prefs.js:183
-msgid "Digits"
-msgstr "Digits"
-
-#: prefs.js:184
-msgid "Label Size"
-msgstr "Label Size"
-
-#: prefs.js:185
-#, fuzzy
-msgid "Unit Label Size"
-msgstr "Menu Label Size"
-
-#: prefs.js:186
-msgid "Menu Label Size"
-msgstr "Menu Label Size"
-
-#: prefs.js:187
-msgid "HiDPI factor"
-msgstr ""
-
-#: prefs.js:191
-msgid "Show sum(UP+Down)"
-msgstr "Show sum(UP+Down)"
-
-#: prefs.js:192
-msgid "Show the Icon"
-msgstr "Show the Icon"
-
-#: prefs.js:235
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:236
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:245
-msgid "Show IPs"
-msgstr ""
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -131,21 +74,80 @@ msgstr ""
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:86
+#: net_speed_status_icon.js:102
 msgid "Device"
 msgstr "Device"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Up"
 msgstr "Up"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Down"
 msgstr "Down"
 
-#: net_speed_status_icon.js:89
+#: net_speed_status_icon.js:105
 msgid "IP"
 msgstr ""
 
-#~ msgid "KB/s"
-#~ msgstr "KB/s"
+#: prefs.js:61
+msgid "ALL"
+msgstr "ALL"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr ""
+
+#: prefs.js:180
+msgid "Device to monitor"
+msgstr "Device to monitor"
+
+#: prefs.js:181
+msgid "Timer (milisec)"
+msgstr "Timer (milisec)"
+
+#: prefs.js:182
+msgid "Digits"
+msgstr "Digits"
+
+#: prefs.js:183
+msgid "Label Size"
+msgstr "Label Size"
+
+#: prefs.js:184
+#, fuzzy
+msgid "Unit Label Size"
+msgstr "Menu Label Size"
+
+#: prefs.js:185
+msgid "Menu Label Size"
+msgstr "Menu Label Size"
+
+#: prefs.js:186
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:190
+msgid "Show sum(UP+Down)"
+msgstr "Show sum(UP+Down)"
+
+#: prefs.js:191
+msgid "Show the Icon"
+msgstr "Show the Icon"
+
+#: prefs.js:234
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:235
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:236
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:245
+msgid "Show IPs"
+msgstr ""
+

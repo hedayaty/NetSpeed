@@ -43,32 +43,49 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
     _init(net_speed) {
         this._net_speed = net_speed;
         super._init(0.0);
+
+        // extension button
         this._box = new St.BoxLayout();
-        this._icon_box = new St.BoxLayout();
-        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
-        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER });
-        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-icon', y_align: Clutter.ActorAlign.CENTER });
-        this._sum = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER });
-        this._sumunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER });
-        this._up = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER });
-        this._upunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER });
-        this._down = new St.Label({ text: "---", style_class: 'ns-label', y_align: Clutter.ActorAlign.CENTER });
-        this._downunit = new St.Label({ text: "", style_class: 'ns-unit-label', y_align: Clutter.ActorAlign.CENTER });
-
-        this._box.add_actor(this._sum);
-        this._box.add_actor(this._sumunit);
-
-        this._box.add_actor(this._down);
-        this._box.add_actor(this._downunit);
-        this._box.add_actor(this._downicon);
-
-        this._box.add_actor(this._up);
-        this._box.add_actor(this._upunit);
-        this._box.add_actor(this._upicon);
-        this._box.add_actor(this._icon_box);
-        this._icon_box.add_actor(this._icon);
         this.add_actor(this._box);
         this.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
+
+        // download
+        this._download_box = new St.BoxLayout();
+        this._down = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
+        this._downunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._download_box.add_actor(this._down);
+        this._download_box.add_actor(this._downunit);
+        this._download_box.add_actor(this._downicon);
+
+        // upload
+        this._upload_box = new St.BoxLayout();
+        this._up = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._upload_box.add_actor(this._up);
+        this._upload_box.add_actor(this._upunit);
+        this._upload_box.add_actor(this._upicon);
+
+        // sum
+        this._sum_box = new St.BoxLayout();
+        this._sum = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
+        this._sumunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._sum_box.add_actor(this._sum);
+        this._sum_box.add_actor(this._sumunit);
+
+        // metrics box
+        this._metrics_box = new St.BoxLayout({y_align: Clutter.ActorAlign.CENTER});
+        this._metrics_box.add_actor(this._download_box);
+        this._metrics_box.add_actor(this._upload_box);
+        this._metrics_box.add_actor(this._sum_box);
+        this._box.add_actor(this._metrics_box);
+
+        // interface icon
+        this._icon_box = new St.BoxLayout();
+        this._icon = this._get_icon(this._net_speed.get_device_type(this._net_speed.getDevice()));
+        this._icon_box.add_actor(this._icon);
+        this._box.add_actor(this._icon_box);
 
         // Add pref luncher
         this._pref = new St.Button({ child: this._get_icon("pref") });
@@ -80,8 +97,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             } else {
                 prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
             }
-        }
-        );
+        });
 
         this._menu_title = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
         this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
@@ -138,6 +154,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             this._downicon.show();
             this._down.show();
             this._downunit.show();
+            this.set_vertical_alignment(this._net_speed.vert_align);
         } else {
             this._sum.show();
             this._sumunit.show();
@@ -147,6 +164,8 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             this._downicon.hide();
             this._down.hide();
             this._downunit.hide();
+            // ignore vertical alignment with sum
+            this.set_vertical_alignment(false);
         }
 
         // Change the type of Icon
@@ -262,6 +281,20 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
     }
 
     /**
+     * NetSpeedStatusIcon: set_vertical_alignment
+     */
+    set_vertical_alignment(tof) {
+        this._metrics_box.set_vertical(tof);
+        let align = tof ? 'vertical' : 'horizontal';
+        this._down.set_style_class_name('ns-' + align + '-label');
+        this._downunit.set_style_class_name('ns-' + align + '-unit-label');
+        this._downicon.set_style_class_name('ns-' + align + '-icon');
+        this._up.set_style_class_name('ns-' + align + '-label');
+        this._upunit.set_style_class_name('ns-' + align + '-unit-label');
+        this._upicon.set_style_class_name('ns-' + align + '-icon');
+    }
+
+    /**
      * NetSpeedStatusIcon: update_ips
      */
     update_ips(ips) {
@@ -269,6 +302,5 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             this._layouts[i].update_ips(ips[i]);
         }
     }
-
 
 });

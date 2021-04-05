@@ -1,18 +1,40 @@
-/* Example stylesheet */
-.ns-label {
+/**
+ * horizontal metrics
+ */
+
+.ns-horizontal-label {
 	text-align: right;
-	padding-top: 3px;
 }
 
-.ns-unit-label {
-	font-size: 65%;
-	padding-top: 3px;
+.ns-horizontal-unit-label {
+	font-size: 80%;
 }
 
-.ns-icon {
+.ns-horizontal-icon {
 	text-align: left;
-	padding-right: 3px;
-	padding-top: 3px;
 }
+
+/**
+ * vertical metrics
+ */
+
+.ns-vertical-label {
+	font-size: 65%;
+	text-align: right;
+}
+
+.ns-vertical-unit-label {
+	font-size: 65%;
+}
+
+.ns-vertical-icon {
+	font-size: 65%;
+	text-align: left;
+}
+
+/**
+ * menu items
+ */
+
 .ns-menuitem {
 }

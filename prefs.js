@@ -39,13 +39,12 @@ let Schema = new Gio.Settings({ settings_schema: schema });
 let Logger = Lib.getLogger();
 
 
-function init()
-{
+function init() {
     let localeDir = Extension.dir.get_child('locale');
     if (localeDir.query_exists(null)) {
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
     }
-    
+
     if (!Lib.canShowIPs()){
         // Force to false at startup
         // FIXME: hide Schema key
@@ -128,6 +127,7 @@ const App = class NetSpeed_App {
         default:
             Schema.set_string ('device', this._devices[active - 2]);
         }
+
         Logger.debug("device <- " + Schema.get_string('device'))
     }
 
@@ -174,8 +174,7 @@ const App = class NetSpeed_App {
         Schema.set_int('menu-label-size', Schema.get_int('menu-label-size') * factor / old_factor);
     }
 
-    constructor()
-    {
+    constructor() {
         this._factor = Schema.get_int('hi-dpi-factor');
         this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
         this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
@@ -186,7 +185,7 @@ const App = class NetSpeed_App {
         this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
         this.main.attach (new Gtk.Label({label: _("HiDPI factor")}), 1, 11, 1, 1);
 
-        //	this.dev = new Gtk.Entry();
+        //this.dev = new Gtk.Entry();
         this.dev = this._get_dev_combo();
         this.sum = new Gtk.CheckButton({ label: _("Show sum(UP+Down)") });
         this.icon = new Gtk.CheckButton({ label: _("Show the Icon") });
@@ -234,6 +233,7 @@ const App = class NetSpeed_App {
 
         this.use_bytes = new Gtk.CheckButton({ label: _("Use multiples of byte") });
         this.bin_prefixes = new Gtk.CheckButton({ label: _("Use binary prefixes") });
+        this.vert_align = new Gtk.CheckButton({ label: _("Align vertically") });
         this.hi_dpi_factor = new Gtk.SpinButton({
             adjustment: new Gtk.Adjustment({
                 lower: 1,
@@ -243,7 +243,7 @@ const App = class NetSpeed_App {
         });
 
         this.show_ip = new Gtk.CheckButton({ label: _("Show IPs") });
-        
+
         this.main.attach(this.dev, 2, 1, 1, 1);
         this.main.attach(this.sum, 1, 2, 2, 1);
         this.main.attach(this.icon, 1, 3, 2, 1);
@@ -255,6 +255,7 @@ const App = class NetSpeed_App {
         this.main.attach(this.use_bytes, 1, 9, 1, 1);
         this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
         this.main.attach(this.hi_dpi_factor, 2, 11, 2, 1);
+        this.main.attach(this.vert_align, 1, 12, 1, 1);
 
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -265,17 +266,18 @@ const App = class NetSpeed_App {
         Schema.bind('menu-label-size', this.menu_label_size, 'value', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('use-bytes', this.use_bytes, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('bin-prefixes', this.bin_prefixes, 'active', Gio.SettingsBindFlags.DEFAULT);
+        Schema.bind('vert-align', this.vert_align, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('hi-dpi-factor', this.hi_dpi_factor, 'value', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('show-ips', this.show_ip, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind_writable('show-ips', this.show_ip, 'visible', false);
 
         if (Lib.canShowIPs()) {
-            this.main.attach(this.show_ip, 1, 12, 2, 1);
+            this.main.attach(this.show_ip, 1, 13, 2, 1);
             this.show_ip.show();
         } else {
             this.show_ip.hide();
         }
-        
+
 
         this._pick_dev();
         this._factor = Schema.get_int('hi-dpi-factor');
@@ -288,8 +290,7 @@ const App = class NetSpeed_App {
     }
 };
 
-function buildPrefsWidget()
-{
+function buildPrefsWidget() {
     let widget = new App();
     return widget.main;
 };

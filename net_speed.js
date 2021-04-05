@@ -285,6 +285,7 @@ var NetSpeed = class NetSpeed {
         this.use_bytes = this._setting.get_boolean('use-bytes');
         this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
         this.show_ips = this._setting.get_boolean('show-ips');
+        this.vert_align = this._setting.get_boolean('vert-align');
     }
 
     /**
@@ -438,7 +439,7 @@ var NetSpeed = class NetSpeed {
 
     /**
      * NetSpeed: _disconnect_nm_device_state_changed
-     * Use GObject.signal_handler_disconnect to avoid override of disconnect 
+     * Use GObject.signal_handler_disconnect to avoid override of disconnect
      * due ot introspection on NM.Device .
      */
     _disconnect_all_nm_device_state_changed() {
@@ -457,7 +458,7 @@ var NetSpeed = class NetSpeed {
     _nm_device_state_changed(nm_device, old_state, new_state, reason) {
         //Logger.debug(`${nm_device.get_iface()} move from ${old_state} to ${new_state}: reason ${reason}`);
         if (this == null) {
-            //gnome-shell issue: https://gitlab.gnome.org/GNOME/gnome-shell/issues/2127 
+            //gnome-shell issue: https://gitlab.gnome.org/GNOME/gnome-shell/issues/2127
             Logger.warning("this is null");
             return;
         }

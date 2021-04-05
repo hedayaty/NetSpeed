@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-22 23:26+0100\n"
+"POT-Creation-Date: 2020-06-09 11:39+0200\n"
 "PO-Revision-Date: 2016-02-20 20:55+0800\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: \n"
@@ -17,62 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: prefs.js:62
-msgid "ALL"
-msgstr "全部"
-
-#: prefs.js:66
-msgid "Default Gateway"
-msgstr "默认网关"
-
-#: prefs.js:181
-msgid "Device to monitor"
-msgstr "监控的设备"
-
-#: prefs.js:182
-msgid "Timer (milisec)"
-msgstr "定时(毫秒)"
-
-#: prefs.js:183
-msgid "Digits"
-msgstr "位数"
-
-#: prefs.js:184
-msgid "Label Size"
-msgstr "标签大小"
-
-#: prefs.js:185
-msgid "Unit Label Size"
-msgstr "单位标签大小"
-
-#: prefs.js:186
-msgid "Menu Label Size"
-msgstr "菜单标签大小"
-
-#: prefs.js:187
-msgid "HiDPI factor"
-msgstr ""
-
-#: prefs.js:191
-msgid "Show sum(UP+Down)"
-msgstr "显示总和(上传+下载)"
-
-#: prefs.js:192
-msgid "Show the Icon"
-msgstr "显示图标"
-
-#: prefs.js:235
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:236
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:245
-msgid "Show IPs"
-msgstr ""
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -131,21 +75,79 @@ msgstr ""
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:86
+#: net_speed_status_icon.js:102
 msgid "Device"
 msgstr "设备"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Up"
 msgstr "上传"
 
-#: net_speed_status_icon.js:88
+#: net_speed_status_icon.js:104
 msgid "Down"
 msgstr "下载"
 
-#: net_speed_status_icon.js:89
+#: net_speed_status_icon.js:105
 msgid "IP"
 msgstr ""
 
-#~ msgid "KB/s"
-#~ msgstr "KB/s"
+#: prefs.js:61
+msgid "ALL"
+msgstr "全部"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "默认网关"
+
+#: prefs.js:180
+msgid "Device to monitor"
+msgstr "监控的设备"
+
+#: prefs.js:181
+msgid "Timer (milisec)"
+msgstr "定时(毫秒)"
+
+#: prefs.js:182
+msgid "Digits"
+msgstr "位数"
+
+#: prefs.js:183
+msgid "Label Size"
+msgstr "标签大小"
+
+#: prefs.js:184
+msgid "Unit Label Size"
+msgstr "单位标签大小"
+
+#: prefs.js:185
+msgid "Menu Label Size"
+msgstr "菜单标签大小"
+
+#: prefs.js:186
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:190
+msgid "Show sum(UP+Down)"
+msgstr "显示总和(上传+下载)"
+
+#: prefs.js:191
+msgid "Show the Icon"
+msgstr "显示图标"
+
+#: prefs.js:234
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:235
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:236
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:245
+msgid "Show IPs"
+msgstr ""
+

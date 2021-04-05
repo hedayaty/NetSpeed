@@ -50,6 +50,11 @@
       <summary>Use binary prefixes</summary>
       <description>Set to true to show binary prefixes (Mib/s, GiB/s, etc), false for decimal prefixes (Mb/s, GB/s, etc)</description>
     </key>
+    <key name="vert-align" type="b">
+      <default>false</default>
+      <summary>Align vertically</summary>
+      <description>Show upload and download speeds on two rows</description>
+    </key>
     <key name = "hi-dpi-factor" type="i">
       <default>1</default>
       <summary>Factor for HiDPI screens</summary>

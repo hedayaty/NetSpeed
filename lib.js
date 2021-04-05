@@ -39,7 +39,7 @@ if (GLib.log_writer_is_journald(2) && DEBUG) {
 
 /**
  * A Logger class inspired to GJS doc/Logging.md
- * 
+ *
  */
 var _loggerClass = class _Logger {
 
@@ -141,9 +141,9 @@ function splitVersion(version) {
 /**
  * canShowIPs:
  * @returns {boolean} - true if panel can show IPs, false otherwise
- * 
+ *
  * Gjs 1.56 (not sure) - 1.57 (Gnome 3.28 - 3.32) have a bug on Marshalling of GPtrArray,
- * so NetworkManager js binding crash on returning ip_config. 
+ * so NetworkManager js binding crash on returning ip_config.
  * https://gitlab.gnome.org/GNOME/gjs/issues/9
  */
 

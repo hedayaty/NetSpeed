@@ -77,10 +77,10 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._down_label.set_text(speed.down);
             this._up_label.set_text(speed.up);
         }
-        
+
         /**
          * NetSpeedLayoutMenuItem: show_ip
-         * @param {boolean} value 
+         * @param {boolean} value
          */
         show_ip(value) {
             if (value) {
