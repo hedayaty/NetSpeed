@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 00:30-0700\n"
+"POT-Creation-Date: 2020-03-22 23:26+0100\n"
 "PO-Revision-Date: 2016-02-04 17:44-0300\n"
 "Last-Translator: Fábio Nogueira <fnogueira@gnome.org>\n"
 "Language-Team: \n"
@@ -18,61 +18,118 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: prefs.js:60
+#: prefs.js:62
 msgid "ALL"
 msgstr "TUDO"
 
-#: prefs.js:64
+#: prefs.js:66
 msgid "Default Gateway"
 msgstr "Gateway padrão"
 
-#: prefs.js:153
+#: prefs.js:181
 msgid "Device to monitor"
 msgstr "Dispositivo para monitorar"
 
-#: prefs.js:154
+#: prefs.js:182
 msgid "Timer (milisec)"
 msgstr "Temporizador (miliseg)"
 
-#: prefs.js:155
+#: prefs.js:183
 msgid "Digits"
 msgstr "Dígitos"
 
-#: prefs.js:156
+#: prefs.js:184
 msgid "Label Size"
 msgstr "Tamanho do rótulo"
 
-#: prefs.js:157
+#: prefs.js:185
 msgid "Unit Label Size"
 msgstr "Tamanho do rótulo de unidade"
 
-#: prefs.js:158
+#: prefs.js:186
 msgid "Menu Label Size"
 msgstr "Tamanho do rótulo do menu"
 
-#: prefs.js:162
+#: prefs.js:187
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:191
 msgid "Show sum(UP+Down)"
 msgstr "Exibir somatório (UP+Down)"
 
-#: prefs.js:163
+#: prefs.js:192
 msgid "Show the Icon"
 msgstr "Exibir o ícone"
 
-#: net_speed.js:108 net_speed.js:122
+#: prefs.js:235
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:236
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:245
+msgid "Show IPs"
+msgstr ""
+
+#: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:122
-msgid "KB/s"
-msgstr "KB/s"
+#: net_speed.js:106
+msgid "kiB/s"
+msgstr ""
 
-#: net_speed.js:122
+#: net_speed.js:106
+msgid "MiB/s"
+msgstr ""
+
+#: net_speed.js:106
+msgid "GiB/s"
+msgstr ""
+
+#: net_speed.js:107 net_speed.js:111
+#, fuzzy
+msgid "b/s"
+msgstr "B/s"
+
+#: net_speed.js:107
+msgid "kib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Mib/s"
+msgstr ""
+
+#: net_speed.js:107
+msgid "Gib/s"
+msgstr ""
+
+#: net_speed.js:110
+msgid "kB/s"
+msgstr ""
+
+#: net_speed.js:110
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:122
+#: net_speed.js:110
 msgid "GB/s"
 msgstr "GB/s"
+
+#: net_speed.js:111
+msgid "kb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Mb/s"
+msgstr ""
+
+#: net_speed.js:111
+msgid "Gb/s"
+msgstr ""
 
 #: net_speed_status_icon.js:86
 msgid "Device"
@@ -86,10 +143,9 @@ msgstr "Up"
 msgid "Down"
 msgstr "Down"
 
-#: prefs.js:199
-msgid "Use multiples of byte"
+#: net_speed_status_icon.js:89
+msgid "IP"
 msgstr ""
 
-#: prefs.js:200
-msgid "Use binary prefixes"
-msgstr ""
+#~ msgid "KB/s"
+#~ msgstr "KB/s"

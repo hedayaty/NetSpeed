@@ -5,7 +5,7 @@ UUID = netspeed@hedayaty.gmail.com
 
 LANGUAGES=ca de en_CA fa fr it pt_BR ru zh_CN zh_TW es_ES nl_NL ru tr zh_CN
 DOC_FILES=CHANGELOG README.md
-SRC_FILES=extension.js prefs.js net_speed_layout_menu_item.js net_speed.js net_speed_status_icon.js
+SRC_FILES=extension.js prefs.js net_speed_layout_menu_item.js net_speed.js net_speed_status_icon.js lib.js
 MO_FILES=$(foreach LANGUAGE, $(LANGUAGES), locale/$(LANGUAGE)/LC_MESSAGES/$(GETTEXT_PACKAGE).mo)
 SCHEMA_FILES=schemas/gschemas.compiled schemas/org.gnome.shell.extensions.netspeed.gschema.xml
 EXTENSION_FILES=stylesheet.css metadata.json
