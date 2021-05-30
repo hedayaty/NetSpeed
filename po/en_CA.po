@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 11:39+0200\n"
+"POT-Creation-Date: 2021-05-30 15:48-0700\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
 "Last-Translator: Amir Hedayaty <hedayaty@gmail.com>\n"
 "Language-Team: English\n"
@@ -16,6 +16,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "ALL"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr ""
+
+#: prefs.js:200
+msgid "Device to monitor"
+msgstr "Device to monitor"
+
+#: prefs.js:201
+#, fuzzy
+msgid "Timer (milliseconds)"
+msgstr "Timer (milisec)"
+
+#: prefs.js:202
+msgid "Digits"
+msgstr "Digits"
+
+#: prefs.js:203
+msgid "Label Size"
+msgstr "Label Size"
+
+#: prefs.js:204
+#, fuzzy
+msgid "Unit Label Size"
+msgstr "Menu Label Size"
+
+#: prefs.js:205
+msgid "Menu Label Size"
+msgstr "Menu Label Size"
+
+#: prefs.js:206
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:207
+msgid "Placement"
+msgstr ""
+
+#: prefs.js:211
+msgid "Show sum(UP+Down)"
+msgstr "Show sum(UP+Down)"
+
+#: prefs.js:212
+msgid "Show the Icon"
+msgstr "Show the Icon"
+
+#: prefs.js:255
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:256
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:257
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:267
+msgid "Right"
+msgstr ""
+
+#: prefs.js:268
+msgid "Left"
+msgstr ""
+
+#: prefs.js:271
+msgid "Show IPs"
+msgstr ""
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -74,80 +148,18 @@ msgstr ""
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:102
+#: net_speed_status_icon.js:97
 msgid "Device"
 msgstr "Device"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Up"
 msgstr "Up"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Down"
 msgstr "Down"
 
-#: net_speed_status_icon.js:105
+#: net_speed_status_icon.js:100
 msgid "IP"
 msgstr ""
-
-#: prefs.js:61
-msgid "ALL"
-msgstr "ALL"
-
-#: prefs.js:65
-msgid "Default Gateway"
-msgstr ""
-
-#: prefs.js:180
-msgid "Device to monitor"
-msgstr "Device to monitor"
-
-#: prefs.js:181
-msgid "Timer (milisec)"
-msgstr "Timer (milisec)"
-
-#: prefs.js:182
-msgid "Digits"
-msgstr "Digits"
-
-#: prefs.js:183
-msgid "Label Size"
-msgstr "Label Size"
-
-#: prefs.js:184
-#, fuzzy
-msgid "Unit Label Size"
-msgstr "Menu Label Size"
-
-#: prefs.js:185
-msgid "Menu Label Size"
-msgstr "Menu Label Size"
-
-#: prefs.js:186
-msgid "HiDPI factor"
-msgstr ""
-
-#: prefs.js:190
-msgid "Show sum(UP+Down)"
-msgstr "Show sum(UP+Down)"
-
-#: prefs.js:191
-msgid "Show the Icon"
-msgstr "Show the Icon"
-
-#: prefs.js:234
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:235
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:236
-msgid "Align vertically"
-msgstr ""
-
-#: prefs.js:245
-msgid "Show IPs"
-msgstr ""
-

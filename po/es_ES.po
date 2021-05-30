@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Netspeed Gnome-Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 11:39+0200\n"
+"POT-Creation-Date: 2021-05-30 15:48-0700\n"
 "PO-Revision-Date: 2016-10-12 20:53+0200\n"
 "Last-Translator: Javier Junquera <javier.junquera.sanchez@gmail.com>\n"
 "Language-Team: Español; Castellano <>\n"
@@ -18,6 +18,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Gtranslator 2.91.7\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "Todos"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "Puerta de enlace predeterminadas"
+
+#: prefs.js:200
+msgid "Device to monitor"
+msgstr "Dispositivo a monitorizar"
+
+#: prefs.js:201
+#, fuzzy
+msgid "Timer (milliseconds)"
+msgstr "Temporizados (ms)"
+
+#: prefs.js:202
+msgid "Digits"
+msgstr "Digitos"
+
+#: prefs.js:203
+msgid "Label Size"
+msgstr "Tamaño de etiqueta"
+
+#: prefs.js:204
+msgid "Unit Label Size"
+msgstr "Tamaño de etiqueta de unidades"
+
+#: prefs.js:205
+msgid "Menu Label Size"
+msgstr "Tamaño de etiqueta de menú"
+
+#: prefs.js:206
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:207
+msgid "Placement"
+msgstr ""
+
+#: prefs.js:211
+msgid "Show sum(UP+Down)"
+msgstr "Mostrar suma (subida+bajada)"
+
+#: prefs.js:212
+msgid "Show the Icon"
+msgstr "Mostrar icono"
+
+#: prefs.js:255
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:256
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:257
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:267
+msgid "Right"
+msgstr ""
+
+#: prefs.js:268
+msgid "Left"
+msgstr ""
+
+#: prefs.js:271
+msgid "Show IPs"
+msgstr ""
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -76,79 +149,18 @@ msgstr ""
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:102
+#: net_speed_status_icon.js:97
 msgid "Device"
 msgstr "Dispositivo"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Up"
 msgstr "Subida"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Down"
 msgstr "Bajada"
 
-#: net_speed_status_icon.js:105
+#: net_speed_status_icon.js:100
 msgid "IP"
 msgstr ""
-
-#: prefs.js:61
-msgid "ALL"
-msgstr "Todos"
-
-#: prefs.js:65
-msgid "Default Gateway"
-msgstr "Puerta de enlace predeterminadas"
-
-#: prefs.js:180
-msgid "Device to monitor"
-msgstr "Dispositivo a monitorizar"
-
-#: prefs.js:181
-msgid "Timer (milisec)"
-msgstr "Temporizados (ms)"
-
-#: prefs.js:182
-msgid "Digits"
-msgstr "Digitos"
-
-#: prefs.js:183
-msgid "Label Size"
-msgstr "Tamaño de etiqueta"
-
-#: prefs.js:184
-msgid "Unit Label Size"
-msgstr "Tamaño de etiqueta de unidades"
-
-#: prefs.js:185
-msgid "Menu Label Size"
-msgstr "Tamaño de etiqueta de menú"
-
-#: prefs.js:186
-msgid "HiDPI factor"
-msgstr ""
-
-#: prefs.js:190
-msgid "Show sum(UP+Down)"
-msgstr "Mostrar suma (subida+bajada)"
-
-#: prefs.js:191
-msgid "Show the Icon"
-msgstr "Mostrar icono"
-
-#: prefs.js:234
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:235
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:236
-msgid "Align vertically"
-msgstr ""
-
-#: prefs.js:245
-msgid "Show IPs"
-msgstr ""
-

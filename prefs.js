@@ -115,8 +115,9 @@ const App = class NetSpeed_App {
 
     _put_dev() {
         let active = this.dev.get_active();
-        if (active == -1)
+        if (active == -1){
             return;
+        }
         switch (active) {
         case 0:
             Schema.set_string ('device', "all");
@@ -131,7 +132,26 @@ const App = class NetSpeed_App {
         Logger.debug("device <- " + Schema.get_string('device'))
     }
 
-    _changed() {
+    _change_placement() {
+        let active = this.placement.get_active();
+        Logger.debug("_change_placement: active=" + active);
+
+        if (active == -1) {
+            return;
+        }
+        switch (active) {
+            case 0:
+                Schema.set_string('placement', 'right')
+                Logger.debug("placement <- right")
+                break;
+            case 1:
+                Schema.set_string('placement', 'left')
+                Logger.debug("placement <- left")
+                break;
+        }
+    }
+
+    _dpi_changed() {
         let factor = Schema.get_int('hi-dpi-factor');
         if (factor != this._factor) {
             this._change_factor();
@@ -178,12 +198,13 @@ const App = class NetSpeed_App {
         this._factor = Schema.get_int('hi-dpi-factor');
         this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
         this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Timer (milisec)")}), 1, 4, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Timer (milliseconds)")}), 1, 4, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 7, 1, 1);
         this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
         this.main.attach (new Gtk.Label({label: _("HiDPI factor")}), 1, 11, 1, 1);
+        this.main.attach (new Gtk.Label({label: _("Placement")}), 1, 13, 1, 1);
 
         //this.dev = new Gtk.Entry();
         this.dev = this._get_dev_combo();
@@ -242,6 +263,11 @@ const App = class NetSpeed_App {
             })
         });
 
+        this.placement = new Gtk.ComboBoxText()
+        this.placement.append_text(_("Right"));
+        this.placement.append_text(_("Left"));
+        this.placement.set_active(0);
+
         this.show_ip = new Gtk.CheckButton({ label: _("Show IPs") });
 
         this.main.attach(this.dev, 2, 1, 1, 1);
@@ -256,6 +282,7 @@ const App = class NetSpeed_App {
         this.main.attach(this.bin_prefixes, 1, 10, 1, 1);
         this.main.attach(this.hi_dpi_factor, 2, 11, 2, 1);
         this.main.attach(this.vert_align, 1, 12, 1, 1);
+        this.main.attach(this.placement, 2, 13, 2, 1);
 
         Schema.bind('show-sum', this.sum, 'active', Gio.SettingsBindFlags.DEFAULT);
         Schema.bind('icon-display', this.icon, 'active', Gio.SettingsBindFlags.DEFAULT);
@@ -272,7 +299,7 @@ const App = class NetSpeed_App {
         Schema.bind_writable('show-ips', this.show_ip, 'visible', false);
 
         if (Lib.canShowIPs()) {
-            this.main.attach(this.show_ip, 1, 13, 2, 1);
+            this.main.attach(this.show_ip, 1, 14, 2, 1);
             this.show_ip.show();
         } else {
             this.show_ip.hide();
@@ -283,10 +310,10 @@ const App = class NetSpeed_App {
         this._factor = Schema.get_int('hi-dpi-factor');
 
         this.dev.connect('changed', Lang.bind(this, this._put_dev));
+        Schema.connect('changed', Lang.bind(this, this._dpi_changed));
 
-        Schema.connect('changed', Lang.bind(this, this._changed));
+        this.placement.connect('changed', Lang.bind(this, this._change_placement))
 
-        //this.main.show_all();
     }
 };
 

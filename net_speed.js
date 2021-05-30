@@ -348,10 +348,11 @@ var NetSpeed = class NetSpeed {
         this._saving = 0;
         this._load();
 
-        this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
         this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
         this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
-        Panel.addToStatusArea('netspeed', this._status_icon, 0);
+        this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
+        let placement = this._setting.get_string('placement');
+        Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
     }
 
     /**
@@ -376,6 +377,7 @@ var NetSpeed = class NetSpeed {
         this._disconnect_all_nm_device_state_changed();
         this._client = null;
         this._status_icon.destroy();
+        this._status_icon = null;
     }
 
     getDevice() {

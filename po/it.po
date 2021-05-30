@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-09 11:39+0200\n"
+"POT-Creation-Date: 2021-05-30 15:48-0700\n"
 "PO-Revision-Date: 2017-04-17 15:58+0200\n"
 "Last-Translator: l3nn4rt <l3nn4rt@protonmail.com>\n"
 "Language-Team: Italian\n"
@@ -17,6 +17,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.1\n"
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "Tutte"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "Gateway di default"
+
+#: prefs.js:200
+msgid "Device to monitor"
+msgstr "Interfaccia da monitorare"
+
+#: prefs.js:201
+#, fuzzy
+msgid "Timer (milliseconds)"
+msgstr "Frequenza di aggiornamento (ms)"
+
+#: prefs.js:202
+msgid "Digits"
+msgstr "Numero di cifre da mostrare"
+
+#: prefs.js:203
+msgid "Label Size"
+msgstr "Larghezza per le cifre"
+
+#: prefs.js:204
+msgid "Unit Label Size"
+msgstr "Larghezza per le unità di misura"
+
+#: prefs.js:205
+msgid "Menu Label Size"
+msgstr "Larghezza per le colonne del menu"
+
+#: prefs.js:206
+msgid "HiDPI factor"
+msgstr ""
+
+#: prefs.js:207
+msgid "Placement"
+msgstr ""
+
+#: prefs.js:211
+msgid "Show sum(UP+Down)"
+msgstr "Mostra la velocità complessiva (upload + download)"
+
+#: prefs.js:212
+msgid "Show the Icon"
+msgstr "Mostra l'icona"
+
+#: prefs.js:255
+msgid "Use multiples of byte"
+msgstr "Usa multipli del byte"
+
+#: prefs.js:256
+msgid "Use binary prefixes"
+msgstr "Usa prefissi binari"
+
+#: prefs.js:257
+msgid "Align vertically"
+msgstr "Allinea verticalmente"
+
+#: prefs.js:267
+msgid "Right"
+msgstr ""
+
+#: prefs.js:268
+msgid "Left"
+msgstr ""
+
+#: prefs.js:271
+msgid "Show IPs"
+msgstr "Mostra indirizzi IP"
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -75,79 +148,18 @@ msgstr ""
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:102
+#: net_speed_status_icon.js:97
 msgid "Device"
 msgstr "Interfaccia"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Up"
 msgstr "Upload"
 
-#: net_speed_status_icon.js:104
+#: net_speed_status_icon.js:99
 msgid "Down"
 msgstr "Download"
 
-#: net_speed_status_icon.js:105
+#: net_speed_status_icon.js:100
 msgid "IP"
 msgstr ""
-
-#: prefs.js:61
-msgid "ALL"
-msgstr "Tutte"
-
-#: prefs.js:65
-msgid "Default Gateway"
-msgstr "Gateway di default"
-
-#: prefs.js:180
-msgid "Device to monitor"
-msgstr "Interfaccia da monitorare"
-
-#: prefs.js:181
-msgid "Timer (milisec)"
-msgstr "Frequenza di aggiornamento (ms)"
-
-#: prefs.js:182
-msgid "Digits"
-msgstr "Numero di cifre da mostrare"
-
-#: prefs.js:183
-msgid "Label Size"
-msgstr "Larghezza per le cifre"
-
-#: prefs.js:184
-msgid "Unit Label Size"
-msgstr "Larghezza per le unità di misura"
-
-#: prefs.js:185
-msgid "Menu Label Size"
-msgstr "Larghezza per le colonne del menu"
-
-#: prefs.js:186
-msgid "HiDPI factor"
-msgstr ""
-
-#: prefs.js:190
-msgid "Show sum(UP+Down)"
-msgstr "Mostra la velocità complessiva (upload + download)"
-
-#: prefs.js:191
-msgid "Show the Icon"
-msgstr "Mostra l'icona"
-
-#: prefs.js:234
-msgid "Use multiples of byte"
-msgstr "Usa multipli del byte"
-
-#: prefs.js:235
-msgid "Use binary prefixes"
-msgstr "Usa prefissi binari"
-
-#: prefs.js:236
-msgid "Align vertically"
-msgstr "Allinea verticalmente"
-
-#: prefs.js:245
-msgid "Show IPs"
-msgstr "Mostra indirizzi IP"
-

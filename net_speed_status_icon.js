@@ -15,7 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const ExtensionUtils = imports.misc.extensionUtils;
+const Extension = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
 const Lang = imports.lang;
 const PanelMenu = imports.ui.panelMenu;
@@ -90,13 +91,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         // Add pref luncher
         this._pref = new St.Button({ child: this._get_icon("pref") });
         this._pref.connect("clicked", function () {
-            let app_sys = Shell.AppSystem.get_default();
-            let prefs = app_sys.lookup_app('gnome-shell-extension-prefs.desktop');
-            if (prefs.get_state() == prefs.SHELL_APP_STATE_RUNNING) {
-                prefs.activate();
-            } else {
-                prefs.get_app_info().launch_uris(['extension:///' + Extension.metadata.uuid], null);
-            }
+            ExtensionUtils.openPrefs();
         });
 
         this._menu_title = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
