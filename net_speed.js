@@ -48,7 +48,6 @@ var NetSpeed = class NetSpeed {
         if (localeDir.query_exists(null)) {
             Gettext.bindtextdomain('netspeed', localeDir.get_path());
         }
-        this._updateDefaultGw();
     }
 
     /**
@@ -353,6 +352,8 @@ var NetSpeed = class NetSpeed {
         this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
         let placement = this._setting.get_string('placement');
         Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
+        this._updateDefaultGw();
+
     }
 
     /**
