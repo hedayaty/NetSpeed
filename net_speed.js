@@ -142,6 +142,12 @@ var NetSpeed = class NetSpeed {
      */
     _update_speeds() {
         this._status_icon.update_speeds(this._speeds);
+
+        // fix #131 by forcing a delayed redraw
+        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1, () => {
+            this._status_icon.queue_redraw();
+            return GLib.SOURCE_REMOVE;
+        });
     }
 
     /**
