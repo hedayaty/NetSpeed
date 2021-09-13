@@ -162,10 +162,18 @@ var NetSpeed = class NetSpeed {
      */
     _create_menu() {
         let types = new Array();
+        let devices_text = new Array();
         for (let dev of this._devices) {
             types.push(this.get_device_type(dev));
+            let wifi_ssid = this._retrieve_wifi_ssid(dev);
+            //Logger.info(`wifi_ssid is '${wifi_ssid}' for dev '${dev}'`);
+            if (wifi_ssid != null) {
+                devices_text.push(dev + `\n${wifi_ssid}`)
+                continue;
+            }
+            devices_text.push(dev);
         }
-        this._status_icon.create_menu(this._devices, types);
+        this._status_icon.create_menu(devices_text, types);
     }
 
     /**
@@ -224,7 +232,8 @@ var NetSpeed = class NetSpeed {
         var total_speed = null;
         var up_speed = null;
         var down_speed = null;
-        if (this._is_up2date() == 1) {
+
+        if (this._is_up2date() == 1 && !this._device_state_changed) {
             for (let i = 0; i < this._values.length; ++i) {
                 let _up = this._values[i][0] - this._oldvalues[i][0];
                 let _down = this._values[i][1] - this._oldvalues[i][1];
@@ -263,11 +272,14 @@ var NetSpeed = class NetSpeed {
             this._create_menu();
         }
 
-        if (this._reload_ips && this.show_ips) {
+        if (this._device_state_changed && this.show_ips) {
             this._retrieve_ips();
             this._update_ips();
             Logger.debug("Retrieved ips");
         }
+
+        // reset state
+        this._device_state_changed = false;
 
         return true;
     }
@@ -328,7 +340,7 @@ var NetSpeed = class NetSpeed {
         this._last_up = 0; // size of upload in previous snapshot
         this._last_down = 0; // size of download in previous snapshot
         this._last_time = 0; // time of the latest snapshot
-        this._reload_ips = true; // flag to trigger IPs retrieving
+        this._device_state_changed = true; // flag to trigger menu refreshing
 
         this._values = new Array();
         this._devices = new Array();
@@ -412,11 +424,12 @@ var NetSpeed = class NetSpeed {
     _nm_connection_changed(client, connection) {
         this._trigger_ips_reload();
     }
+
     /**
      * NetSpeed: _trigger_ips_reload
      */
     _trigger_ips_reload() {
-        this._reload_ips = true;
+        this._device_state_changed = true;
     }
 
     /**
@@ -433,15 +446,30 @@ var NetSpeed = class NetSpeed {
             this._ips.push(addresses);
             this._connect_nm_device_state_changed(nm_dev);
         }
-        this._reload_ips = false;
     }
+
+    /**
+     * NetSpeed: _retrieve_wifi_ssid
+     * Retrieve access point name (SSID) for wifi device interface
+     */
+    _retrieve_wifi_ssid(iface) {
+        let nm_dev = this._client.get_device_by_iface(iface);
+        if (nm_dev.get_device_type() == NetworkManager.DeviceType.WIFI) {
+            let active_ap = nm_dev.get_active_access_point();
+            if (active_ap != null) {
+                return ByteArray.toString(ByteArray.fromGBytes(active_ap.get_ssid()), 'UTF-8');
+            }
+        }
+        return null;
+    }
+
     /**
      * NetSpeed: _connect_nm_device_state_changed
      * @param {NM.Device} nm_device: NetworkManager Device instance
      */
     _connect_nm_device_state_changed(nm_device) {
         if (!this._nm_devices_signals_map.has(nm_device.get_iface())) {
-            let signal_id = nm_device.connect('state-changed', this._nm_device_state_changed);
+            let signal_id = nm_device.connect('state-changed', Lang.bind(this, this._nm_device_state_changed));
             this._nm_devices_signals_map.set(nm_device.get_iface(), [nm_device, signal_id]);
         }
     }
@@ -460,17 +488,12 @@ var NetSpeed = class NetSpeed {
 
     /**
      * NetSpeed: _nm_device_state_changed
-     * Handler for NM.Device 'state-chaged' signal
+     * Handler for NM.Device 'state-changed' signal
      * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceState for states
      * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceStateReason for reasons
      */
     _nm_device_state_changed(nm_device, old_state, new_state, reason) {
-        //Logger.debug(`${nm_device.get_iface()} move from ${old_state} to ${new_state}: reason ${reason}`);
-        if (this == null) {
-            //gnome-shell issue: https://gitlab.gnome.org/GNOME/gnome-shell/issues/2127
-            Logger.warning("this is null");
-            return;
-        }
+        //Logger.info(`${nm_device.get_iface()} move from ${old_state} to ${new_state}: reason ${reason}`);
         this._trigger_ips_reload();
     }
 
@@ -489,13 +512,13 @@ var NetSpeed = class NetSpeed {
             ip_cfg = nm_device.get_ip6_config();
 
         if (ip_cfg == null) {
-            Logger.info(`No config for device '${nm_device.get_iface()}'`);
+            //Logger.info(`No config for device '${nm_device.get_iface()}'`);
             return new Array();
         }
 
         let nm_addresses = ip_cfg.get_addresses();
         if (nm_addresses.length == 0) {
-            Logger.info(`No IP addresses for device '${nm_device.get_iface()}'`);
+            //Logger.info(`No IP addresses for device '${nm_device.get_iface()}'`);
             return new Array();
         }
 
