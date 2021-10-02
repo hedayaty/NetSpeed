@@ -38,6 +38,7 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
                     , style_class: "ns-menuitem"
                 }
             );
+            this._device_title.get_clutter_text().set_line_wrap(true);
 
             this._down_label = new St.Label({ text: "", style_class: "ns-menuitem" });
             this._up_label = new St.Label({ text: "", style_class: "ns-menuitem" });
