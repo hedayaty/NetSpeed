@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-05-30 15:48-0700\n"
-"PO-Revision-Date: 2017-10-26 11:33+0200\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2021-09-13 19:16+0200\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: prefs.js:61
@@ -31,9 +31,8 @@ msgid "Device to monitor"
 msgstr "Te monitoren apparaat"
 
 #: prefs.js:201
-#, fuzzy
 msgid "Timer (milliseconds)"
-msgstr "Timer (milisec.)"
+msgstr "Tijdklok (milliseconden)"
 
 #: prefs.js:202
 msgid "Digits"
@@ -45,51 +44,51 @@ msgstr "Labelgrootte"
 
 #: prefs.js:204
 msgid "Unit Label Size"
-msgstr "Labelgrootte eenheid"
+msgstr "Labelgrootte van eenheid"
 
 #: prefs.js:205
 msgid "Menu Label Size"
-msgstr "Labelgrootte menu"
+msgstr "Labelgrootte van menu"
 
 #: prefs.js:206
 msgid "HiDPI factor"
-msgstr ""
+msgstr "HiDPI-factor"
 
 #: prefs.js:207
 msgid "Placement"
-msgstr ""
+msgstr "Locatie"
 
 #: prefs.js:211
 msgid "Show sum(UP+Down)"
-msgstr "Sum weergeven (OMHOOG+omlaag)"
+msgstr "Som tonen (OMHOOG+omlaag)"
 
 #: prefs.js:212
 msgid "Show the Icon"
-msgstr "Pictogram weergeven"
+msgstr "Pictogram tonen"
 
 #: prefs.js:255
 msgid "Use multiples of byte"
-msgstr ""
+msgstr "Bytevermeerdering gebruiken"
 
 #: prefs.js:256
 msgid "Use binary prefixes"
-msgstr ""
+msgstr "Binaire voorvoegsels tonen"
 
 #: prefs.js:257
 msgid "Align vertically"
-msgstr ""
+msgstr "Verticaal uitlijnen"
 
 #: prefs.js:267
 msgid "Right"
-msgstr ""
+msgstr "Rechts"
 
 #: prefs.js:268
 msgid "Left"
-msgstr ""
+msgstr "Links"
 
 #: prefs.js:271
 msgid "Show IPs"
-msgstr ""
+msgstr "IP-adressen tonen"
 
 #: net_speed.js:106 net_speed.js:110 net_speed.js:114
 msgid "B/s"
@@ -97,36 +96,35 @@ msgstr "B/s"
 
 #: net_speed.js:106
 msgid "kiB/s"
-msgstr ""
+msgstr "kiB/s"
 
 #: net_speed.js:106
 msgid "MiB/s"
-msgstr ""
+msgstr "MiB/s"
 
 #: net_speed.js:106
 msgid "GiB/s"
-msgstr ""
+msgstr "GiB/s"
 
 #: net_speed.js:107 net_speed.js:111
-#, fuzzy
 msgid "b/s"
-msgstr "B/s"
+msgstr "b/s"
 
 #: net_speed.js:107
 msgid "kib/s"
-msgstr ""
+msgstr "kib/s"
 
 #: net_speed.js:107
 msgid "Mib/s"
-msgstr ""
+msgstr "Mib/s"
 
 #: net_speed.js:107
 msgid "Gib/s"
-msgstr ""
+msgstr "Gib/s"
 
 #: net_speed.js:110
 msgid "kB/s"
-msgstr ""
+msgstr "kB/s"
 
 #: net_speed.js:110
 msgid "MB/s"
@@ -138,15 +136,15 @@ msgstr "GB/s"
 
 #: net_speed.js:111
 msgid "kb/s"
-msgstr ""
+msgstr "kb/s"
 
 #: net_speed.js:111
 msgid "Mb/s"
-msgstr ""
+msgstr "Mb/s"
 
 #: net_speed.js:111
 msgid "Gb/s"
-msgstr ""
+msgstr "Gb/s"
 
 #: net_speed_status_icon.js:97
 msgid "Device"
@@ -162,4 +160,4 @@ msgstr "Omlaag"
 
 #: net_speed_status_icon.js:100
 msgid "IP"
-msgstr ""
+msgstr "IP-adres"
