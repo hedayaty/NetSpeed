@@ -16,3 +16,11 @@
 
     - to reload
     ```make reload```
+
+
+
+### Install
+
+<a href="https://extensions.gnome.org/extension/104/netspeed/" >
+    <img src="media/Gnome_logo.svg" width="120px"/>
+</a>
