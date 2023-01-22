@@ -12,7 +12,7 @@ EXTENSION_FILES=stylesheet.css metadata.json
 OUTPUT=$(DOC_FILES) $(SRC_FILES) $(MO_FILES) $(SCHEMA_FILES) $(EXTENSION_FILES)
 POT_FILE=po/$(GETTEXT_PACKAGE).pot
 LOCAL_INSTALL=~/.local/share/gnome-shell/extensions/$(UUID)
-pack: $(OUTPUT)
+pack: update-po schemas/gschemas.compiled $(OUTPUT)
 	zip $(UUID).zip $(OUTPUT)
 
 $(POT_FILE): $(SRC_FILES)
