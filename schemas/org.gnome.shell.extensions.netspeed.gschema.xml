@@ -7,38 +7,38 @@
     </key>
     <key name="show-sum" type="b">
       <default>false</default>
-		<summary>Show sum of upload and download speed</summary>
-		<description> If true shows the sum of upload and download speed; otherwise, shows them seperately.
-    	</description>
+      <summary>Show sum of upload and download speed</summary>
+      <description> If true shows the sum of upload and download speed; otherwise, shows them seperately.
+      </description>
     </key>
     <key name="device" type="s">
       <default>''</default>
-		<summary>Device used to monitor</summary>
-		<description> By default, the sum of usages will be monitored. However, if you want to monitor just a specific device, set this value to that device.
-		</description>
+      <summary>Device used to monitor</summary>
+      <description> By default, the sum of usages will be monitored. However, if you want to monitor just a specific device, set this value to that device.
+      </description>
     </key>
     <key type="i" name="timer">
-		<default>1000</default>
-		<summary>The interval between updates in miliseconds</summary>
-		<description>The interval between updates in miliseconds </description>
+      <default>1000</default>
+      <summary>The interval between updates in miliseconds</summary>
+      <description>The interval between updates in miliseconds </description>
     </key>
     <key type="i" name="digits">
-		<default>3</default>
-		<summary>The number of digits displayed</summary>
-		<description> The number of digits displayed, minimum 3</description>
-		<range min="3" max="10"/>
+      <default>3</default>
+      <summary>The number of digits displayed</summary>
+      <description> The number of digits displayed, minimum 3</description>
+      <range min="3" max="10"/>
     </key>
     <key type="i" name="label-size">
-		<default>38</default>
-		<summary> The size of label, this may be removed later and automatically measured for 3 digits the size should be 38 </summary>
+      <default>38</default>
+      <summary> The size of label, this may be removed later and automatically measured for 3 digits the size should be 38 </summary>
     </key>
     <key type="i" name="unit-label-size">
-		<default>28</default>
-		<summary> The size of label, this may be removed later and automatically. For common units 28 works </summary>
+      <default>28</default>
+      <summary> The size of label, this may be removed later and automatically. For common units 28 works </summary>
     </key>
     <key type="i" name="menu-label-size">
-		<default>65</default>
-		<summary> The size of labels on the menus, this may be removed later and automatically measured for 3 digits the size should be 65 </summary>
+      <default>65</default>
+      <summary> The size of labels on the menus, this may be removed later and automatically measured for 3 digits the size should be 65 </summary>
     </key>
     <key name="use-bytes" type="b">
       <default>false</default>
