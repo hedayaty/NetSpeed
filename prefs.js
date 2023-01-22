@@ -28,9 +28,9 @@ const NM = imports.gi.NM;
 const _ = Gettext.domain('netspeed').gettext;
 
 let schemaDir = Extension.dir.get_child('schemas');
-let schemaSource = schemaDir.query_exists(null)?
-                    Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false):
-                    Gio.SettingsSchemaSource.get_default();
+let schemaSource = schemaDir.query_exists(null) ?
+    Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false) :
+    Gio.SettingsSchemaSource.get_default();
 let schema = schemaSource.lookup(Lib.SCHEMA, false);
 let Schema = new Gio.Settings({ settings_schema: schema });
 
@@ -43,7 +43,7 @@ function init() {
         Gettext.bindtextdomain('netspeed', localeDir.get_path());
     }
 
-    if (!Lib.canShowIPs()){
+    if (!Lib.canShowIPs()) {
         // Force to false at startup
         // FIXME: hide Schema key
         Schema.set_boolean('show-ips', false);
@@ -53,18 +53,18 @@ function init() {
 const App = class NetSpeed_App {
     _get_dev_combo() {
         let listStore = new Gtk.ListStore();
-        listStore.set_column_types ([GObject.TYPE_STRING, GObject.TYPE_STRING]);
+        listStore.set_column_types([GObject.TYPE_STRING, GObject.TYPE_STRING]);
 
         let all = listStore.append();
-        listStore.set (all, [0], [_("ALL")]);
-        listStore.set (all, [1], ["network-workgroup-symbolic"]);
+        listStore.set(all, [0], [_("ALL")]);
+        listStore.set(all, [1], ["network-workgroup-symbolic"]);
 
         let defaultGw = listStore.append();
-        listStore.set (defaultGw, [0], [_("Default Gateway")]);
-        listStore.set (defaultGw, [1], ["network-workgroup-symbolic"]);
+        listStore.set(defaultGw, [0], [_("Default Gateway")]);
+        listStore.set(defaultGw, [1], ["network-workgroup-symbolic"]);
 
         let nmc = NM.Client.new(null);
-        let devices = nmc.get_devices() || [ ];
+        let devices = nmc.get_devices() || [];
         this._devices = [];
 
         for (let dev of devices) {
@@ -93,41 +93,41 @@ const App = class NetSpeed_App {
             }
             this._devices.push(dev.interface);
             let iter = listStore.append();
-            listStore.set (iter, [0], [dev.interface]);
-            listStore.set (iter, [1], [iconname]);
+            listStore.set(iter, [0], [dev.interface]);
+            listStore.set(iter, [1], [iconname]);
         }
 
-        let combo = new Gtk.ComboBox({model: listStore});
+        let combo = new Gtk.ComboBox({ model: listStore });
         let rendererPixbuf = new Gtk.CellRendererPixbuf();
         let rendererText = new Gtk.CellRendererText();
 
         // Pack the renderers into the combobox in the order we want to see
-        combo.pack_start (rendererPixbuf, false);
-        combo.pack_start (rendererText, false);
+        combo.pack_start(rendererPixbuf, false);
+        combo.pack_start(rendererText, false);
 
         // Set the renderers to use the information from our listStore
-        combo.add_attribute (rendererText, "text", 0);
-        combo.add_attribute (rendererPixbuf, "icon_name", 1);
+        combo.add_attribute(rendererText, "text", 0);
+        combo.add_attribute(rendererPixbuf, "icon_name", 1);
         return combo;
     }
 
     _put_dev() {
         let active = this.dev.get_active();
-        if (active == -1){
+        if (active == -1) {
             return;
         }
         switch (active) {
-        case 0:
-            Schema.set_string ('device', "all");
-            break;
-        case 1:
-            Schema.set_string ('device', "defaultGW");
-            break;
-        default:
-            Schema.set_string ('device', this._devices[active - 2]);
+            case 0:
+                Schema.set_string('device', "all");
+                break;
+            case 1:
+                Schema.set_string('device', "defaultGW");
+                break;
+            default:
+                Schema.set_string('device', this._devices[active - 2]);
         }
 
-        Logger.debug("device <- " + Schema.get_string('device'))
+        Logger.debug("device <- " + Schema.get_string('device'));
     }
 
     _change_placement() {
@@ -139,12 +139,12 @@ const App = class NetSpeed_App {
         }
         switch (active) {
             case 0:
-                Schema.set_string('placement', 'right')
-                Logger.debug("placement <- right")
+                Schema.set_string('placement', 'right');
+                Logger.debug("placement <- right");
                 break;
             case 1:
-                Schema.set_string('placement', 'left')
-                Logger.debug("placement <- left")
+                Schema.set_string('placement', 'left');
+                Logger.debug("placement <- left");
                 break;
         }
     }
@@ -194,15 +194,15 @@ const App = class NetSpeed_App {
 
     constructor() {
         this._factor = Schema.get_int('hi-dpi-factor');
-        this.main = new Gtk.Grid({row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true});
-        this.main.attach (new Gtk.Label({label: _("Device to monitor")}), 1, 1, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Timer (milliseconds)")}), 1, 4, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Digits")}), 1, 5, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Label Size")}), 1, 6, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Unit Label Size")}), 1, 7, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Menu Label Size")}), 1, 8, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("HiDPI factor")}), 1, 11, 1, 1);
-        this.main.attach (new Gtk.Label({label: _("Placement")}), 1, 13, 1, 1);
+        this.main = new Gtk.Grid({ row_spacing: 10, column_spacing: 20, column_homogeneous: false, row_homogeneous: true });
+        this.main.attach(new Gtk.Label({ label: _("Device to monitor") }), 1, 1, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Timer (milliseconds)") }), 1, 4, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Digits") }), 1, 5, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Label Size") }), 1, 6, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Unit Label Size") }), 1, 7, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Menu Label Size") }), 1, 8, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("HiDPI factor") }), 1, 11, 1, 1);
+        this.main.attach(new Gtk.Label({ label: _("Placement") }), 1, 13, 1, 1);
 
         //this.dev = new Gtk.Entry();
         this.dev = this._get_dev_combo();
@@ -261,7 +261,7 @@ const App = class NetSpeed_App {
             })
         });
 
-        this.placement = new Gtk.ComboBoxText()
+        this.placement = new Gtk.ComboBoxText();
         this.placement.append_text(_("Right"));
         this.placement.append_text(_("Left"));
         this.placement.set_active(0);
@@ -318,4 +318,4 @@ const App = class NetSpeed_App {
 function buildPrefsWidget() {
     let widget = new App();
     return widget.main;
-};
+}

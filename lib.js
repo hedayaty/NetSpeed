@@ -105,7 +105,7 @@ var _loggerClass = class _Logger {
     critical(event) {
         this._makeLogFunction(GLib.LogLevelFlags.LEVEL_CRITICAL)(event);
     }
-}
+};
 
 
 /**

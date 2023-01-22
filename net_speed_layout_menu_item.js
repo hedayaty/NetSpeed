@@ -34,8 +34,8 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._icon = icon;
             this._device_title = new St.Label(
                 {
-                    text: device
-                    , style_class: "ns-menuitem"
+                    text: device,
+                    style_class: "ns-menuitem"
                 }
             );
             this._device_title.get_clutter_text().set_line_wrap(true);

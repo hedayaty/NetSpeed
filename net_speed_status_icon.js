@@ -51,31 +51,31 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
 
         // download
         this._download_box = new St.BoxLayout();
-        this._down = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
-        this._downunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
-        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._down = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER });
+        this._downunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER });
+        this._downicon = new St.Label({ text: "⬇", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER });
         this._download_box.add_actor(this._down);
         this._download_box.add_actor(this._downunit);
         this._download_box.add_actor(this._downicon);
 
         // upload
         this._upload_box = new St.BoxLayout();
-        this._up = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
-        this._upunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
-        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER});
+        this._up = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER });
+        this._upunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER });
+        this._upicon = new St.Label({ text: "⬆", style_class: 'ns-horizontal-icon', y_align: Clutter.ActorAlign.CENTER });
         this._upload_box.add_actor(this._up);
         this._upload_box.add_actor(this._upunit);
         this._upload_box.add_actor(this._upicon);
 
         // sum
         this._sum_box = new St.BoxLayout();
-        this._sum = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER});
-        this._sumunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER});
+        this._sum = new St.Label({ text: "---", style_class: 'ns-horizontal-label', y_align: Clutter.ActorAlign.CENTER });
+        this._sumunit = new St.Label({ text: "", style_class: 'ns-horizontal-unit-label', y_align: Clutter.ActorAlign.CENTER });
         this._sum_box.add_actor(this._sum);
         this._sum_box.add_actor(this._sumunit);
 
         // metrics box
-        this._metrics_box = new St.BoxLayout({y_align: Clutter.ActorAlign.CENTER});
+        this._metrics_box = new St.BoxLayout({ y_align: Clutter.ActorAlign.CENTER });
         this._metrics_box.add_actor(this._download_box);
         this._metrics_box.add_actor(this._upload_box);
         this._metrics_box.add_actor(this._sum_box);
@@ -100,7 +100,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         this._menu_title.show_ip(this._net_speed.show_ips);
         this.menu.addMenuItem(this._menu_title);
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this._layouts = new Array();
+        this._layouts = [];
         this.updateui();
     }
 
@@ -254,7 +254,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         for (let layout of this._layouts) {
             layout.destroy();
         }
-        this._layouts = new Array();
+        this._layouts = [];
         for (let i = 0; i < devices.length; ++i) {
             let icon = this._get_icon(types[i]);
             let layout = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);

@@ -161,14 +161,14 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: _create_menu
      */
     _create_menu() {
-        let types = new Array();
-        let devices_text = new Array();
+        let types = [];
+        let devices_text = [];
         for (let dev of this._devices) {
             types.push(this.get_device_type(dev));
             let wifi_ssid = this._retrieve_wifi_ssid(dev);
             //Logger.info(`wifi_ssid is '${wifi_ssid}' for dev '${dev}'`);
             if (wifi_ssid != null) {
-                devices_text.push(dev + `\n${wifi_ssid}`)
+                devices_text.push(dev + `\n${wifi_ssid}`);
                 continue;
             }
             devices_text.push(dev);
@@ -205,11 +205,11 @@ var NetSpeed = class NetSpeed {
         let up = 0; // set initial
         let down = 0;
         this._oldvalues = this._values;
-        this._values = new Array();
-        this._speeds = new Array();
-        this._ips = new Array();
+        this._values = [];
+        this._speeds = [];
+        this._ips = [];
         this._olddevices = this._devices;
-        this._devices = new Array();
+        this._devices = [];
 
         let time = GLib.get_monotonic_time() / 1000; // current time 1000 is not the net_speed.timer!
         let delta = time - this._last_time; // Here the difference is evaluated
@@ -342,10 +342,10 @@ var NetSpeed = class NetSpeed {
         this._last_time = 0; // time of the latest snapshot
         this._device_state_changed = true; // flag to trigger menu refreshing
 
-        this._values = new Array();
-        this._devices = new Array();
+        this._values = [];
+        this._devices = [];
         this._client = NetworkManager.Client.new(null);
-        this._nm_signals = new Array();
+        this._nm_signals = [];
         this._nm_signals.push(this._client.connect('any-device-added', this._nm_device_changed.bind(this)));
         this._nm_signals.push(this._client.connect('any-device-removed', this._nm_device_changed.bind(this)));
         this._nm_signals.push(this._client.connect('connection-added', this._nm_connection_changed.bind(this)));
@@ -513,16 +513,16 @@ var NetSpeed = class NetSpeed {
 
         if (ip_cfg == null) {
             //Logger.info(`No config for device '${nm_device.get_iface()}'`);
-            return new Array();
+            return [];
         }
 
         let nm_addresses = ip_cfg.get_addresses();
         if (nm_addresses.length == 0) {
             //Logger.info(`No IP addresses for device '${nm_device.get_iface()}'`);
-            return new Array();
+            return [];
         }
 
-        let addresses = new Array();
+        let addresses = [];
         for (let nm_address of nm_addresses) {
             let addr = nm_address.get_address();
             let prefix = nm_address.get_prefix();
