@@ -391,6 +391,8 @@ var NetSpeed = class NetSpeed {
 
         this._load();
 
+        this._updateDefaultGw();
+
         this._changed = this._setting.connect('changed', this._reload.bind(this));
         this._timerid = Mainloop.timeout_add(this.timer, this._update.bind(this));
         this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
@@ -398,8 +400,6 @@ var NetSpeed = class NetSpeed {
         this._positionInPanelChanged();
         this._placement_changed_id = this._setting.connect('changed::placement', this._positionInPanelChanged.bind(this));
         this._placement_index_changed_id = this._setting.connect('changed::placement-index', this._positionInPanelChanged.bind(this));
-
-        this._updateDefaultGw();
     }
 
     /**
