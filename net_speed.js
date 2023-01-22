@@ -301,8 +301,14 @@ var NetSpeed = class NetSpeed {
         this.menu_label_size = this._setting.get_int('menu-label-size');
         this.use_bytes = this._setting.get_boolean('use-bytes');
         this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
-        this.show_ips = this._setting.get_boolean('show-ips');
         this.vert_align = this._setting.get_boolean('vert-align');
+
+        let show_ips = this._setting.get_boolean('show-ips');
+        if (show_ips !== this.show_ips && show_ips) {
+            // trigger ip reload
+            this._trigger_ips_reload();
+        }
+        this.show_ips = show_ips;
     }
 
     /**
@@ -381,6 +387,8 @@ var NetSpeed = class NetSpeed {
         let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
         this._setting = new Gio.Settings({ settings_schema: schema });
         this._saving = 0;
+        this.show_ips = this._setting.get_boolean('show-ips');
+
         this._load();
 
         this._changed = this._setting.connect('changed', this._reload.bind(this));
