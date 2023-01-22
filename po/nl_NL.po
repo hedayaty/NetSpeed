@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 13:41+0100\n"
+"POT-Creation-Date: 2023-01-22 16:19+0100\n"
 "PO-Revision-Date: 2021-09-13 19:16+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <vistausss@outlook.com>\n"
@@ -26,67 +26,80 @@ msgstr "ALLES"
 msgid "Default Gateway"
 msgstr "Standaard toegangspoort"
 
-#: prefs.js:198
+#: prefs.js:221
 msgid "Device to monitor"
 msgstr "Te monitoren apparaat"
 
-#: prefs.js:199
+#: prefs.js:231
+msgid "Settings"
+msgstr ""
+
+#: prefs.js:235
 msgid "Timer (milliseconds)"
 msgstr "Tijdklok (milliseconden)"
 
-#: prefs.js:200
+#: prefs.js:239
 msgid "Digits"
 msgstr "Getallen"
 
-#: prefs.js:201
+#: prefs.js:243
 msgid "Label Size"
 msgstr "Labelgrootte"
 
-#: prefs.js:202
+#: prefs.js:247
 msgid "Unit Label Size"
 msgstr "Labelgrootte van eenheid"
 
-#: prefs.js:203
+#: prefs.js:251
 msgid "Menu Label Size"
 msgstr "Labelgrootte van menu"
 
-#: prefs.js:204
+#: prefs.js:255
 msgid "HiDPI factor"
 msgstr "HiDPI-factor"
 
-#: prefs.js:205
+#: prefs.js:259
 msgid "Placement"
 msgstr "Locatie"
 
-#: prefs.js:209
-msgid "Show sum(UP+Down)"
-msgstr "Som tonen (OMHOOG+omlaag)"
-
-#: prefs.js:210
-msgid "Show the Icon"
-msgstr "Pictogram tonen"
-
-#: prefs.js:253
-msgid "Use multiples of byte"
-msgstr "Bytevermeerdering gebruiken"
-
-#: prefs.js:254
-msgid "Use binary prefixes"
-msgstr "Binaire voorvoegsels tonen"
-
-#: prefs.js:255
-msgid "Align vertically"
-msgstr "Verticaal uitlijnen"
-
-#: prefs.js:265
+#: prefs.js:261
 msgid "Right"
 msgstr "Rechts"
 
-#: prefs.js:266
+#: prefs.js:262
+msgid "Center"
+msgstr ""
+
+#: prefs.js:263
 msgid "Left"
 msgstr "Links"
 
-#: prefs.js:269
+#: prefs.js:267
+#, fuzzy
+msgid "Placement Index"
+msgstr "Locatie"
+
+#: prefs.js:274
+msgid "Show sum(UP+Down)"
+msgstr "Som tonen (OMHOOG+omlaag)"
+
+#: prefs.js:278
+msgid "Show the Icon"
+msgstr "Pictogram tonen"
+
+#: prefs.js:282
+msgid "Use multiples of byte"
+msgstr "Bytevermeerdering gebruiken"
+
+#: prefs.js:286
+msgid "Use binary prefixes"
+msgstr "Binaire voorvoegsels tonen"
+
+#: prefs.js:290
+msgid "Align vertically"
+msgstr "Verticaal uitlijnen"
+
+#: prefs.js:297
 msgid "Show IPs"
 msgstr "IP-adressen tonen"
 

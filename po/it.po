@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 13:15+0100\n"
+"POT-Creation-Date: 2023-01-22 16:19+0100\n"
 "PO-Revision-Date: 2017-04-17 15:58+0200\n"
 "Last-Translator: l3nn4rt <l3nn4rt@protonmail.com>\n"
 "Language-Team: Italian\n"
@@ -26,68 +26,80 @@ msgstr "Tutte"
 msgid "Default Gateway"
 msgstr "Gateway di default"
 
-#: prefs.js:198
+#: prefs.js:221
 msgid "Device to monitor"
 msgstr "Interfaccia da monitorare"
 
-#: prefs.js:199
+#: prefs.js:231
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: prefs.js:235
 #, fuzzy
 msgid "Timer (milliseconds)"
 msgstr "Frequenza di aggiornamento (ms)"
 
-#: prefs.js:200
+#: prefs.js:239
 msgid "Digits"
 msgstr "Numero di cifre da mostrare"
 
-#: prefs.js:201
+#: prefs.js:243
 msgid "Label Size"
 msgstr "Larghezza per le cifre"
 
-#: prefs.js:202
+#: prefs.js:247
 msgid "Unit Label Size"
 msgstr "Larghezza per le unità di misura"
 
-#: prefs.js:203
+#: prefs.js:251
 msgid "Menu Label Size"
 msgstr "Larghezza per le colonne del menu"
 
-#: prefs.js:204
+#: prefs.js:255
 msgid "HiDPI factor"
 msgstr ""
 
-#: prefs.js:205
+#: prefs.js:259
 msgid "Placement"
-msgstr ""
+msgstr "Posizione"
 
-#: prefs.js:209
+#: prefs.js:261
+msgid "Right"
+msgstr "Destra"
+
+#: prefs.js:262
+msgid "Center"
+msgstr "Centro"
+
+#: prefs.js:263
+msgid "Left"
+msgstr "Sinistra"
+
+#: prefs.js:267
+msgid "Placement Index"
+msgstr "Posizione Relativa"
+
+#: prefs.js:274
 msgid "Show sum(UP+Down)"
 msgstr "Mostra la velocità complessiva (upload + download)"
 
-#: prefs.js:210
+#: prefs.js:278
 msgid "Show the Icon"
 msgstr "Mostra l'icona"
 
-#: prefs.js:253
+#: prefs.js:282
 msgid "Use multiples of byte"
 msgstr "Usa multipli del byte"
 
-#: prefs.js:254
+#: prefs.js:286
 msgid "Use binary prefixes"
 msgstr "Usa prefissi binari"
 
-#: prefs.js:255
+#: prefs.js:290
 msgid "Align vertically"
 msgstr "Allinea verticalmente"
 
-#: prefs.js:265
-msgid "Right"
-msgstr ""
-
-#: prefs.js:266
-msgid "Left"
-msgstr ""
-
-#: prefs.js:269
+#: prefs.js:297
 msgid "Show IPs"
 msgstr "Mostra indirizzi IP"
 

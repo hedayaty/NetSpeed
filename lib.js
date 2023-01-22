@@ -23,7 +23,7 @@ const Config = imports.misc.config;
 var SCHEMA = "org.gnome.shell.extensions.netspeed";
 
 // Debug Mode Settings
-var DEBUG = false;
+var DEBUG = true;
 
 // Logging
 const LOG_DOMAIN = SCHEMA;

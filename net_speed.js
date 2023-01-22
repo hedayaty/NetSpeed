@@ -332,6 +332,24 @@ var NetSpeed = class NetSpeed {
         }
     }
 
+    _positionInPanelChanged() {
+        this._status_icon.get_parent().remove_actor(this._status_icon);
+
+        // small HACK with private boxes :)
+        let boxes = {
+            left: Panel._leftBox,
+            center: Panel._centerBox,
+            right: Panel._rightBox
+        };
+
+        let p = this._setting.get_string('placement');
+        let i = this._setting.get_int('placement-index');
+
+        Logger.debug(`_positionInPanelChanged: ${p} at index ${i}`);
+
+        boxes[p].insert_child_at_index(this._status_icon, i);
+    }
+
     /**
      * NetSpeed: enable
      * exported to enable the extension
@@ -368,10 +386,12 @@ var NetSpeed = class NetSpeed {
         this._changed = this._setting.connect('changed', this._reload.bind(this));
         this._timerid = Mainloop.timeout_add(this.timer, this._update.bind(this));
         this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
-        let placement = this._setting.get_string('placement');
-        Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
-        this._updateDefaultGw();
 
+        this._positionInPanelChanged();
+        this._placement_changed_id = this._setting.connect('changed::placement', this._positionInPanelChanged.bind(this));
+        this._placement_index_changed_id = this._setting.connect('changed::placement-index', this._positionInPanelChanged.bind(this));
+
+        this._updateDefaultGw();
     }
 
     /**

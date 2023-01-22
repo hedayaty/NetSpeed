@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 13:41+0100\n"
+"POT-Creation-Date: 2023-01-22 16:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,67 +25,79 @@ msgstr ""
 msgid "Default Gateway"
 msgstr ""
 
-#: prefs.js:198
+#: prefs.js:221
 msgid "Device to monitor"
 msgstr ""
 
-#: prefs.js:199
+#: prefs.js:231
+msgid "Settings"
+msgstr ""
+
+#: prefs.js:235
 msgid "Timer (milliseconds)"
 msgstr ""
 
-#: prefs.js:200
+#: prefs.js:239
 msgid "Digits"
 msgstr ""
 
-#: prefs.js:201
+#: prefs.js:243
 msgid "Label Size"
 msgstr ""
 
-#: prefs.js:202
+#: prefs.js:247
 msgid "Unit Label Size"
 msgstr ""
 
-#: prefs.js:203
+#: prefs.js:251
 msgid "Menu Label Size"
 msgstr ""
 
-#: prefs.js:204
+#: prefs.js:255
 msgid "HiDPI factor"
 msgstr ""
 
-#: prefs.js:205
+#: prefs.js:259
 msgid "Placement"
 msgstr ""
 
-#: prefs.js:209
-msgid "Show sum(UP+Down)"
-msgstr ""
-
-#: prefs.js:210
-msgid "Show the Icon"
-msgstr ""
-
-#: prefs.js:253
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:254
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:255
-msgid "Align vertically"
-msgstr ""
-
-#: prefs.js:265
+#: prefs.js:261
 msgid "Right"
 msgstr ""
 
-#: prefs.js:266
+#: prefs.js:262
+msgid "Center"
+msgstr ""
+
+#: prefs.js:263
 msgid "Left"
 msgstr ""
 
-#: prefs.js:269
+#: prefs.js:267
+msgid "Placement Index"
+msgstr ""
+
+#: prefs.js:274
+msgid "Show sum(UP+Down)"
+msgstr ""
+
+#: prefs.js:278
+msgid "Show the Icon"
+msgstr ""
+
+#: prefs.js:282
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:286
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:290
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:297
 msgid "Show IPs"
 msgstr ""
 
