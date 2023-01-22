@@ -123,8 +123,9 @@ var NetSpeed = class NetSpeed {
             m_digits -= 2;
         else if (amount >= 10)
             m_digits -= 1;
+
         return {
-            text: amount.toFixed(m_digits - 1),
+            text: amount.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: m_digits - 1 }),
             unit: (this.use_bytes ? byte_speed_map : bit_speed_map)[unit]
         };
     }
