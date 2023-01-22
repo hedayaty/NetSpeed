@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 15:48-0700\n"
+"POT-Creation-Date: 2023-01-22 16:08+0100\n"
 "PO-Revision-Date: 2016-02-20 20:55+0800\n"
 "Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
 "Language-Team: \n"
@@ -18,133 +18,145 @@ msgstr ""
 "X-Generator: Poedit 1.8.7\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: prefs.js:61
+#: prefs.js:59
 msgid "ALL"
 msgstr "全部"
 
-#: prefs.js:65
+#: prefs.js:63
 msgid "Default Gateway"
 msgstr "默认网关"
 
-#: prefs.js:200
+#: prefs.js:221
 msgid "Device to monitor"
 msgstr "监控的设备"
 
-#: prefs.js:201
+#: prefs.js:231
+msgid "Settings"
+msgstr ""
+
+#: prefs.js:235
 #, fuzzy
 msgid "Timer (milliseconds)"
 msgstr "定时(毫秒)"
 
-#: prefs.js:202
+#: prefs.js:239
 msgid "Digits"
 msgstr "位数"
 
-#: prefs.js:203
+#: prefs.js:243
 msgid "Label Size"
 msgstr "标签大小"
 
-#: prefs.js:204
+#: prefs.js:247
 msgid "Unit Label Size"
 msgstr "单位标签大小"
 
-#: prefs.js:205
+#: prefs.js:251
 msgid "Menu Label Size"
 msgstr "菜单标签大小"
 
-#: prefs.js:206
+#: prefs.js:255
 msgid "HiDPI factor"
 msgstr ""
 
-#: prefs.js:207
+#: prefs.js:259
 msgid "Placement"
 msgstr ""
 
-#: prefs.js:211
-msgid "Show sum(UP+Down)"
-msgstr "显示总和(上传+下载)"
-
-#: prefs.js:212
-msgid "Show the Icon"
-msgstr "显示图标"
-
-#: prefs.js:255
-msgid "Use multiples of byte"
-msgstr ""
-
-#: prefs.js:256
-msgid "Use binary prefixes"
-msgstr ""
-
-#: prefs.js:257
-msgid "Align vertically"
-msgstr ""
-
-#: prefs.js:267
+#: prefs.js:261
 msgid "Right"
 msgstr ""
 
-#: prefs.js:268
+#: prefs.js:262
+msgid "Center"
+msgstr ""
+
+#: prefs.js:263
 msgid "Left"
 msgstr ""
 
-#: prefs.js:271
+#: prefs.js:267
+msgid "Placement Index"
+msgstr ""
+
+#: prefs.js:274
+msgid "Show sum(UP+Down)"
+msgstr "显示总和(上传+下载)"
+
+#: prefs.js:278
+msgid "Show the Icon"
+msgstr "显示图标"
+
+#: prefs.js:282
+msgid "Use multiples of byte"
+msgstr ""
+
+#: prefs.js:286
+msgid "Use binary prefixes"
+msgstr ""
+
+#: prefs.js:290
+msgid "Align vertically"
+msgstr ""
+
+#: prefs.js:297
 msgid "Show IPs"
 msgstr ""
 
-#: net_speed.js:106 net_speed.js:110 net_speed.js:114
+#: net_speed.js:105 net_speed.js:109 net_speed.js:113
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:106
+#: net_speed.js:105
 msgid "kiB/s"
 msgstr ""
 
-#: net_speed.js:106
+#: net_speed.js:105
 msgid "MiB/s"
 msgstr ""
 
-#: net_speed.js:106
+#: net_speed.js:105
 msgid "GiB/s"
 msgstr ""
 
-#: net_speed.js:107 net_speed.js:111
+#: net_speed.js:106 net_speed.js:110
 #, fuzzy
 msgid "b/s"
 msgstr "B/s"
 
-#: net_speed.js:107
+#: net_speed.js:106
 msgid "kib/s"
 msgstr ""
 
-#: net_speed.js:107
+#: net_speed.js:106
 msgid "Mib/s"
 msgstr ""
 
-#: net_speed.js:107
+#: net_speed.js:106
 msgid "Gib/s"
 msgstr ""
 
-#: net_speed.js:110
+#: net_speed.js:109
 msgid "kB/s"
 msgstr ""
 
-#: net_speed.js:110
+#: net_speed.js:109
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:110
+#: net_speed.js:109
 msgid "GB/s"
 msgstr "GB/s"
 
-#: net_speed.js:111
+#: net_speed.js:110
 msgid "kb/s"
 msgstr ""
 
-#: net_speed.js:111
+#: net_speed.js:110
 msgid "Mb/s"
 msgstr ""
 
-#: net_speed.js:111
+#: net_speed.js:110
 msgid "Gb/s"
 msgstr ""
 
