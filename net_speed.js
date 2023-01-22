@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Lang = imports.lang;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Lib = Extension.imports.lib;
 const Gettext = imports.gettext;
@@ -324,7 +323,7 @@ var NetSpeed = class NetSpeed {
             let m_timer = this._setting.get_int('timer');
             if (m_timer !== this.timer) {
                 Mainloop.source_remove(this._timerid);
-                this._timerid = Mainloop.timeout_add(m_timer, Lang.bind(this, this._update));
+                this._timerid = Mainloop.timeout_add(m_timer, this._update.bind(this));
                 // this.timer will be updated within this._load, so no need to update it here
             }
             this._load();
@@ -346,12 +345,12 @@ var NetSpeed = class NetSpeed {
         this._devices = new Array();
         this._client = NetworkManager.Client.new(null);
         this._nm_signals = new Array();
-        this._nm_signals.push(this._client.connect('any-device-added', Lang.bind(this, this._nm_device_changed)));
-        this._nm_signals.push(this._client.connect('any-device-removed', Lang.bind(this, this._nm_device_changed)));
-        this._nm_signals.push(this._client.connect('connection-added', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('connection-removed', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('active-connection-added', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('active-connection-removed', Lang.bind(this, this._nm_connection_changed)));
+        this._nm_signals.push(this._client.connect('any-device-added', this._nm_device_changed.bind(this)));
+        this._nm_signals.push(this._client.connect('any-device-removed', this._nm_device_changed.bind(this)));
+        this._nm_signals.push(this._client.connect('connection-added', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._client.connect('connection-removed', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._client.connect('active-connection-added', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._client.connect('active-connection-removed', this._nm_connection_changed.bind(this)));
 
         // store NM Device 'state-changed' signal bindings to disconnect on disable
         this._nm_devices_signals_map = new Map();
@@ -365,8 +364,8 @@ var NetSpeed = class NetSpeed {
         this._saving = 0;
         this._load();
 
-        this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
-        this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
+        this._changed = this._setting.connect('changed', this._reload.bind(this));
+        this._timerid = Mainloop.timeout_add(this.timer, this._update.bind(this));
         this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
         let placement = this._setting.get_string('placement');
         Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
@@ -469,7 +468,7 @@ var NetSpeed = class NetSpeed {
      */
     _connect_nm_device_state_changed(nm_device) {
         if (!this._nm_devices_signals_map.has(nm_device.get_iface())) {
-            let signal_id = nm_device.connect('state-changed', Lang.bind(this, this._nm_device_state_changed));
+            let signal_id = nm_device.connect('state-changed', this._nm_device_state_changed.bind(this));
             this._nm_devices_signals_map.set(nm_device.get_iface(), [nm_device, signal_id]);
         }
     }

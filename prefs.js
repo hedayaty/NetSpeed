@@ -1,20 +1,19 @@
- /*
-  * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 3 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
-
+/*
+ * Copyright 2011-2019 Amir Hedayaty < hedayaty AT gmail DOT com >
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const Lib = Extension.imports.lib;
@@ -25,7 +24,6 @@ const Gdk = imports.gi.Gdk;
 const Gettext = imports.gettext;
 const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
-const Lang = imports.lang;
 const NM = imports.gi.NM;
 const _ = Gettext.domain('netspeed').gettext;
 
@@ -309,10 +307,10 @@ const App = class NetSpeed_App {
         this._pick_dev();
         this._factor = Schema.get_int('hi-dpi-factor');
 
-        this.dev.connect('changed', Lang.bind(this, this._put_dev));
-        Schema.connect('changed', Lang.bind(this, this._dpi_changed));
+        this.dev.connect('changed', this._put_dev.bind(this));
+        Schema.connect('changed', this._dpi_changed.bind(this));
 
-        this.placement.connect('changed', Lang.bind(this, this._change_placement))
+        this.placement.connect('changed', this._change_placement.bind(this));
 
     }
 };
