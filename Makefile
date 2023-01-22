@@ -42,5 +42,13 @@ enable:
 disable:
 	gnome-extensions disable $(UUID)
 
-reload:
+unistall:
+	gnome-extensions uninstall $(UUID)
+
+reset:
 	gnome-extensions reset $(UUID)
+
+reload:
+	# Reloading shell; Sending SIGHUP signal to gnome-shell (equivalent to alt + f2 ; r ; enter)
+	# busctl --verbose --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")'
+	killall -HUP gnome-shell
