@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 15:48-0700\n"
+"POT-Creation-Date: 2023-01-22 13:15+0100\n"
 "PO-Revision-Date: 2019-03-21 09:18+0300\n"
 "Last-Translator: Serdar Sağlam <teknomobil@yandex.com>\n"
 "Language-Team: Türkçe <teknomobil@yandex.com>\n"
@@ -18,148 +18,148 @@ msgstr ""
 "X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: prefs.js:61
+#: prefs.js:59
 msgid "ALL"
 msgstr "Tümü"
 
-#: prefs.js:65
+#: prefs.js:63
 msgid "Default Gateway"
 msgstr "Öntanımlı Ağ Geçidi"
 
-#: prefs.js:200
+#: prefs.js:198
 msgid "Device to monitor"
 msgstr "İzlenecek Aygıt"
 
-#: prefs.js:201
+#: prefs.js:199
 #, fuzzy
 msgid "Timer (milliseconds)"
 msgstr "Zaman (millisaniye)"
 
-#: prefs.js:202
+#: prefs.js:200
 msgid "Digits"
 msgstr "Basamak"
 
-#: prefs.js:203
+#: prefs.js:201
 msgid "Label Size"
 msgstr "Etiket Boyutu"
 
-#: prefs.js:204
+#: prefs.js:202
 msgid "Unit Label Size"
 msgstr "Birim Etiketi Boyutu"
 
-#: prefs.js:205
+#: prefs.js:203
 msgid "Menu Label Size"
 msgstr "Menü Etiket Boyutu"
 
-#: prefs.js:206
+#: prefs.js:204
 msgid "HiDPI factor"
 msgstr ""
 
-#: prefs.js:207
+#: prefs.js:205
 msgid "Placement"
 msgstr ""
 
-#: prefs.js:211
+#: prefs.js:209
 msgid "Show sum(UP+Down)"
 msgstr "Toplamı Göster (Yükleme+İndirme)"
 
-#: prefs.js:212
+#: prefs.js:210
 msgid "Show the Icon"
 msgstr "Simgeyi Göster"
 
-#: prefs.js:255
+#: prefs.js:253
 msgid "Use multiples of byte"
 msgstr ""
 
-#: prefs.js:256
+#: prefs.js:254
 msgid "Use binary prefixes"
 msgstr ""
 
-#: prefs.js:257
+#: prefs.js:255
 msgid "Align vertically"
 msgstr ""
 
-#: prefs.js:267
+#: prefs.js:265
 msgid "Right"
 msgstr ""
 
-#: prefs.js:268
+#: prefs.js:266
 msgid "Left"
 msgstr ""
 
-#: prefs.js:271
+#: prefs.js:269
 msgid "Show IPs"
 msgstr ""
 
-#: net_speed.js:106 net_speed.js:110 net_speed.js:114
+#: net_speed.js:104 net_speed.js:108 net_speed.js:112
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:106
+#: net_speed.js:104
 msgid "kiB/s"
 msgstr ""
 
-#: net_speed.js:106
+#: net_speed.js:104
 msgid "MiB/s"
 msgstr ""
 
-#: net_speed.js:106
+#: net_speed.js:104
 msgid "GiB/s"
 msgstr ""
 
-#: net_speed.js:107 net_speed.js:111
+#: net_speed.js:105 net_speed.js:109
 #, fuzzy
 msgid "b/s"
 msgstr "B/s"
 
-#: net_speed.js:107
+#: net_speed.js:105
 msgid "kib/s"
 msgstr ""
 
-#: net_speed.js:107
+#: net_speed.js:105
 msgid "Mib/s"
 msgstr ""
 
-#: net_speed.js:107
+#: net_speed.js:105
 msgid "Gib/s"
 msgstr ""
 
-#: net_speed.js:110
+#: net_speed.js:108
 msgid "kB/s"
 msgstr ""
 
-#: net_speed.js:110
+#: net_speed.js:108
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:110
+#: net_speed.js:108
 msgid "GB/s"
 msgstr "GB/s"
 
-#: net_speed.js:111
+#: net_speed.js:109
 msgid "kb/s"
 msgstr ""
 
-#: net_speed.js:111
+#: net_speed.js:109
 msgid "Mb/s"
 msgstr ""
 
-#: net_speed.js:111
+#: net_speed.js:109
 msgid "Gb/s"
 msgstr ""
 
-#: net_speed_status_icon.js:97
+#: net_speed_status_icon.js:96
 msgid "Device"
 msgstr "Aygıt"
 
-#: net_speed_status_icon.js:99
+#: net_speed_status_icon.js:98
 msgid "Up"
 msgstr "Yükleme"
 
-#: net_speed_status_icon.js:99
+#: net_speed_status_icon.js:98
 msgid "Down"
 msgstr "İndirme"
 
-#: net_speed_status_icon.js:100
+#: net_speed_status_icon.js:99
 msgid "IP"
 msgstr ""
