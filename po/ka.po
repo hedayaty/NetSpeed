@@ -1,0 +1,163 @@
+# Georgian translation for netspeed.
+# Copyright (C) 2023 netspeed's authors.
+# This file is distributed under the same license as the netspeed package.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: netspeed\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-05-30 15:48-0700\n"
+"PO-Revision-Date: 2023-02-22 08:09+0100\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <(nothing)>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: prefs.js:61
+msgid "ALL"
+msgstr "ყველა"
+
+#: prefs.js:65
+msgid "Default Gateway"
+msgstr "ნაგულისხმები რაუტერი"
+
+#: prefs.js:200
+msgid "Device to monitor"
+msgstr "მოწყობილობა მონიტორინგისთვის"
+
+#: prefs.js:201
+msgid "Timer (milliseconds)"
+msgstr "ტაიმერი (მილიწამები)"
+
+#: prefs.js:202
+msgid "Digits"
+msgstr "ციფრები"
+
+#: prefs.js:203
+msgid "Label Size"
+msgstr "ჭდის ზომა"
+
+#: prefs.js:204
+msgid "Unit Label Size"
+msgstr "ერთეულის ჭდის ზომა"
+
+#: prefs.js:205
+msgid "Menu Label Size"
+msgstr "მენიუს ჭდის ზომა"
+
+#: prefs.js:206
+msgid "HiDPI factor"
+msgstr "HiDPI ფაქტორი"
+
+#: prefs.js:207
+msgid "Placement"
+msgstr "განლაგება"
+
+#: prefs.js:211
+msgid "Show sum(UP+Down)"
+msgstr "ჯამის ჩვენება(ზემოთ+ქვემოთ)"
+
+#: prefs.js:212
+msgid "Show the Icon"
+msgstr "ხატულის ჩვენება"
+
+#: prefs.js:255
+msgid "Use multiples of byte"
+msgstr "ბევრი ბაიტის გამოყენება"
+
+#: prefs.js:256
+msgid "Use binary prefixes"
+msgstr "ბინარული პრეფიქსების გამოყენება"
+
+#: prefs.js:257
+msgid "Align vertically"
+msgstr "ვერტიკალურად სწორება"
+
+#: prefs.js:267
+msgid "Right"
+msgstr "მარჯვენა"
+
+#: prefs.js:268
+msgid "Left"
+msgstr "მარცხენა"
+
+#: prefs.js:271
+msgid "Show IPs"
+msgstr "IP-ების ჩვენება"
+
+#: net_speed.js:106 net_speed.js:110 net_speed.js:114
+msgid "B/s"
+msgstr "ბ/წმ"
+
+#: net_speed.js:106
+msgid "kiB/s"
+msgstr "კიბ/წმ"
+
+#: net_speed.js:106
+msgid "MiB/s"
+msgstr "მიბ/წმ"
+
+#: net_speed.js:106
+msgid "GiB/s"
+msgstr "გიბ/წმ"
+
+#: net_speed.js:107 net_speed.js:111
+msgid "b/s"
+msgstr "ბ/წმ"
+
+#: net_speed.js:107
+msgid "kib/s"
+msgstr "კიბ/წმ"
+
+#: net_speed.js:107
+msgid "Mib/s"
+msgstr "მიბ/წმ"
+
+#: net_speed.js:107
+msgid "Gib/s"
+msgstr "გიბ/წმ"
+
+#: net_speed.js:110
+msgid "kB/s"
+msgstr "კბ/წმ"
+
+#: net_speed.js:110
+msgid "MB/s"
+msgstr "მბ/წმ"
+
+#: net_speed.js:110
+msgid "GB/s"
+msgstr "გბ/წმ"
+
+#: net_speed.js:111
+msgid "kb/s"
+msgstr "კბ/წმ"
+
+#: net_speed.js:111
+msgid "Mb/s"
+msgstr "მბ/წმ"
+
+#: net_speed.js:111
+msgid "Gb/s"
+msgstr "გბ/წმ"
+
+#: net_speed_status_icon.js:97
+msgid "Device"
+msgstr "მოწყობილობა"
+
+#: net_speed_status_icon.js:99
+msgid "Up"
+msgstr "მაღლა"
+
+#: net_speed_status_icon.js:99
+msgid "Down"
+msgstr "ქვემოთ"
+
+#: net_speed_status_icon.js:100
+msgid "IP"
+msgstr "IP"
