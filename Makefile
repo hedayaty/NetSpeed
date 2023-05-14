@@ -42,7 +42,7 @@ enable:
 disable:
 	gnome-extensions disable $(UUID)
 
-unistall:
+uninstall:
 	gnome-extensions uninstall $(UUID)
 
 reset:
