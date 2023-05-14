@@ -63,7 +63,12 @@
     <key name="placement" type="s">
       <default>'right'</default>
       <summary>Where to place the UI</summary>
-      <description>You can use left/right to place the items.</description>
+      <description>You can use left/center/right to place the items.</description>
+    </key>
+    <key name="placement-index" type="i">
+      <default>0</default>
+      <summary>Index in panel box</summary>
+      <description>Index within the selected panel box (0: first, 1: second, ..., -1: last)</description>
     </key>
     <key name="show-ips" type="b">
       <default>false</default>
