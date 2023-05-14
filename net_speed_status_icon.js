@@ -18,7 +18,6 @@
 const ExtensionUtils = imports.misc.extensionUtils;
 const Extension = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext;
-const Lang = imports.lang;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
 const Clutter = imports.gi.Clutter;
@@ -48,7 +47,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         // extension button
         this._box = new St.BoxLayout();
         this.add_actor(this._box);
-        this.connect('button-release-event', Lang.bind(this, this._toggle_showsum));
+        this.connect('button-release-event', this._toggle_showsum.bind(this));
 
         // download
         this._download_box = new St.BoxLayout();
@@ -95,7 +94,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
         });
 
         this._menu_title = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(_("Device"), this._pref, this._net_speed.menu_label_size);
-        this._menu_title.connect("activate", Lang.bind(this, this._change_device, ""));
+        this._menu_title.connect("activate", this._change_device.bind(this, ""));
         this._menu_title.update_speeds({ up: _("Up"), down: _("Down") });
         this._menu_title.update_ips([_("IP")]);
         this._menu_title.show_ip(this._net_speed.show_ips);
@@ -260,7 +259,7 @@ var NetSpeedStatusIcon = GObject.registerClass(class NetSpeedStatusIcon extends 
             let icon = this._get_icon(types[i]);
             let layout = new NetSpeedLayoutMenuItem.NetSpeedLayoutMenuItem(devices[i], icon, this._net_speed.menu_label_size);
             layout.show_ip(this._net_speed.show_ips);
-            layout.connect("activate", Lang.bind(this, this._change_device, devices[i]));
+            layout.connect("activate", this._change_device.bind(this, devices[i]));
             this._layouts.push(layout);
             this.menu.addMenuItem(layout);
         }
