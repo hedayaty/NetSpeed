@@ -164,7 +164,7 @@ const App = class NetSpeed_App {
         let active = 0;
         if (activeDev == "all") {
             active = 0;
-        } else if (activeDev == "defaultGw") {
+        } else if (activeDev == "defaultGW") {
             active = 1;
         } else {
             for (let i = 0; i < this._devices.length; ++i) {

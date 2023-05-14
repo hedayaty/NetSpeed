@@ -366,12 +366,14 @@ var NetSpeed = class NetSpeed {
         this._saving = 0;
         this._load();
 
+        this._updateDefaultGw();
+
         this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
         this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
         this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
         let placement = this._setting.get_string('placement');
         Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
-        this._updateDefaultGw();
+
 
     }
 
