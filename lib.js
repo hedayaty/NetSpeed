@@ -151,8 +151,8 @@ function canShowIPs() {
 
     let version_array = splitVersion(Config.PACKAGE_VERSION);
 
-    if (version_array[0] == 3 && (version_array[1] < 28 || version_array[1] >= 34)) {
-        getLogger().debug(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
+    if (version_array[0] >= 40 || (version_array[0] == 3 && (version_array[1] < 28 || version_array[1] >= 34))) {
+        getLogger().debug(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}' - Parsed: ${version_array[0]}.${version_array[1]} - Compared: ${version_array[0] >= 40}`);
         return true;
     }
     getLogger().warning(`Show IP cannot be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
