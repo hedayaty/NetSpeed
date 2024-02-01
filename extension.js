@@ -15,16 +15,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const NetSpeed = Extension.imports.net_speed;
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-/**
- * init
- * run when gnome-shell loads
- */
-function init() {
-  return new NetSpeed.NetSpeed();
+import NetSpeedStatusIcon from './net_speed_status_icon.js';
+import { Logger } from './lib.js';
+import { NetSpeed } from './net_speed.js';
+
+
+
+
+export default class extends Extension {
+
+  enable() {
+    Logger.init(this);
+
+    this._netSpeed = new NetSpeed(this);
+    this._netSpeedMenu = new NetSpeedStatusIcon(this, this._netSpeed);
+
+    Main.panel.addToStatusArea('netSpeed', this._netSpeedMenu);
+    // reposition in panel trick
+    this._netSpeedMenu._positionInPanelChanged();
+
+    this._netSpeed.start();
+  }
+
+  disable() {
+    this._netSpeed?.stop();
+    this._netSpeedMenu?.destroy();
+    this._netSpeed = null;
+    this._netSpeedMenu = null;
+  }
 }
-
 
 // vim: ts=2 sw=2

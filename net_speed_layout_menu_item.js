@@ -15,90 +15,90 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const PopupMenu = imports.ui.popupMenu;
-const St = imports.gi.St;
-const { GObject } = imports.gi;
+import GObject from 'gi://GObject';
+import St from 'gi://St';
+
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 /**
  * Class: NetSpeedLayoutMenuItem
  */
-var NetSpeedLayoutMenuItem = GObject.registerClass(
-    class NetSpeedLayoutMenuItem extends PopupMenu.PopupBaseMenuItem {
-        /**
-         * NetSpeedLayoutMenuItem: _init
-         * Constructor
-         */
-        _init(device, icon, menu_label_size) {
-            super._init();
-            this.device = device;
-            this._icon = icon;
-            this._device_title = new St.Label(
-                {
-                    text: device,
-                    style_class: "ns-menuitem"
-                }
-            );
-            this._device_title.get_clutter_text().set_line_wrap(true);
-
-            this._down_label = new St.Label({ text: "", style_class: "ns-menuitem" });
-            this._up_label = new St.Label({ text: "", style_class: "ns-menuitem" });
-            this._ips_label = new St.Label({ text: "", style_class: "ns-menuitem" });
-
-            if (this._icon != null) {
-                this.add(this._icon);
-            } else {
-                this.add(new St.Label());
-            }
-            this.add(this._device_title);
-            this.add(this._down_label);
-            this.add(this._up_label);
-            this.add(this._ips_label);
-            this.update_ui(menu_label_size);
-            this.show_ip(false);
-
-            //log(`${getMethods(this)}`);
+export const NetSpeedLayoutMenuItem = GObject.registerClass(
+  class NetSpeedLayoutMenuItem extends PopupMenu.PopupBaseMenuItem {
+    /**
+     * NetSpeedLayoutMenuItem: ctor
+     */
+    constructor(device, icon, menu_label_size) {
+      super();
+      this.device = device;
+      this._icon = icon;
+      this._device_title = new St.Label(
+        {
+          text: device,
+          style_class: "ns-menuitem"
         }
+      );
+      this._device_title.get_clutter_text().set_line_wrap(true);
 
-        /**
-         * NetSpeedLayoutMenuItem: update_ui
-         * update settings
-         */
-        update_ui(menu_label_size) {
-            this._down_label.set_width(menu_label_size);
-            this._up_label.set_width(menu_label_size);
-            this._device_title.set_width(menu_label_size);
-            this._ips_label.set_width(menu_label_size);
-        }
+      this._down_label = new St.Label({ text: "", style_class: "ns-menuitem" });
+      this._up_label = new St.Label({ text: "", style_class: "ns-menuitem" });
+      this._ips_label = new St.Label({ text: "", style_class: "ns-menuitem" });
 
-        /**
-         * NetSpeedLayoutMenuItem: update_speeds
-         * update speeds
-         */
-        update_speeds(speed) {
-            this._down_label.set_text(speed.down);
-            this._up_label.set_text(speed.up);
-        }
+      if (this._icon !== null) {
+        this.add(this._icon);
+      } else {
+        this.add(new St.Label());
+      }
+      this.add(this._device_title);
+      this.add(this._down_label);
+      this.add(this._up_label);
+      this.add(this._ips_label);
+      this.update_ui(menu_label_size);
+      this.show_ip(false);
 
-        /**
-         * NetSpeedLayoutMenuItem: show_ip
-         * @param {boolean} value
-         */
-        show_ip(value) {
-            if (value) {
-                this._ips_label.show();
-            }
-            else {
-                this._ips_label.hide();
-            }
-        }
+      //log(`${getMethods(this)}`);
+    }
 
-        /**
-         * NetSpeedLayoutMenuItem: update_ips
-         * update ips
-         * @param {string[]} ips: IPs addresses array
-         */
-        update_ips(ips) {
-            this._ips_label.set_text(ips.join("\n"));
-        }
+    /**
+     * NetSpeedLayoutMenuItem: update_ui
+     * update settings
+     */
+    update_ui(menu_label_size) {
+      this._down_label.set_width(menu_label_size);
+      this._up_label.set_width(menu_label_size);
+      this._device_title.set_width(menu_label_size);
+      this._ips_label.set_width(menu_label_size);
+    }
 
-    });
+    /**
+     * NetSpeedLayoutMenuItem: update_speeds
+     * update speeds
+     */
+    update_speeds(speed) {
+      this._down_label.set_text(speed.down);
+      this._up_label.set_text(speed.up);
+    }
+
+    /**
+     * NetSpeedLayoutMenuItem: show_ip
+     * @param {boolean} value
+     */
+    show_ip(value) {
+      if (value) {
+        this._ips_label.show();
+      }
+      else {
+        this._ips_label.hide();
+      }
+    }
+
+    /**
+     * NetSpeedLayoutMenuItem: update_ips
+     * update ips
+     * @param {string[]} ips: IPs addresses array
+     */
+    update_ips(ips) {
+      this._ips_label.set_text(ips.join("\n"));
+    }
+
+  });

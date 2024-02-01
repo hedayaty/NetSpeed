@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: netspeed\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-22 16:19+0100\n"
+"POT-Creation-Date: 2024-02-02 00:34+0100\n"
 "PO-Revision-Date: 2014-05-25 19:36-0700\n"
 "Last-Translator: Lucien Aubert <lu.aubert84@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,146 +17,146 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: prefs.js:59
+#: prefs.js:32
 msgid "ALL"
 msgstr "TOUS"
 
-#: prefs.js:63
+#: prefs.js:36
 msgid "Default Gateway"
 msgstr ""
 
-#: prefs.js:221
+#: prefs.js:196
 msgid "Device to monitor"
 msgstr "Périphérique(s) à prendre en compte"
 
-#: prefs.js:231
+#: prefs.js:206
 msgid "Settings"
 msgstr ""
 
-#: prefs.js:235
+#: prefs.js:210
 #, fuzzy
 msgid "Timer (milliseconds)"
 msgstr "Rafraîchissement (milisecondes)"
 
-#: prefs.js:239
+#: prefs.js:214
 msgid "Digits"
 msgstr "Chiffres"
 
-#: prefs.js:243
+#: prefs.js:218
 msgid "Label Size"
 msgstr "Taille des champs"
 
-#: prefs.js:247
+#: prefs.js:222
 #, fuzzy
 msgid "Unit Label Size"
 msgstr "Taille des champs du menu"
 
-#: prefs.js:251
+#: prefs.js:226
 msgid "Menu Label Size"
 msgstr "Taille des champs du menu"
 
-#: prefs.js:255
+#: prefs.js:230
 msgid "HiDPI factor"
 msgstr ""
 
-#: prefs.js:259
+#: prefs.js:234
 msgid "Placement"
 msgstr ""
 
-#: prefs.js:261
+#: prefs.js:236
 msgid "Right"
 msgstr ""
 
-#: prefs.js:262
+#: prefs.js:237
 msgid "Center"
 msgstr ""
 
-#: prefs.js:263
+#: prefs.js:238
 msgid "Left"
 msgstr ""
 
-#: prefs.js:267
+#: prefs.js:242
 msgid "Placement Index"
 msgstr ""
 
-#: prefs.js:274
+#: prefs.js:249
 msgid "Show sum(UP+Down)"
 msgstr "Afficher la somme (reçu+envoyé)"
 
-#: prefs.js:278
+#: prefs.js:253
 msgid "Show the Icon"
 msgstr "Afficher l'icône"
 
-#: prefs.js:282
+#: prefs.js:257
 msgid "Use multiples of byte"
 msgstr ""
 
-#: prefs.js:286
+#: prefs.js:261
 msgid "Use binary prefixes"
 msgstr ""
 
-#: prefs.js:290
+#: prefs.js:265
 msgid "Align vertically"
 msgstr ""
 
-#: prefs.js:297
+#: prefs.js:270
 msgid "Show IPs"
 msgstr ""
 
-#: net_speed.js:104 net_speed.js:108 net_speed.js:112
+#: net_speed.js:151 net_speed.js:155 net_speed.js:159
 msgid "B/s"
 msgstr "B/s"
 
-#: net_speed.js:104
+#: net_speed.js:151
 msgid "kiB/s"
 msgstr ""
 
-#: net_speed.js:104
+#: net_speed.js:151
 msgid "MiB/s"
 msgstr ""
 
-#: net_speed.js:104
+#: net_speed.js:151
 msgid "GiB/s"
 msgstr ""
 
-#: net_speed.js:105 net_speed.js:109
+#: net_speed.js:152 net_speed.js:156
 #, fuzzy
 msgid "b/s"
 msgstr "B/s"
 
-#: net_speed.js:105
+#: net_speed.js:152
 msgid "kib/s"
 msgstr ""
 
-#: net_speed.js:105
+#: net_speed.js:152
 msgid "Mib/s"
 msgstr ""
 
-#: net_speed.js:105
+#: net_speed.js:152
 msgid "Gib/s"
 msgstr ""
 
-#: net_speed.js:108
+#: net_speed.js:155
 msgid "kB/s"
 msgstr ""
 
-#: net_speed.js:108
+#: net_speed.js:155
 msgid "MB/s"
 msgstr "MB/s"
 
-#: net_speed.js:108
+#: net_speed.js:155
 msgid "GB/s"
 msgstr "GB/s"
 
-#: net_speed.js:109
+#: net_speed.js:156
 msgid "kb/s"
 msgstr ""
 
-#: net_speed.js:109
+#: net_speed.js:156
 msgid "Mb/s"
 msgstr ""
 
-#: net_speed.js:109
+#: net_speed.js:156
 msgid "Gb/s"
 msgstr ""
 
