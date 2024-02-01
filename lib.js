@@ -23,58 +23,58 @@ const DEBUG = false;
 */
 export class Logger {
 
-  static _formatMessage(message, file, func, line) {
-    return `[${this.extension.metadata.uuid}:${file}:${func}:${line}] -> ${message}`;
-  }
-
-  static _makeMessage(message) {
-    /* FIXME: rretrieve logging stack
-    let stack = (new Error()).stack;
-    let caller = stack.split('\n').pop();
-
-    console.log(stack.split('\n'));
-
-    // caller example: enable@file:///home/cosimo/.local/share/gnome-shell/extensions/netspeed@hedayaty.gmail.com/extension.js:35:24
-    // or: resource:///org/gnome/Shell/
-    const [func, caller] = caller.split(/@(.+)/);;
-    const [code, line, _] = caller.split(':');
-    */
-    return Logger._formatMessage(message, "", "", "");
-  }
-
-  static init(extension) {
-    if (Logger._domain)
-      return;
-
-    this.extension = extension;
-
-    const { name: domain } = extension.metadata;
-    Logger._domain = domain.replaceAll(' ', '-');
-  }
-
-  static debug(message) {
-    Logger._logMessage(console.debug, message);
-  }
-
-  static info(message) {
-    Logger._logMessage(console.info, message);
-  }
-
-  static warn(message) {
-    Logger._logMessage(console.warn, message);
-  }
-
-  static error(message) {
-    Logger._logMessage(console.critical, message);
-  }
-
-  static _logMessage(logFunc, message) {
-    const msg = Logger._makeMessage(message);
-    if (DEBUG) {
-      console.log(msg);
-      return;
+    static _formatMessage(message, file, func, line) {
+        return `[${this.extension.metadata.uuid}:${file}:${func}:${line}] -> ${message}`;
     }
 
-    logFunc(msg);
-  }
+    static _makeMessage(message) {
+        /* FIXME: rretrieve logging stack
+        let stack = (new Error()).stack;
+        let caller = stack.split('\n').pop();
+
+        console.log(stack.split('\n'));
+
+        // caller example: enable@file:///home/cosimo/.local/share/gnome-shell/extensions/netspeed@hedayaty.gmail.com/extension.js:35:24
+        // or: resource:///org/gnome/Shell/
+        const [func, caller] = caller.split(/@(.+)/);;
+        const [code, line, _] = caller.split(':');
+        */
+        return Logger._formatMessage(message, "", "", "");
+    }
+
+    static init(extension) {
+        if (Logger._domain)
+            return;
+
+        this.extension = extension;
+
+        const { name: domain } = extension.metadata;
+        Logger._domain = domain.replaceAll(' ', '-');
+    }
+
+    static debug(message) {
+        Logger._logMessage(console.debug, message);
+    }
+
+    static info(message) {
+        Logger._logMessage(console.info, message);
+    }
+
+    static warn(message) {
+        Logger._logMessage(console.warn, message);
+    }
+
+    static error(message) {
+        Logger._logMessage(console.critical, message);
+    }
+
+    static _logMessage(logFunc, message) {
+        const msg = Logger._makeMessage(message);
+        if (DEBUG) {
+            console.log(msg);
+            return;
+        }
+
+        logFunc(msg);
+    }
 }

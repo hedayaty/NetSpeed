@@ -19,25 +19,25 @@ import GObject from 'gi://GObject';
 
 
 const NetSpeedMessage = GObject.registerClass(
-  class NetSpeedMessage extends GObject.Object {
-    constructor(props = {}) {
-      super();
-      this.set(props);
-    }
-  });
+    class NetSpeedMessage extends GObject.Object {
+        constructor(props = {}) {
+            super();
+            this.set(props);
+        }
+    });
 
 /*
  * {NetSpeedGlobalStatsMessage} object has the properties:
  *   {object} sum
  *   {object} up
  *   {object} down
- * 
+ *
  *  Each property has the properties:
  *   {string} text
- *   {string} unit 
+ *   {string} unit
  */
 export const NetSpeedGlobalStatsMessage = GObject.registerClass(
-  class NetSpeedGlobalStatsMessage extends NetSpeedMessage { }
+    class NetSpeedGlobalStatsMessage extends NetSpeedMessage { }
 );
 
 /*
@@ -47,7 +47,7 @@ export const NetSpeedGlobalStatsMessage = GObject.registerClass(
  *     {string} down
  */
 export const NetSpeedSpeedsMessage = GObject.registerClass(
-  class NetSpeedSpeedsMessage extends NetSpeedMessage { }
+    class NetSpeedSpeedsMessage extends NetSpeedMessage { }
 );
 
 /*
@@ -55,7 +55,7 @@ export const NetSpeedSpeedsMessage = GObject.registerClass(
  *   {array} ips: an array of {string}s
  */
 export const NetSpeedIPsMessage = GObject.registerClass(
-  class NetSpeedIPsMessage extends NetSpeedMessage { }
+    class NetSpeedIPsMessage extends NetSpeedMessage { }
 );
 
 /*
@@ -64,5 +64,5 @@ export const NetSpeedIPsMessage = GObject.registerClass(
  *   {array} types: an array of {string}s
  */
 export const NetSpeedMenuMessage = GObject.registerClass(
-  class NetSpeedMenuMessage extends NetSpeedMessage { }
+    class NetSpeedMenuMessage extends NetSpeedMessage { }
 );
