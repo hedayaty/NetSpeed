@@ -5,14 +5,14 @@ UUID = netspeed@hedayaty.gmail.com
 
 LANGUAGES=ca de en_CA fa fr it pt_BR ru zh_CN zh_TW es_ES nl_NL ru tr zh_CN
 DOC_FILES=CHANGELOG README.md
-SRC_FILES=extension.js prefs.js net_speed_layout_menu_item.js net_speed.js net_speed_status_icon.js lib.js
+SRC_FILES=extension.js prefs.js net_speed_layout_menu_item.js net_speed.js net_speed_status_icon.js lib.js messages.js
 MO_FILES=$(foreach LANGUAGE, $(LANGUAGES), locale/$(LANGUAGE)/LC_MESSAGES/$(GETTEXT_PACKAGE).mo)
 SCHEMA_FILES=schemas/gschemas.compiled schemas/org.gnome.shell.extensions.netspeed.gschema.xml
 EXTENSION_FILES=stylesheet.css metadata.json
 OUTPUT=$(DOC_FILES) $(SRC_FILES) $(MO_FILES) $(SCHEMA_FILES) $(EXTENSION_FILES)
 POT_FILE=po/$(GETTEXT_PACKAGE).pot
 LOCAL_INSTALL=~/.local/share/gnome-shell/extensions/$(UUID)
-pack: $(OUTPUT)
+pack: update-po schemas/gschemas.compiled $(OUTPUT)
 	zip $(UUID).zip $(OUTPUT)
 
 $(POT_FILE): $(SRC_FILES)
@@ -42,5 +42,13 @@ enable:
 disable:
 	gnome-extensions disable $(UUID)
 
-reload:
+uninstall:
+	gnome-extensions uninstall $(UUID)
+
+reset:
 	gnome-extensions reset $(UUID)
+
+reload:
+	# Reloading shell; Sending SIGHUP signal to gnome-shell (equivalent to alt + f2 ; r ; enter)
+	# busctl --verbose --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")'
+	killall -HUP gnome-shell

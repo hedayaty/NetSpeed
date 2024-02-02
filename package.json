@@ -1,0 +1,30 @@
+{
+  "name": "org.gnome.shell.extensions.netspeed",
+  "version": "1.0.0",
+  "description": "Displays Internet Speed",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "sourceType": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hedayaty/NetSpeed.git"
+  },
+  "keywords": [
+    "gnome",
+    "extension",
+    "network",
+    "speed",
+    "ip",
+    "interface"
+  ],
+  "author": "hedayaty@gmail.com",
+  "license": "(ISC OR GPL-3.0)",
+  "bugs": {
+    "url": "https://github.com/hedayaty/NetSpeed/issues"
+  },
+  "homepage": "https://github.com/hedayaty/NetSpeed#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  }
+}

@@ -3,3 +3,4 @@ locale/
 schemas/gschemas.compiled
 *~
 .idea/
+node_modules/

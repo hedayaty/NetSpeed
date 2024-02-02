@@ -15,146 +15,66 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const GLib = imports.gi.GLib;
-const Config = imports.misc.config;
-
-// Schema name
-var SCHEMA = "org.gnome.shell.extensions.netspeed";
-
-// Debug Mode Settings
-var DEBUG = false;
-
-// Logging
-const LOG_DOMAIN = SCHEMA;
-const LOG_PREFIX = `[${LOG_DOMAIN}]`;
-
-// Log all messages when connected to the journal
-if (GLib.log_writer_is_journald(2) && DEBUG) {
-    GLib.setenv('G_MESSAGES_DEBUG', LOG_DOMAIN, false);
-} else {
-    // FIXME: manage already existing env var
-    GLib.unsetenv('G_MESSAGES_DEBUG');
-}
+// DEBUG const useful to debug on X11
+const DEBUG = false;
 
 /**
- * A Logger class inspired to GJS doc/Logging.md
- *
- */
-var _loggerClass = class _Logger {
+ * A Logger class with format
+*/
+export class Logger {
 
-    constructor(module) {
+    static _formatMessage(message, file, func, line) {
+        return `[${this.extension.metadata.uuid}:${file}:${func}:${line}] -> ${message}`;
     }
 
-    _getMessage(event, file, func, line) {
-        let timestamp = new Date(new Date().getTime()).toISOString();
-        let message = `${event}`;
-        message = `[${Extension.uuid}:${file}:${func}:${line}] -> ${event}`;
-        return message;
+    static _makeMessage(message) {
+        /* FIXME: rretrieve logging stack
+        let stack = (new Error()).stack;
+        let caller = stack.split('\n').pop();
+
+        console.log(stack.split('\n'));
+
+        // caller example: enable@file:///home/cosimo/.local/share/gnome-shell/extensions/netspeed@hedayaty.gmail.com/extension.js:35:24
+        // or: resource:///org/gnome/Shell/
+        const [func, caller] = caller.split(/@(.+)/);;
+        const [code, line, _] = caller.split(':');
+        */
+        return Logger._formatMessage(message, "", "", "");
     }
 
-    _makeLogFunction(level) {
-        return message => {
-            let stack = (new Error()).stack;
-            let caller = stack.split('\n')[2];
+    static init(extension) {
+        if (Logger._domain)
+            return;
 
-            // caller example: message@/home/guser/.local/share/gnome-shell/extensions/netspeed@hedayaty.gmail.com/lib.js:75:9
-            // Extension.path: /home/guser/.local/share/gnome-shell/extensions/netspeed@hedayaty.gmail.com
-            caller = caller.replace(Extension.path + "/", "");
+        this.extension = extension;
 
-            let [code, line, _] = caller.split(':');
-            let [func, file] = code.split(/\W*@/);
-            let msg = this._getMessage(message, file, func, line);
-            GLib.log_structured(LOG_DOMAIN, level, {
-                'MESSAGE': msg,
-                //'SYSLOG_IDENTIFIER': LOG_DOMAIN,
-                'CODE_FILE': file,
-                'CODE_FUNC': func,
-                'CODE_LINE': line
-            });
-        };
+        const { name: domain } = extension.metadata;
+        Logger._domain = domain.replaceAll(' ', '-');
     }
 
-    debug(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_DEBUG)(event);
+    static debug(message) {
+        Logger._logMessage(console.debug, message);
     }
 
-    log(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_MESSAGE)(event);
+    static info(message) {
+        Logger._logMessage(console.info, message);
     }
 
-    message(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_MESSAGE)(event);
+    static warn(message) {
+        Logger._logMessage(console.warn, message);
     }
 
-    info(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_INFO)(event);
+    static error(message) {
+        Logger._logMessage(console.critical, message);
     }
 
-    warning(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_WARNING)(event);
+    static _logMessage(logFunc, message) {
+        const msg = Logger._makeMessage(message);
+        if (DEBUG) {
+            console.log(msg);
+            return;
+        }
+
+        logFunc(msg);
     }
-
-    /*
-    error(event) {
-        // result in a core dump
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_ERROR)(event);
-    }
-    */
-
-    critical(event) {
-        this._makeLogFunction(GLib.LogLevelFlags.LEVEL_CRITICAL)(event);
-    }
-}
-
-
-/**
- * getLogger:
- * @returns {_Logger} a new Logger instance if not exists
- */
-let _loggerInstance;
-function getLogger() {
-    if (!_loggerInstance) {
-        _loggerInstance = new _loggerClass();
-    }
-    return _loggerInstance;
-}
-
-
-/**
- * splitVersion:
- * @param {string} version - the version we have in semantic versioning format
- * @returns {int[2]} - an array of int for <major> and <minor> for @version
- *
- * @version must be in the format <major>.<minor>.<micro>.<pre-tag>
- * <micro> and <pre-tag> are always ignored
- */
-
-function splitVersion(version) {
-    let currentArray = version.split('.');
-    let major = parseInt(currentArray[0]);
-    let minor = parseInt(currentArray[1]);
-    return [major, minor];
-}
-
-
-/**
- * canShowIPs:
- * @returns {boolean} - true if panel can show IPs, false otherwise
- *
- * Gjs 1.56 (not sure) - 1.57 (Gnome 3.28 - 3.32) have a bug on Marshalling of GPtrArray,
- * so NetworkManager js binding crash on returning ip_config.
- * https://gitlab.gnome.org/GNOME/gjs/issues/9
- */
-
-function canShowIPs() {
-
-    let version_array = splitVersion(Config.PACKAGE_VERSION);
-
-    if (version_array[0] == 3 && (version_array[1] < 28 || version_array[1] >= 34)) {
-        getLogger().debug(`Show IP can be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
-        return true;
-    }
-    getLogger().warning(`Show IP cannot be enabled. Gjs version: '${Config.PACKAGE_VERSION}'`);
-    return false;
 }

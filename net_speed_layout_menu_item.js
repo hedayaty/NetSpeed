@@ -15,27 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const PopupMenu = imports.ui.popupMenu;
-const St = imports.gi.St;
-const { GObject } = imports.gi;
+import GObject from 'gi://GObject';
+import St from 'gi://St';
+
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
 /**
  * Class: NetSpeedLayoutMenuItem
  */
-var NetSpeedLayoutMenuItem = GObject.registerClass(
+export const NetSpeedLayoutMenuItem = GObject.registerClass(
     class NetSpeedLayoutMenuItem extends PopupMenu.PopupBaseMenuItem {
         /**
-         * NetSpeedLayoutMenuItem: _init
-         * Constructor
+         * NetSpeedLayoutMenuItem: ctor
          */
-        _init(device, icon, menu_label_size) {
-            super._init();
+        constructor(device, icon, menu_label_size) {
+            super();
             this.device = device;
             this._icon = icon;
             this._device_title = new St.Label(
                 {
-                    text: device
-                    , style_class: "ns-menuitem"
+                    text: device,
+                    style_class: "ns-menuitem"
                 }
             );
             this._device_title.get_clutter_text().set_line_wrap(true);
@@ -44,7 +44,7 @@ var NetSpeedLayoutMenuItem = GObject.registerClass(
             this._up_label = new St.Label({ text: "", style_class: "ns-menuitem" });
             this._ips_label = new St.Label({ text: "", style_class: "ns-menuitem" });
 
-            if (this._icon != null) {
+            if (this._icon !== null) {
                 this.add(this._icon);
             } else {
                 this.add(new St.Label());

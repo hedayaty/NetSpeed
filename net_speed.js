@@ -15,50 +15,91 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Lang = imports.lang;
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const Lib = Extension.imports.lib;
-const Gettext = imports.gettext;
-const Gio = imports.gi.Gio;
-const GObject = imports.gi.GObject;
-const ByteArray = imports.byteArray;
 
-const GLib = imports.gi.GLib;
-const Mainloop = imports.mainloop;
-const Panel = imports.ui.main.panel;
+import GObject from 'gi://GObject';
+import GLib from 'gi://GLib';
+import NM from 'gi://NM';
 
-const NetworkManager = imports.gi.NM;
+import { gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-const _ = Gettext.domain('netspeed').gettext;
-const NetSpeedStatusIcon = Extension.imports.net_speed_status_icon;
-
-const Logger = Lib.getLogger();
+import { Logger } from './lib.js';
+import * as Messages from './messages.js';
 
 /**
  * Class NetSpeed
- * The extension
  */
-var NetSpeed = class NetSpeed {
+export const NetSpeed = GObject.registerClass({
+    Signals: {
+        'reloaded': {},
+        'global-stats-changed': {
+            param_types: [
+                Messages.NetSpeedGlobalStatsMessage.$gtype,
+            ],
+        },
+        'speeds-changed': {
+            param_types: [
+                Messages.NetSpeedSpeedsMessage.$gtype,
+            ],
+        },
+        'ips-changed': {
+            param_types: [
+                Messages.NetSpeedIPsMessage.$gtype,
+            ],
+        },
+        'menu-changed': {
+            param_types: [
+                Messages.NetSpeedMenuMessage.$gtype,
+            ],
+        }
+    },
+}, class NetSpeed extends GObject.Object {
     /**
      * NetSpeed: _init
      * Constructor
      */
-    constructor() {
-        let localeDir = Extension.dir.get_child('locale');
-        if (localeDir.query_exists(null)) {
-            Gettext.bindtextdomain('netspeed', localeDir.get_path());
-        }
+
+    constructor(extension) {
+        super();
+        this._settings = extension.getSettings();
+
+        this._last_up = 0; // size of upload in previous snapshot
+        this._last_down = 0; // size of download in previous snapshot
+        this._last_time = 0; // time of the latest snapshot
+        this._device_state_changed = true; // flag to trigger menu refreshing
+
+        this._values = [];
+        this._devices = [];
+        this._nm_client = NM.Client.new(null);
+        this._nm_signals = [];
+        this._nm_signals.push(this._nm_client.connect('any-device-added', this._nm_device_changed.bind(this)));
+        this._nm_signals.push(this._nm_client.connect('any-device-removed', this._nm_device_changed.bind(this)));
+        this._nm_signals.push(this._nm_client.connect('connection-added', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._nm_client.connect('connection-removed', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._nm_client.connect('active-connection-added', this._nm_connection_changed.bind(this)));
+        this._nm_signals.push(this._nm_client.connect('active-connection-removed', this._nm_connection_changed.bind(this)));
+
+        // store NM Device 'state-changed' signal bindings to disconnect on disable
+        this._nm_devices_signals_map = new Map();
+
+
+        this._saving = 0;
+        this.show_ips = this._settings.get_boolean('show-ips');
+
+        this._load();
+
+        this._updateDefaultGw();
     }
+
 
     /**
      * NetSpeed: _is_up2date
      */
     _is_up2date() {
-        if (this._devices.length != this._olddevices.length) {
+        if (this._devices.length !== this._olddevices.length) {
             return 0;
         }
         for (let i = 0; i < this._devices.length; ++i) {
-            if (this._devices[i] != this._olddevices[i])
+            if (this._devices[i] !== this._olddevices[i])
                 return 0;
         }
         return 1;
@@ -68,22 +109,22 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: get_device_type
      */
     get_device_type(device) {
-        let devices = this._client.get_devices() || [];
+        let devices = this._nm_client.get_devices() || [];
 
         for (let dev of devices) {
-            if (dev.interface == device) {
+            if (dev.interface === device) {
                 switch (dev.device_type) {
-                    case NetworkManager.DeviceType.ETHERNET:
+                    case NM.DeviceType.ETHERNET:
                         return "ethernet";
-                    case NetworkManager.DeviceType.WIFI:
+                    case NM.DeviceType.WIFI:
                         return "wifi";
-                    case NetworkManager.DeviceType.BT:
+                    case NM.DeviceType.BT:
                         return "bt";
-                    case NetworkManager.DeviceType.OLPC_MESH:
+                    case NM.DeviceType.OLPC_MESH:
                         return "olpcmesh";
-                    case NetworkManager.DeviceType.WIMAX:
+                    case NM.DeviceType.WIMAX:
                         return "wimax";
-                    case NetworkManager.DeviceType.MODEM:
+                    case NM.DeviceType.MODEM:
                         return "modem";
                     default:
                         return "none";
@@ -109,7 +150,7 @@ var NetSpeed = class NetSpeed {
             byte_speed_map = [_("B/s"), _("kB/s"), _("MB/s"), _("GB/s")];
             bit_speed_map = [_("b/s"), _("kb/s"), _("Mb/s"), _("Gb/s")];
         }
-        if (amount == 0)
+        if (amount === 0)
             return { text: "0", unit: _(this.use_bytes ? "B/s" : "b/s") };
         if (m_digits < 3)
             m_digits = 3;
@@ -132,49 +173,63 @@ var NetSpeed = class NetSpeed {
     }
 
     /**
-     * NetSpeed: _set_labels
+     * NetSpeed: _emit_stats
      */
-    _set_labels(sum, up, down) {
-        this._status_icon.set_labels(sum, up, down);
+    _sendStats(sum, up, down) {
+        this.emit(
+            'global-stats-changed',
+            new Messages.NetSpeedGlobalStatsMessage(
+                {
+                    sum: sum, up: up, down: down
+                })
+        );
     }
 
     /**
      * NetSpeed: _update_speeds
      */
-    _update_speeds() {
-        this._status_icon.update_speeds(this._speeds);
-
-        // fix #131 by forcing a delayed redraw
-        GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1, () => {
-            this._status_icon.queue_redraw();
-            return GLib.SOURCE_REMOVE;
-        });
+    _sendSpeeds() {
+        this.emit(
+            'speeds-changed',
+            new Messages.NetSpeedSpeedsMessage({ speeds: this._speeds })
+        );
     }
 
     /**
      * NetSpeed: _update_ips
      */
-    _update_ips() {
-        this._status_icon.update_ips(this._ips);
+    _sendIps() {
+        this.emit(
+            'ips-changed',
+            new Messages.NetSpeedIPsMessage({ ips: this._ips })
+        );
     }
 
     /**
      * NetSpeed: _create_menu
      */
     _create_menu() {
-        let types = new Array();
-        let devices_text = new Array();
+        let types = [];
+        let devices_text = [];
         for (let dev of this._devices) {
             types.push(this.get_device_type(dev));
             let wifi_ssid = this._retrieve_wifi_ssid(dev);
             //Logger.info(`wifi_ssid is '${wifi_ssid}' for dev '${dev}'`);
-            if (wifi_ssid != null) {
-                devices_text.push(dev + `\n${wifi_ssid}`)
+            if (wifi_ssid !== null) {
+                devices_text.push(dev + `\n${wifi_ssid}`);
                 continue;
             }
             devices_text.push(dev);
         }
-        this._status_icon.create_menu(devices_text, types);
+
+        this.emit(
+            'menu-changed',
+            new Messages.NetSpeedMenuMessage(
+                {
+                    devices_text: devices_text,
+                    types: types,
+                })
+        );
     }
 
     /**
@@ -182,14 +237,14 @@ var NetSpeed = class NetSpeed {
      */
     _updateDefaultGw() {
         let flines = GLib.file_get_contents('/proc/net/route'); // Read the file
-        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
+        let nlines = new TextDecoder().decode(flines[1]).split("\n"); // Break to lines
         for (let nline of nlines) { //first 2 lines are for header
             let line = nline.replace(/^ */g, "");
             let params = line.split("\t");
-            if (params.length != 11) // ignore empty lines
+            if (params.length !== 11) // ignore empty lines
                 continue;
             // So store up/down values
-            if (params[1] == "00000000") {
+            if (params[1] === "00000000") {
                 this._defaultGw = params[0];
             }
         }
@@ -201,16 +256,16 @@ var NetSpeed = class NetSpeed {
     _update() {
         this._updateDefaultGw();
         let flines = GLib.file_get_contents('/proc/net/dev'); // Read the file
-        let nlines = ByteArray.toString(flines[1]).split("\n"); // Break to lines
+        let nlines = new TextDecoder().decode(flines[1]).split("\n"); // Break to lines
 
         let up = 0; // set initial
         let down = 0;
         this._oldvalues = this._values;
-        this._values = new Array();
-        this._speeds = new Array();
-        this._ips = new Array();
+        this._values = [];
+        this._speeds = [];
+        this._ips = [];
         this._olddevices = this._devices;
-        this._devices = new Array();
+        this._devices = [];
 
         let time = GLib.get_monotonic_time() / 1000; // current time 1000 is not the net_speed.timer!
         let delta = time - this._last_time; // Here the difference is evaluated
@@ -220,21 +275,21 @@ var NetSpeed = class NetSpeed {
         for (let i = 2; i < nlines.length - 1; ++i) { //first 2 lines are for header
             let line = nlines[i].replace(/ +/g, " ").replace(/^ */g, "");
             let params = line.split(" ");
-            if (params[0].replace(":", "") == "lo") // ignore local device
+            if (params[0].replace(":", "") === "lo") // ignore local device
                 continue;
             // So store up/down values
             this._values.push([parseInt(params[9]), parseInt(params[1])]);
             this._devices.push(params[0].replace(":", ""));
         }
 
-        //log("[netspeed] Devices: " + this._devices);
+        //Logger.debug("Devices: " + this._devices);
 
-        var total = 0;
-        var total_speed = null;
-        var up_speed = null;
-        var down_speed = null;
+        let total = 0;
+        let total_speed = null;
+        let up_speed = null;
+        let down_speed = null;
 
-        if (this._is_up2date() == 1 && !this._device_state_changed) {
+        if (this._is_up2date() === 1 && !this._device_state_changed) {
             for (let i = 0; i < this._values.length; ++i) {
                 let _up = this._values[i][0] - this._oldvalues[i][0];
                 let _down = this._values[i][1] - this._oldvalues[i][1];
@@ -255,33 +310,34 @@ var NetSpeed = class NetSpeed {
                 total += _down + _up;
                 up += _up;
                 down += _down;
-                if (this.getDevice() == this._devices[i]) {
+                if (this.getDevice() === this._devices[i]) {
                     total_speed = this._speed_to_string((_up + _down) / delta);
                     up_speed = this._speed_to_string(_up / delta);
                     down_speed = this._speed_to_string(_down / delta);
                 }
             }
-            if (total_speed == null) {
+            if (total_speed === null) {
                 total_speed = this._speed_to_string(total / delta);
                 up_speed = this._speed_to_string(up / delta);
                 down_speed = this._speed_to_string(down / delta);
             }
 
-            this._set_labels(total_speed, up_speed, down_speed);
-            this._update_speeds();
+            this._sendStats(total_speed, up_speed, down_speed);
+            this._sendSpeeds();
         } else {
             this._create_menu();
         }
 
         if (this._device_state_changed && this.show_ips) {
             this._retrieve_ips();
-            this._update_ips();
+            this._sendIps();
             Logger.debug("Retrieved ips");
         }
 
         // reset state
         this._device_state_changed = false;
 
+        // keep alive timer
         return true;
     }
 
@@ -289,21 +345,21 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: _load
      */
     _load() {
-        if (this._saving == 1) {
+        if (this._saving === 1) {
             return;
         }
-        this.showsum = this._setting.get_boolean('show-sum');
-        this.use_icon = this._setting.get_boolean('icon-display');
-        this.digits = this._setting.get_int('digits');
-        this._device = this._setting.get_string('device');
-        this.timer = this._setting.get_int('timer');
-        this.label_size = this._setting.get_int('label-size');
-        this.unit_label_size = this._setting.get_int('unit-label-size');
-        this.menu_label_size = this._setting.get_int('menu-label-size');
-        this.use_bytes = this._setting.get_boolean('use-bytes');
-        this.bin_prefixes = this._setting.get_boolean('bin-prefixes');
-        this.show_ips = this._setting.get_boolean('show-ips');
-        this.vert_align = this._setting.get_boolean('vert-align');
+        this.digits = this._settings.get_int('digits');
+        this._device = this._settings.get_string('device');
+        this.timer = this._settings.get_int('timer');
+        this.use_bytes = this._settings.get_boolean('use-bytes');
+        this.bin_prefixes = this._settings.get_boolean('bin-prefixes');
+
+        let show_ips = this._settings.get_boolean('show-ips');
+        if (show_ips !== this.show_ips && show_ips) {
+            // trigger ip reload
+            this._trigger_ips_reload();
+        }
+        this.show_ips = show_ips;
     }
 
     /**
@@ -311,9 +367,9 @@ var NetSpeed = class NetSpeed {
      */
     save() {
         this._saving = 1; // Disable Load
-        this._setting.set_boolean('show-sum', this.showsum);
-        this._setting.set_string('device', this._device);
-        this._setting.set_boolean('show-ips', this.show_ips);
+        //this._settings.set_boolean('show-sum', this.showsum);
+        //this._settings.set_string('device', this._device);
+        this._settings.set_boolean('show-ips', this.show_ips);
         this._saving = 0; // Enable Load
     }
 
@@ -321,110 +377,76 @@ var NetSpeed = class NetSpeed {
      * NetSpeed: _reload
      */
     _reload() {
-        if (this._setting !== null) {
-            let m_timer = this._setting.get_int('timer');
+        if (this._settings !== null) {
+            let m_timer = this._settings.get_int('timer');
             if (m_timer !== this.timer) {
-                Mainloop.source_remove(this._timerid);
-                this._timerid = Mainloop.timeout_add(m_timer, Lang.bind(this, this._update));
+                GLib.source_remove(this._timerid);
+                this._timerid = GLib.timeout_add(m_timer, this._update.bind(this));
                 // this.timer will be updated within this._load, so no need to update it here
             }
             this._load();
-            this._status_icon.updateui();
+            //this._status_icon.updateui();
+            this.emit('reloaded');
         }
     }
 
     /**
-     * NetSpeed: enable
-     * exported to enable the extension
-     */
-    enable() {
-        this._last_up = 0; // size of upload in previous snapshot
-        this._last_down = 0; // size of download in previous snapshot
-        this._last_time = 0; // time of the latest snapshot
-        this._device_state_changed = true; // flag to trigger menu refreshing
-
-        this._values = new Array();
-        this._devices = new Array();
-        this._client = NetworkManager.Client.new(null);
-        this._nm_signals = new Array();
-        this._nm_signals.push(this._client.connect('any-device-added', Lang.bind(this, this._nm_device_changed)));
-        this._nm_signals.push(this._client.connect('any-device-removed', Lang.bind(this, this._nm_device_changed)));
-        this._nm_signals.push(this._client.connect('connection-added', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('connection-removed', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('active-connection-added', Lang.bind(this, this._nm_connection_changed)));
-        this._nm_signals.push(this._client.connect('active-connection-removed', Lang.bind(this, this._nm_connection_changed)));
-
-        // store NM Device 'state-changed' signal bindings to disconnect on disable
-        this._nm_devices_signals_map = new Map();
-
-        let schemaDir = Extension.dir.get_child('schemas');
-        let schemaSource = schemaDir.query_exists(null) ?
-            Gio.SettingsSchemaSource.new_from_directory(schemaDir.get_path(), Gio.SettingsSchemaSource.get_default(), false) :
-            Gio.SettingsSchemaSource.get_default();
-        let schema = schemaSource.lookup('org.gnome.shell.extensions.netspeed', false);
-        this._setting = new Gio.Settings({ settings_schema: schema });
-        this._saving = 0;
-        this._load();
-
-        this._updateDefaultGw();
-
-        this._changed = this._setting.connect('changed', Lang.bind(this, this._reload));
-        this._timerid = Mainloop.timeout_add(this.timer, Lang.bind(this, this._update));
-        this._status_icon = new NetSpeedStatusIcon.NetSpeedStatusIcon(this);
-        let placement = this._setting.get_string('placement');
-        Panel.addToStatusArea('netspeed', this._status_icon, 0, placement);
-
-
+   * NetSpeed: start
+   */
+    start() {
+        this._changed = this._settings.connect('changed', this._reload.bind(this));
+        this._timerid = GLib.timeout_add(GLib.PRIORITY_DEFAULT, this.timer, this._update.bind(this));
     }
 
     /**
-     * NetSpeed: disable
-     * exported to disable the extension
+     * NetSpeed: stop
      */
-    disable() {
-        if (this._timerid != 0) {
-            Mainloop.source_remove(this._timerid);
+    stop() {
+        if (this._timerid && this._timerid !== 0) {
+            GLib.source_remove(this._timerid);
             this._timerid = 0;
         }
         this._devices = null;
         this._values = null;
         this._olddevices = null;
         this._oldvalues = null;
-        this._setting = null;
+        this._settings = null;
 
         this._nm_signals.forEach(sig_id => {
-            this._client.disconnect(sig_id);
+            this._nm_client.disconnect(sig_id);
         });
 
         this._disconnect_all_nm_device_state_changed();
-        this._client = null;
-        this._status_icon.destroy();
-        this._status_icon = null;
+        this._nm_client = null;
+        //this._status_icon.destroy();
+        //this._status_icon = null;
     }
 
     getDevice() {
-        if (this._device == "defaultGW") {
+        if (this._device === "defaultGW") {
             return this._defaultGw;
         } else {
             return this._device;
         }
     }
 
+    /*
     setDevice(device) {
-        this._device = device;
+      this._device = device;
     }
+    */
 
     /**
      * NetSpeed: _nm_device_changed
      */
-    _nm_device_changed(client, device) {
+    _nm_device_changed(_client, _device) {
         this._trigger_ips_reload();
     }
 
     /**
      * NetSpeed: _nm_connection_changed
      */
-    _nm_connection_changed(client, connection) {
+    _nm_connection_changed(_client, _connection) {
         this._trigger_ips_reload();
     }
 
@@ -444,7 +466,7 @@ var NetSpeed = class NetSpeed {
         this._disconnect_all_nm_device_state_changed();
 
         for (let dev of this._devices) {
-            let nm_dev = this._client.get_device_by_iface(dev);
+            let nm_dev = this._nm_client.get_device_by_iface(dev);
             let addresses = this._getAddresses(nm_dev, GLib.SYSDEF_AF_INET);
             this._ips.push(addresses);
             this._connect_nm_device_state_changed(nm_dev);
@@ -456,11 +478,11 @@ var NetSpeed = class NetSpeed {
      * Retrieve access point name (SSID) for wifi device interface
      */
     _retrieve_wifi_ssid(iface) {
-        let nm_dev = this._client.get_device_by_iface(iface);
-        if (nm_dev.get_device_type() == NetworkManager.DeviceType.WIFI) {
+        let nm_dev = this._nm_client.get_device_by_iface(iface);
+        if (nm_dev.get_device_type() === NM.DeviceType.WIFI) {
             let active_ap = nm_dev.get_active_access_point();
-            if (active_ap != null) {
-                return ByteArray.toString(ByteArray.fromGBytes(active_ap.get_ssid()), 'UTF-8');
+            if (active_ap !== null) {
+                return new TextDecoder().decode(active_ap.get_ssid().toArray(), 'UTF-8');
             }
         }
         return null;
@@ -468,11 +490,11 @@ var NetSpeed = class NetSpeed {
 
     /**
      * NetSpeed: _connect_nm_device_state_changed
-     * @param {NM.Device} nm_device: NetworkManager Device instance
+     * @param {NM.Device} nm_device: NM Device instance
      */
     _connect_nm_device_state_changed(nm_device) {
         if (!this._nm_devices_signals_map.has(nm_device.get_iface())) {
-            let signal_id = nm_device.connect('state-changed', Lang.bind(this, this._nm_device_state_changed));
+            let signal_id = nm_device.connect('state-changed', this._nm_device_state_changed.bind(this));
             this._nm_devices_signals_map.set(nm_device.get_iface(), [nm_device, signal_id]);
         }
     }
@@ -495,7 +517,7 @@ var NetSpeed = class NetSpeed {
      * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceState for states
      * See https://developer.gnome.org/NetworkManager/stable/nm-dbus-types.html#NMDeviceStateReason for reasons
      */
-    _nm_device_state_changed(nm_device, old_state, new_state, reason) {
+    _nm_device_state_changed(_nm_device, _old_state, _new_state, _reason) {
         //Logger.info(`${nm_device.get_iface()} move from ${old_state} to ${new_state}: reason ${reason}`);
         this._trigger_ips_reload();
     }
@@ -509,23 +531,23 @@ var NetSpeed = class NetSpeed {
      */
     _getAddresses(nm_device, family) {
         let ip_cfg;
-        if (family == GLib.SYSDEF_AF_INET)
+        if (family === GLib.SYSDEF_AF_INET)
             ip_cfg = nm_device.get_ip4_config();
         else
             ip_cfg = nm_device.get_ip6_config();
 
-        if (ip_cfg == null) {
+        if (ip_cfg === null) {
             //Logger.info(`No config for device '${nm_device.get_iface()}'`);
-            return new Array();
+            return [];
         }
 
         let nm_addresses = ip_cfg.get_addresses();
-        if (nm_addresses.length == 0) {
+        if (nm_addresses.length === 0) {
             //Logger.info(`No IP addresses for device '${nm_device.get_iface()}'`);
-            return new Array();
+            return [];
         }
 
-        let addresses = new Array();
+        let addresses = [];
         for (let nm_address of nm_addresses) {
             let addr = nm_address.get_address();
             let prefix = nm_address.get_prefix();
@@ -535,4 +557,4 @@ var NetSpeed = class NetSpeed {
         return addresses;
     }
 
-};
+});
